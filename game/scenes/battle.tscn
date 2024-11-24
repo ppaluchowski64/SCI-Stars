@@ -5,4 +5,8 @@
 [node name="Battle" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_74w5l")]
-position = Vector2(571, 293)
+position = Vector2(252, 332)
+
+[node name="Enemy" parent="." instance=ExtResource("1_74w5l")]
+position = Vector2(867, 341)
+id = 1

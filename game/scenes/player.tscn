@@ -1,7 +1,10 @@
-[gd_scene load_steps=37 format=3 uid="uid://bk3jqor1r48rj"]
+[gd_scene load_steps=41 format=3 uid="uid://bk3jqor1r48rj"]
 
 [ext_resource type="Texture2D" uid="uid://dbgb61jp85s7e" path="res://graphics/characters/test/player.png" id="1_14iwg"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_270mw"]
+[ext_resource type="Texture2D" uid="uid://stk5wbf0mce7" path="res://graphics/ui/healthbar.png" id="3_5fihy"]
+[ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="4_q82ve"]
+[ext_resource type="Texture2D" uid="uid://b2vdaem8n0gto" path="res://graphics/ui/ammobar.png" id="5_ptbdj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bhoyl"]
 atlas = ExtResource("1_14iwg")
@@ -271,17 +274,75 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ay0jd"]
-radius = 7.25
-height = 19.5
+radius = 28.0
+height = 72.0
 
-[node name="Player" type="CharacterBody2D"]
-scale = Vector2(4, 4)
+[sub_resource type="Theme" id="Theme_60cmk"]
+default_font = ExtResource("4_q82ve")
+default_font_size = 15
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_mask = 0
 script = ExtResource("1_270mw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_pt7fw")
 animation = &"down"
 offset = Vector2(0.5, -2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_ay0jd")
+
+[node name="RegenCooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="ShootCooldown" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="ShootAnimation" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="Healthbar" type="Node2D" parent="."]
+position = Vector2(0, -52)
+
+[node name="ColorRect" type="ColorRect" parent="Healthbar"]
+offset_left = -28.0
+offset_top = -4.0
+offset_right = 28.0
+offset_bottom = 4.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Healthbar"]
+scale = Vector2(4, 4)
+texture = ExtResource("3_5fihy")
+
+[node name="Label" type="Label" parent="Healthbar"]
+offset_left = -24.0
+offset_top = -36.0
+offset_right = 28.0
+offset_bottom = -13.0
+theme = SubResource("Theme_60cmk")
+theme_override_colors/font_outline_color = Color(0.109804, 0.184314, 0.376471, 1)
+theme_override_constants/outline_size = 12
+text = "3000"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Ammobar" type="Node2D" parent="."]
+position = Vector2(0, 52)
+
+[node name="ColorRect" type="ColorRect" parent="Ammobar"]
+offset_left = -28.0
+offset_top = -4.0
+offset_right = 28.0
+offset_bottom = 4.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Ammobar"]
+scale = Vector2(4, 4)
+texture = ExtResource("5_ptbdj")
+
+[connection signal="timeout" from="RegenCooldown" to="." method="_on_regen_cooldown_timeout"]
