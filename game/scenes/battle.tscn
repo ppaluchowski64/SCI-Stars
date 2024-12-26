@@ -40,6 +40,8 @@ tile_set = SubResource("TileSet_82aoe")
 
 [node name="Players" type="Node2D" parent="."]
 
+[node name="FX" type="Node2D" parent="."]
+
 [node name="UserInterface" type="CanvasLayer" parent="." node_paths=PackedStringArray("players")]
 script = ExtResource("4_4e2gx")
 players = NodePath("../Players")
@@ -52,4 +54,4 @@ offset_bottom = 53.0
 theme = SubResource("Theme_yve2r")
 theme_override_colors/font_outline_color = Color(0.109804, 0.184314, 0.376471, 1)
 theme_override_constants/outline_size = 16
-text = "Players left: 2"
+text = "Players left: 3"

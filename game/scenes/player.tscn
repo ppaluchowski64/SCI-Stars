@@ -2,9 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://dbgb61jp85s7e" path="res://graphics/characters/test/player.png" id="1_14iwg"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_270mw"]
-[ext_resource type="Texture2D" uid="uid://stk5wbf0mce7" path="res://graphics/user_interface/healthbar.png" id="3_5fihy"]
+[ext_resource type="Texture2D" uid="uid://stk5wbf0mce7" path="res://graphics/UI/healthbar.png" id="3_5fihy"]
 [ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="4_q82ve"]
-[ext_resource type="Texture2D" uid="uid://b2vdaem8n0gto" path="res://graphics/user_interface/ammobar.png" id="5_ptbdj"]
+[ext_resource type="Texture2D" uid="uid://b2vdaem8n0gto" path="res://graphics/UI/ammobar.png" id="5_ptbdj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4dol2"]
 atlas = ExtResource("1_14iwg")
