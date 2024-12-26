@@ -1,12 +1,55 @@
-[gd_scene load_steps=2 format=3 uid="uid://db56006rlw6nc"]
+[gd_scene load_steps=9 format=4 uid="uid://db56006rlw6nc"]
 
-[ext_resource type="PackedScene" uid="uid://bk3jqor1r48rj" path="res://scenes/player.tscn" id="1_74w5l"]
+[ext_resource type="Script" path="res://scripts/battle_manager.gd" id="1_f75g0"]
+[ext_resource type="Texture2D" uid="uid://cbrr264nsjo3k" path="res://graphics/environment/wall.png" id="2_uqhyb"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="3_m8bpv"]
+[ext_resource type="Script" path="res://scripts/user_interface.gd" id="4_4e2gx"]
+[ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="4_erh11"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_urc0o"]
+texture = ExtResource("2_uqhyb")
+texture_region_size = Vector2i(12, 20)
+use_texture_padding = false
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6.5, -10, 6, -10, 6, 10, -6.5, 10)
+
+[sub_resource type="TileSet" id="TileSet_82aoe"]
+tile_size = Vector2i(12, 12)
+physics_layer_0/collision_layer = 3
+physics_layer_0/collision_mask = 3
+sources/0 = SubResource("TileSetAtlasSource_urc0o")
+
+[sub_resource type="Theme" id="Theme_yve2r"]
+default_font = ExtResource("4_erh11")
+default_font_size = 24
 
 [node name="Battle" type="Node2D"]
+script = ExtResource("1_f75g0")
 
-[node name="Player" parent="." instance=ExtResource("1_74w5l")]
-position = Vector2(252, 332)
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("players")]
+position = Vector2(576, 324)
+script = ExtResource("3_m8bpv")
+players = NodePath("../Players")
 
-[node name="Enemy" parent="." instance=ExtResource("1_74w5l")]
-position = Vector2(867, 341)
-id = 1
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="Walls" type="TileMapLayer" parent="Environment" groups=["obstacle"]]
+scale = Vector2(4, 4)
+tile_map_data = PackedByteArray("AAAEAAIAAAAAAAAAAAAFAAIAAAAAAAAAAAAGAAIAAAAAAAAAAAAHAAIAAAAAAAAAAAAIAAIAAAAAAAAAAAAIAAMAAAAAAAAAAAAIAAQAAAAAAAAAAAAIAAUAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_82aoe")
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="UserInterface" type="CanvasLayer" parent="." node_paths=PackedStringArray("players")]
+script = ExtResource("4_4e2gx")
+players = NodePath("../Players")
+
+[node name="PlayerCount" type="Label" parent="UserInterface"]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 274.0
+offset_bottom = 53.0
+theme = SubResource("Theme_yve2r")
+theme_override_colors/font_outline_color = Color(0.109804, 0.184314, 0.376471, 1)
+theme_override_constants/outline_size = 16
+text = "Players left: 2"

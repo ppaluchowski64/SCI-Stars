@@ -15,75 +15,71 @@ var Projectile = preload("res://scenes/projectile.tscn")
 
 @export var id: int
 
+signal update_player_count
+
+# Enums
+enum {RIGHT, LEFT, DOWN, UP}
+
 # Stats
 var speed: float = 25.0
 var max_health: float = 3000.0
 
 # Properties
 var dir_vec: Vector2
-var direction: String
+var dir_x: int
+var dir_y: int
 var animation: float
 var health: float = max_health
 var ammo: float = 3
 var reload_speed: float = 0.005
 
-func update_health():
+func get_double_dir(x: int, y: int) -> int:
+	return x + y * 3 + 4
+	# left-up = 0
+	# up = 1
+	# right-up = 2
+	# left = 3
+	# idle = 4 (no animation for this one)
+	# right = 5
+	# left-down = 6
+	# down = 7
+	# right-down = 8
+
+func update_health() -> void:
 	healthbar_fill.size.x = health / max_health * 56
 	healthbar_label.text = str(health)
 
-func take_damage(damage: int):
+func take_damage(damage: int) -> void:
 	health -= damage
 	
 	if health <= 0:
+		emit_signal("update_player_count")
 		queue_free()
 	
 	update_health()
 	
 	regen_cooldown.start(3)
 
-func spawn_projectile():
+func spawn_projectile() -> void:
 	var projectile = Projectile.instantiate()
 	
 	projectile.player_id = id
 	projectile.global_position = get_global_position()
-	
-	if "right" in direction:
-		projectile.dir_vec.x = 1
-	elif "left" in direction:
-		projectile.dir_vec.x = -1
-		
-	if "down" in direction:
-		projectile.dir_vec.y = 1
-	elif "up" in direction:
-		projectile.dir_vec.y = -1
-		
-	projectile.dir_vec = projectile.dir_vec.normalized()
+	projectile.global_rotation = get_angle_to(get_global_mouse_position())
 	
 	get_tree().get_root().call_deferred("add_child", projectile)
-	
+
 func move(delta: float) -> void:
 	dir_vec = Input.get_vector("left", "right", "up", "down")
 	velocity = dir_vec * speed * delta * 1000
 	
 	if shoot_animation.time_left == 0:
-		var h_move: String = ""
-		var v_move: String = ""
-		
-		if dir_vec.x > 0:
-			h_move = "right"
-		elif dir_vec.x < 0:
-			h_move = "left"
-			
-		if dir_vec.y > 0:
-			v_move = "down"
-		elif dir_vec.y < 0:
-			v_move = "up"
-		
-		direction = v_move + h_move
+		dir_x = sign(dir_vec.x)
+		dir_y = sign(dir_vec.y)
 	
 	move_and_slide()
 
-func shoot():
+func shoot() -> void:
 	if shoot_cooldown.time_left == 0:
 		if Input.is_action_just_pressed("shoot") and ammo >= 1:
 			shoot_cooldown.start()
@@ -95,8 +91,9 @@ func shoot():
 			if angle < 0:
 				angle += TAU
 			
-			var directions = ["right", "downright", "down", "downleft", "left", "upleft", "up", "upright"]
-			direction = directions[int((angle + PI / 8) / (PI / 4)) % 8]
+			var dir_angle = int((angle + PI / 8) / (PI / 4)) % 8
+			dir_x = [1, 1, 0, -1, -1, -1, 0, 1][dir_angle]
+			dir_y = [0, 1, 1, 1, 0, -1, -1, -1][dir_angle]
 			
 			spawn_projectile()
 			
@@ -111,9 +108,10 @@ func shoot():
 			ammo = min(ammo, 3)
 			ammobar_fill.size.x = ammo / 3 * 56
 
-func animate(delta: float):
-	if direction:
-		sprite.play(direction)
+func animate(delta: float) -> void:
+	if dir_x or dir_y:
+		sprite.play(str(get_double_dir(dir_x, dir_y)))
+		
 		animation += delta * speed * 0.2
 		
 		if animation > 4:
