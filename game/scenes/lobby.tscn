@@ -1,0 +1,107 @@
+[gd_scene load_steps=3 format=3 uid="uid://r73t4uwivu0e"]
+
+[ext_resource type="Texture2D" uid="uid://dbgb61jp85s7e" path="res://graphics/characters/test/player.png" id="1_hyvh8"]
+[ext_resource type="Script" path="res://scripts/lobby.gd" id="1_nn68e"]
+
+[node name="Lobby" type="Node2D"]
+script = ExtResource("1_nn68e")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ButtonContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_bottom = 170
+
+[node name="Button" type="Button" parent="CanvasLayer/ButtonContainer"]
+custom_minimum_size = Vector2(150, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Upgrade"
+
+[node name="LabelContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_top = 200
+
+[node name="Label" type="Label" parent="CanvasLayer/LabelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Character: Pablo Majster"
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 96
+alignment = 1
+
+[node name="ButtonLeft" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "<"
+
+[node name="Control" type="Control" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/MarginContainer/HBoxContainer/Control"]
+scale = Vector2(8, 8)
+texture = ExtResource("1_hyvh8")
+region_enabled = true
+region_rect = Rect2(65, 53, 13, 17)
+
+[node name="ButtonRight" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = ">"
+
+[node name="ButtonSettings" type="Button" parent="CanvasLayer/MarginContainer"]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "Settings"
+
+[node name="ButtonShop" type="Button" parent="CanvasLayer/MarginContainer"]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Shop"
+
+[node name="ButtonPlay" type="Button" parent="CanvasLayer/MarginContainer"]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Play"
+
+[connection signal="button_down" from="CanvasLayer/MarginContainer/ButtonPlay" to="." method="_on_button_play_button_down"]

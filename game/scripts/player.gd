@@ -15,6 +15,8 @@ var Projectile = preload("res://scenes/projectile.tscn")
 
 @export var id: int
 
+# I should probably disable this warning globally... later
+@warning_ignore("unused_signal")
 signal update_player_count
 
 # Enums
@@ -85,13 +87,13 @@ func shoot() -> void:
 			shoot_cooldown.start()
 			shoot_animation.start()
 			
-			var mouse_pos = get_viewport().get_mouse_position()
-			var angle = atan2(mouse_pos.y - global_position.y, mouse_pos.x - global_position.x)
+			var angle = get_angle_to(get_global_mouse_position())
 			
 			if angle < 0:
 				angle += TAU
+				
+			var dir_angle = int((angle / (TAU / 8)) + 0.5) % 8
 			
-			var dir_angle = int((angle + PI / 8) / (PI / 4)) % 8
 			dir_x = [1, 1, 0, -1, -1, -1, 0, 1][dir_angle]
 			dir_y = [0, 1, 1, 1, 0, -1, -1, -1][dir_angle]
 			

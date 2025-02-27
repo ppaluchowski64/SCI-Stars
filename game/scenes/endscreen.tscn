@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwly2ns6b5uqp"]
+
+[ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="1_mdr6l"]
+[ext_resource type="Script" path="res://scripts/endscreen.gd" id="1_nr8qm"]
+[ext_resource type="Texture2D" uid="uid://dbgb61jp85s7e" path="res://graphics/characters/test/player.png" id="2_e0ve1"]
+
+[sub_resource type="Theme" id="Theme_px1s8"]
+default_font = ExtResource("1_mdr6l")
+default_font_size = 24
+
+[node name="Endscreen" type="Node2D"]
+script = ExtResource("1_nr8qm")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme = SubResource("Theme_px1s8")
+theme_override_colors/font_outline_color = Color(0.109804, 0.184314, 0.376471, 1)
+theme_override_constants/outline_size = 28
+theme_override_font_sizes/font_size = 48
+text = "You scored #1 place!"
+
+[node name="Control" type="Control" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/MarginContainer/Control"]
+scale = Vector2(8, 8)
+texture = ExtResource("2_e0ve1")
+region_enabled = true
+region_rect = Rect2(65, 53, 13, 17)
+
+[node name="Button" type="Button" parent="CanvasLayer/MarginContainer"]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Exit"
+
+[connection signal="pressed" from="CanvasLayer/MarginContainer/Button" to="." method="_on_button_pressed"]

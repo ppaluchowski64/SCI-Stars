@@ -25,12 +25,15 @@ func spawn_player(x: float, y: float) -> void:
 func _update_player_count() -> void:
 	ui.update_player_count()
 	
+	if players.get_child_count() <= 2:
+		get_tree().call_deferred("change_scene_to_file", "res://scenes/endscreen.tscn")
+	
 func get_exclusive_player_id() -> int:
 	next_free_player_id += 1
 	return next_free_player_id - 1
 
 func start_game() -> void:
-	spawn_player(252, 332)
+	spawn_player(0, 0)
 	spawn_player(630, 520)
 	spawn_player(867, 332)
 	

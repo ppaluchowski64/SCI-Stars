@@ -14,4 +14,11 @@ func setup_target(id: int = 0) -> void:
 
 func _process(_delta: float) -> void:
 	if target:
-		global_position = lerp(global_position, target.global_position, 0.05)
+		var target_pos: Vector2 = target.global_position
+		var w = get_viewport_rect().size.x / 2
+		var h = get_viewport_rect().size.y / 2
+		
+		target_pos.x = clamp(target_pos.x, w - 1024, 1024 - w)
+		target_pos.y = clamp(target_pos.y, h - 1024, 1024 - h)
+		
+		global_position = lerp(global_position, target_pos, 0.05)
