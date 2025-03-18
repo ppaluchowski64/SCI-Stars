@@ -6,12 +6,17 @@ var Explosion = preload("res://scenes/explosion_fx.tscn")
 var speed: float = 50.0
 var distance: float = 7000.0
 var damage: float = 750.0
+var on_death: Callable
 
 # Properties
 var travelled: float = 0
 var player_id: int
+var parent: Node
 
 func destroy() -> void:
+	if on_death:
+		on_death.call(self)
+		
 	var explosion = Explosion.instantiate()
 	
 	explosion.global_position = global_position
@@ -24,7 +29,7 @@ func _process(delta: float) -> void:
 	velocity = Vector2(1, 0).rotated(rotation) * speed * delta * 1000
 	
 	if travelled >= distance:
-		queue_free()
+		destroy()
 	
 	travelled += speed
 	
@@ -34,6 +39,7 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		if body.id != player_id:
 			body.take_damage(damage)
+			parent.super_charge = min(parent.super_charge + 0.15, 1.0)
 			destroy()
 			
 	elif body.is_in_group("obstacle"):

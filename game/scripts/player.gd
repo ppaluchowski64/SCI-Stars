@@ -32,10 +32,22 @@ var dir_x: int
 var dir_y: int
 var animation: float
 var health: float = max_health
-var ammo: float = 3
+var ammo: float = 3.0
 var reload_speed: float = 0.005
+var super_charge: float = 0.0
 
-func get_double_dir(x: int, y: int) -> int:
+func rad_to_double_dir(angle: float) -> Array:
+	if angle < 0:
+		angle += TAU
+	
+	var dir_angle = int((angle / (TAU / 8)) + 0.5) % 8
+	
+	dir_x = [1, 1, 0, -1, -1, -1, 0, 1][dir_angle]
+	dir_y = [0, 1, 1, 1, 0, -1, -1, -1][dir_angle]
+	
+	return [dir_x, dir_y]
+
+func double_to_single_dir(x: int, y: int) -> int:
 	return x + y * 3 + 4
 	# left-up = 0
 	# up = 1
@@ -62,12 +74,13 @@ func take_damage(damage: int) -> void:
 	
 	regen_cooldown.start(3)
 
-func spawn_projectile() -> void:
-	var projectile = Projectile.instantiate()
+func spawn_projectile(projectile_id: Projectiles.ID = Projectiles.ID.DEFAULT) -> void:
+	var projectile = Projectiles.custom_projectile(projectile_id)
 	
 	projectile.player_id = id
 	projectile.global_position = get_global_position()
 	projectile.global_rotation = get_angle_to(get_global_mouse_position())
+	projectile.parent = self
 	
 	get_tree().get_root().call_deferred("add_child", projectile)
 
@@ -81,21 +94,16 @@ func move(delta: float) -> void:
 	
 	move_and_slide()
 
+# This has to use delta FIX IT
 func shoot() -> void:
 	if shoot_cooldown.time_left == 0:
-		if Input.is_action_just_pressed("shoot") and ammo >= 1:
+		if Input.is_action_just_pressed("attack") and ammo >= 1:
 			shoot_cooldown.start()
 			shoot_animation.start()
 			
-			var angle = get_angle_to(get_global_mouse_position())
-			
-			if angle < 0:
-				angle += TAU
-				
-			var dir_angle = int((angle / (TAU / 8)) + 0.5) % 8
-			
-			dir_x = [1, 1, 0, -1, -1, -1, 0, 1][dir_angle]
-			dir_y = [0, 1, 1, 1, 0, -1, -1, -1][dir_angle]
+			var angle = rad_to_double_dir(get_angle_to(get_global_mouse_position()))
+			dir_x = angle[0]
+			dir_y = angle[1]
 			
 			spawn_projectile()
 			
@@ -104,6 +112,20 @@ func shoot() -> void:
 			
 			if health < max_health:
 				regen_cooldown.start(3)
+		
+		# It's >= instead of == just in case you broke the game and got it above 1
+		# It's pretty much impossible but who knows 
+		elif Input.is_action_just_pressed("super_attack") and super_charge >= 1:
+			shoot_cooldown.start()
+			shoot_animation.start()
+			
+			var angle = rad_to_double_dir(get_angle_to(get_global_mouse_position()))
+			dir_x = angle[0]
+			dir_y = angle[1]
+			
+			spawn_projectile(Projectiles.ID.BIG_PROJECTILE)
+			
+			super_charge = 0
 			
 		elif ammo < 3:
 			ammo += reload_speed
@@ -112,7 +134,7 @@ func shoot() -> void:
 
 func animate(delta: float) -> void:
 	if dir_x or dir_y:
-		sprite.play(str(get_double_dir(dir_x, dir_y)))
+		sprite.play(str(double_to_single_dir(dir_x, dir_y)))
 		
 		animation += delta * speed * 0.2
 		

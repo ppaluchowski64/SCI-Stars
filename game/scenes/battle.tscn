@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://db56006rlw6nc"]
+[gd_scene load_steps=14 format=4 uid="uid://db56006rlw6nc"]
 
 [ext_resource type="Script" path="res://scripts/battle_manager.gd" id="1_f75g0"]
 [ext_resource type="Texture2D" uid="uid://cbrr264nsjo3k" path="res://graphics/environment/wall.png" id="2_uqhyb"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dce4elq1ctffp" path="res://graphics/environment/tile.png" id="4_1ls1x"]
 [ext_resource type="Script" path="res://scripts/user_interface.gd" id="4_4e2gx"]
 [ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="4_erh11"]
+[ext_resource type="Texture2D" uid="uid://cgnax06gjmct1" path="res://graphics/UI/superbar_mask.png" id="7_ilcqo"]
+[ext_resource type="Texture2D" uid="uid://prenyjcoslt7" path="res://graphics/UI/superbar.png" id="7_ujvli"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qfrj4"]
 texture = ExtResource("4_1ls1x")
@@ -67,7 +69,36 @@ offset_top = 24.0
 offset_right = 274.0
 offset_bottom = 53.0
 theme = SubResource("Theme_yve2r")
-theme_override_colors/font_outline_color = Color(0.109804, 0.184314, 0.376471, 1)
 theme_override_constants/outline_size = 16
 text = "Players left: 3"
 metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="UserInterface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 100
+
+[node name="SuperBar" type="Control" parent="UserInterface/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="Mask" type="Sprite2D" parent="UserInterface/MarginContainer/SuperBar"]
+clip_children = 1
+texture = ExtResource("7_ilcqo")
+
+[node name="ColorRect" type="ColorRect" parent="UserInterface/MarginContainer/SuperBar/Mask"]
+offset_left = -112.0
+offset_top = -32.0
+offset_right = -112.0
+offset_bottom = 32.0
+color = Color(0.8859, 0.9, 0.477, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="UserInterface/MarginContainer/SuperBar"]
+scale = Vector2(8, 8)
+texture = ExtResource("7_ujvli")
