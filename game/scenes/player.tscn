@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bk3jqor1r48rj"]
+[gd_scene load_steps=10 format=3 uid="uid://bk3jqor1r48rj"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_270mw"]
 [ext_resource type="SpriteFrames" uid="uid://bajg7a1eoq3sd" path="res://data/player.tres" id="2_m0dh8"]
 [ext_resource type="Texture2D" uid="uid://stk5wbf0mce7" path="res://graphics/UI/healthbar.png" id="3_5fihy"]
+[ext_resource type="Shader" path="res://shaders/outline.gdshader" id="4_5i7bj"]
 [ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="4_q82ve"]
 [ext_resource type="Texture2D" uid="uid://b2vdaem8n0gto" path="res://graphics/UI/ammobar.png" id="5_ptbdj"]
 
@@ -10,9 +11,14 @@
 radius = 24.0
 height = 64.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ux241"]
+shader = ExtResource("4_5i7bj")
+shader_parameter/outline_color = null
+shader_parameter/is_visible = true
+
 [sub_resource type="Theme" id="Theme_60cmk"]
 default_font = ExtResource("4_q82ve")
-default_font_size = 15
+default_font_size = 5
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 3
@@ -55,13 +61,17 @@ metadata/_edit_use_anchors_ = true
 scale = Vector2(4, 4)
 texture = ExtResource("3_5fihy")
 
-[node name="Label" type="Label" parent="Healthbar"]
-offset_left = -24.0
-offset_top = -36.0
-offset_right = 28.0
-offset_bottom = -13.0
+[node name="LabelParent" type="Node2D" parent="Healthbar"]
+position = Vector2(-2, 0)
+scale = Vector2(4, 4)
+
+[node name="Label" type="Label" parent="Healthbar/LabelParent"]
+material = SubResource("ShaderMaterial_ux241")
+offset_left = -25.0
+offset_top = -26.0
+offset_right = 27.0
+offset_bottom = -3.0
 theme = SubResource("Theme_60cmk")
-theme_override_constants/outline_size = 12
 text = "3000"
 horizontal_alignment = 1
 vertical_alignment = 2

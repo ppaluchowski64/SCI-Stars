@@ -9,7 +9,7 @@ var Projectile = preload("res://scenes/projectile.tscn")
 @onready var shoot_animation: Node = $ShootAnimation
 
 @onready var healthbar_fill: Node = $Healthbar/ColorRect
-@onready var healthbar_label: Node = $Healthbar/Label
+@onready var healthbar_label: Node = $Healthbar/LabelParent/Label
 
 @onready var ammobar_fill: Node = $Ammobar/ColorRect
 

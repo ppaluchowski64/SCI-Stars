@@ -1,10 +1,39 @@
-[gd_scene load_steps=3 format=3 uid="uid://r73t4uwivu0e"]
+[gd_scene load_steps=8 format=3 uid="uid://r73t4uwivu0e"]
 
 [ext_resource type="Texture2D" uid="uid://dbgb61jp85s7e" path="res://graphics/characters/test/player.png" id="1_hyvh8"]
 [ext_resource type="Script" path="res://scripts/lobby.gd" id="1_nn68e"]
+[ext_resource type="Texture2D" uid="uid://f1v34lrprxwu" path="res://graphics/backgrounds/lobby/backlayer.png" id="2_4hsao"]
+[ext_resource type="Texture2D" uid="uid://cggfwt6q3o4n2" path="res://graphics/backgrounds/lobby/frontlayer.png" id="3_rgei6"]
+[ext_resource type="Texture2D" uid="uid://c73jppjwm04hn" path="res://graphics/UI/button.png" id="3_xb4sn"]
+[ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="4_358r0"]
+
+[sub_resource type="Theme" id="Theme_6pyji"]
+default_font = ExtResource("4_358r0")
+default_font_size = 25
 
 [node name="Lobby" type="Node2D"]
 script = ExtResource("1_nn68e")
+
+[node name="Background" type="Node2D" parent="."]
+position = Vector2(800, 332)
+
+[node name="BackLayer" type="Parallax2D" parent="Background"]
+repeat_size = Vector2(800, 0)
+autoscroll = Vector2(16, 0)
+repeat_times = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/BackLayer"]
+scale = Vector2(8, 8)
+texture = ExtResource("2_4hsao")
+
+[node name="FrontLayer" type="Parallax2D" parent="Background"]
+repeat_size = Vector2(800, 0)
+autoscroll = Vector2(32, 0)
+repeat_times = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/FrontLayer"]
+scale = Vector2(8, 8)
+texture = ExtResource("3_rgei6")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -84,6 +113,7 @@ size_flags_vertical = 4
 text = ">"
 
 [node name="ButtonSettings" type="Button" parent="CanvasLayer/MarginContainer"]
+visible = false
 custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -91,17 +121,35 @@ size_flags_vertical = 0
 text = "Settings"
 
 [node name="ButtonShop" type="Button" parent="CanvasLayer/MarginContainer"]
+visible = false
 custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 text = "Shop"
 
-[node name="ButtonPlay" type="Button" parent="CanvasLayer/MarginContainer"]
-custom_minimum_size = Vector2(200, 80)
+[node name="ButtonPlay" type="TextureButton" parent="CanvasLayer/MarginContainer"]
+custom_minimum_size = Vector2(256, 112)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
+texture_normal = ExtResource("3_xb4sn")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/ButtonPlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_6pyji")
 text = "Play"
 
 [connection signal="button_down" from="CanvasLayer/MarginContainer/ButtonPlay" to="." method="_on_button_play_button_down"]

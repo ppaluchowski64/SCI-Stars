@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-@onready var player_count = $PlayerCount
+@onready var player_count = $PlayerCount/Label
 @export var players: Node2D
 
 @onready var superbar_fill = $MarginContainer/SuperBar/Mask/ColorRect

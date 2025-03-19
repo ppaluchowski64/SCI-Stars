@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://db56006rlw6nc"]
+[gd_scene load_steps=16 format=4 uid="uid://db56006rlw6nc"]
 
 [ext_resource type="Script" path="res://scripts/battle_manager.gd" id="1_f75g0"]
 [ext_resource type="Texture2D" uid="uid://cbrr264nsjo3k" path="res://graphics/environment/wall.png" id="2_uqhyb"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dce4elq1ctffp" path="res://graphics/environment/tile.png" id="4_1ls1x"]
 [ext_resource type="Script" path="res://scripts/user_interface.gd" id="4_4e2gx"]
 [ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="4_erh11"]
+[ext_resource type="Shader" path="res://shaders/outline.gdshader" id="6_c3103"]
 [ext_resource type="Texture2D" uid="uid://cgnax06gjmct1" path="res://graphics/UI/superbar_mask.png" id="7_ilcqo"]
 [ext_resource type="Texture2D" uid="uid://prenyjcoslt7" path="res://graphics/UI/superbar.png" id="7_ujvli"]
 
@@ -31,9 +32,14 @@ physics_layer_0/collision_layer = 3
 physics_layer_0/collision_mask = 3
 sources/0 = SubResource("TileSetAtlasSource_urc0o")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bs0a1"]
+shader = ExtResource("6_c3103")
+shader_parameter/outline_color = null
+shader_parameter/is_visible = true
+
 [sub_resource type="Theme" id="Theme_yve2r"]
 default_font = ExtResource("4_erh11")
-default_font_size = 24
+default_font_size = 5
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_f75g0")
@@ -63,13 +69,16 @@ tile_set = SubResource("TileSet_82aoe")
 script = ExtResource("4_4e2gx")
 players = NodePath("../Players")
 
-[node name="PlayerCount" type="Label" parent="UserInterface"]
-offset_left = 24.0
-offset_top = 24.0
-offset_right = 274.0
-offset_bottom = 53.0
+[node name="PlayerCount" type="Node2D" parent="UserInterface"]
+scale = Vector2(4, 4)
+
+[node name="Label" type="Label" parent="UserInterface/PlayerCount"]
+material = SubResource("ShaderMaterial_bs0a1")
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 72.0
+offset_bottom = 18.0
 theme = SubResource("Theme_yve2r")
-theme_override_constants/outline_size = 16
 text = "Players left: 3"
 metadata/_edit_use_anchors_ = true
 
