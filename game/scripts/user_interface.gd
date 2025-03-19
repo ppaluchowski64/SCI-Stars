@@ -13,4 +13,4 @@ func update_player_count() -> void:
 func _process(_delta: float) -> void:
 	if main_player:
 		var size = clamp(main_player.super_charge * 224.0, 0.0, 224.0)
-		superbar_fill.size.x = lerp(superbar_fill.size.x, size, 0.2)
+		superbar_fill.size.x = lerp(superbar_fill.size.x, size, Const.STATUS_BAR_SMOOTHNESS)

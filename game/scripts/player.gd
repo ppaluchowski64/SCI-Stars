@@ -23,7 +23,7 @@ signal update_player_count
 enum {RIGHT, LEFT, DOWN, UP}
 
 # Stats
-var speed: float = 25.0
+var speed: float = 180.0
 var max_health: float = 3000.0
 
 # Properties
@@ -33,7 +33,7 @@ var dir_y: int
 var animation: float
 var health: float = max_health
 var ammo: float = 3.0
-var reload_speed: float = 0.005
+var reload_speed: float = 0.75
 var super_charge: float = 0.0
 
 func rad_to_double_dir(angle: float) -> Array:
@@ -59,9 +59,9 @@ func double_to_single_dir(x: int, y: int) -> int:
 	# down = 7
 	# right-down = 8
 
-func update_health() -> void:
-	healthbar_fill.size.x = health / max_health * 56
-	healthbar_label.text = str(health)
+func update_ui() -> void:
+	healthbar_fill.size.x = lerp(healthbar_fill.size.x, health / max_health * 56, Const.STATUS_BAR_SMOOTHNESS)
+	ammobar_fill.size.x = lerp(ammobar_fill.size.x, ammo / 3 * 56, Const.STATUS_BAR_SMOOTHNESS)
 
 func take_damage(damage: int) -> void:
 	health -= damage
@@ -70,7 +70,7 @@ func take_damage(damage: int) -> void:
 		emit_signal("update_player_count")
 		queue_free()
 	
-	update_health()
+	healthbar_label.text = str(health)
 	
 	regen_cooldown.start(3)
 
@@ -84,9 +84,9 @@ func spawn_projectile(projectile_id: Projectiles.ID = Projectiles.ID.DEFAULT) ->
 	
 	get_tree().get_root().call_deferred("add_child", projectile)
 
-func move(delta: float) -> void:
+func move() -> void:
 	dir_vec = Input.get_vector("left", "right", "up", "down")
-	velocity = dir_vec * speed * delta * 1000
+	velocity = dir_vec * speed
 	
 	if shoot_animation.time_left == 0:
 		dir_x = sign(dir_vec.x)
@@ -95,7 +95,7 @@ func move(delta: float) -> void:
 	move_and_slide()
 
 # This has to use delta FIX IT
-func shoot() -> void:
+func shoot(delta: float) -> void:
 	if shoot_cooldown.time_left == 0:
 		if Input.is_action_just_pressed("attack") and ammo >= 1:
 			shoot_cooldown.start()
@@ -108,7 +108,6 @@ func shoot() -> void:
 			spawn_projectile()
 			
 			ammo -= 1
-			ammobar_fill.size.x = ammo / 3 * 56
 			
 			if health < max_health:
 				regen_cooldown.start(3)
@@ -128,15 +127,14 @@ func shoot() -> void:
 			super_charge = 0
 			
 		elif ammo < 3:
-			ammo += reload_speed
+			ammo += reload_speed * delta
 			ammo = min(ammo, 3)
-			ammobar_fill.size.x = ammo / 3 * 56
 
 func animate(delta: float) -> void:
 	if dir_x or dir_y:
 		sprite.play(str(double_to_single_dir(dir_x, dir_y)))
 		
-		animation += delta * speed * 0.2
+		animation += delta * speed * 0.02
 		
 		if animation > 4:
 			animation = fmod(animation, 4)
@@ -148,16 +146,17 @@ func animate(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	if id == 0:
-		move(delta)
-		shoot()
+		move()
+		shoot(delta)
 	
 	animate(delta)
+	update_ui()
 
 func _on_regen_cooldown_timeout() -> void:
 	health += max_health * 15 / 100
 	health = min(health, max_health)
 	
-	update_health()
+	healthbar_label.text = str(health)
 	
 	if health < max_health:
 		regen_cooldown.start(1)

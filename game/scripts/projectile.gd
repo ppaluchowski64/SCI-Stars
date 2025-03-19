@@ -3,8 +3,8 @@ extends CharacterBody2D
 var Explosion = preload("res://scenes/explosion_fx.tscn")
 
 # Stats
-var speed: float = 50.0
-var distance: float = 7000.0
+var speed: float = 300.0
+var distance: float = 300.0
 var damage: float = 750.0
 var on_death: Callable
 
@@ -26,12 +26,12 @@ func destroy() -> void:
 	queue_free()
 
 func _process(delta: float) -> void:
-	velocity = Vector2(1, 0).rotated(rotation) * speed * delta * 1000
+	velocity = Vector2(1, 0).rotated(rotation) * speed
 	
 	if travelled >= distance:
 		destroy()
 	
-	travelled += speed
+	travelled += speed * delta
 	
 	move_and_slide()
 

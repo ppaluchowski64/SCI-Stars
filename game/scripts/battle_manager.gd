@@ -35,6 +35,7 @@ func get_exclusive_player_id() -> int:
 	return next_free_player_id - 1
 
 func start_game() -> void:
+	#Engine.max_fps = 60
 	var main_player = spawn_player(0, 0)
 	
 	spawn_player(630, 520)
