@@ -1,15 +1,27 @@
-[gd_scene load_steps=8 format=3 uid="uid://r73t4uwivu0e"]
+[gd_scene load_steps=13 format=3 uid="uid://r73t4uwivu0e"]
 
-[ext_resource type="Texture2D" uid="uid://dbgb61jp85s7e" path="res://graphics/characters/test/player.png" id="1_hyvh8"]
 [ext_resource type="Script" path="res://scripts/lobby.gd" id="1_nn68e"]
 [ext_resource type="Texture2D" uid="uid://f1v34lrprxwu" path="res://graphics/backgrounds/lobby/backlayer.png" id="2_4hsao"]
 [ext_resource type="Texture2D" uid="uid://cggfwt6q3o4n2" path="res://graphics/backgrounds/lobby/frontlayer.png" id="3_rgei6"]
-[ext_resource type="Texture2D" uid="uid://c73jppjwm04hn" path="res://graphics/UI/button.png" id="3_xb4sn"]
+[ext_resource type="Texture2D" uid="uid://c73jppjwm04hn" path="res://graphics/UI/buttons/normal.png" id="3_xb4sn"]
 [ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="4_358r0"]
+[ext_resource type="Shader" path="res://shaders/outline.gdshader" id="7_1urcf"]
+[ext_resource type="Texture2D" uid="uid://cex3nshoqpwms" path="res://graphics/characters/pablomajster/player.png" id="7_65pnu"]
+[ext_resource type="Texture2D" uid="uid://cmc1rb0x2pxx7" path="res://graphics/UI/buttons/small.png" id="7_ebt3n"]
+[ext_resource type="Texture2D" uid="uid://cstfhxa161fhk" path="res://graphics/UI/signs/expand.png" id="8_472nk"]
 
 [sub_resource type="Theme" id="Theme_6pyji"]
 default_font = ExtResource("4_358r0")
-default_font_size = 25
+default_font_size = 20
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sr4bl"]
+shader = ExtResource("7_1urcf")
+shader_parameter/outline_color = null
+shader_parameter/is_visible = true
+
+[sub_resource type="Theme" id="Theme_i38xw"]
+default_font = ExtResource("4_358r0")
+default_font_size = 5
 
 [node name="Lobby" type="Node2D"]
 script = ExtResource("1_nn68e")
@@ -35,108 +47,28 @@ repeat_times = 2
 scale = Vector2(8, 8)
 texture = ExtResource("3_rgei6")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="UserInterface" type="CanvasLayer" parent="."]
 
-[node name="ButtonContainer" type="MarginContainer" parent="CanvasLayer"]
+[node name="MarginContainer" type="MarginContainer" parent="UserInterface"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/margin_bottom = 170
-
-[node name="Button" type="Button" parent="CanvasLayer/ButtonContainer"]
-custom_minimum_size = Vector2(150, 60)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-text = "Upgrade"
-
-[node name="LabelContainer" type="MarginContainer" parent="CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/margin_top = 200
-
-[node name="Label" type="Label" parent="CanvasLayer/LabelContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_font_sizes/font_size = 24
-text = "Character: Pablo Majster"
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
 theme_override_constants/margin_left = 48
 theme_override_constants/margin_top = 48
 theme_override_constants/margin_right = 48
 theme_override_constants/margin_bottom = 48
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 96
-alignment = 1
-
-[node name="ButtonLeft" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(40, 100)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-text = "<"
-
-[node name="Control" type="Control" parent="CanvasLayer/MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/MarginContainer/HBoxContainer/Control"]
-scale = Vector2(8, 8)
-texture = ExtResource("1_hyvh8")
-region_enabled = true
-region_rect = Rect2(65, 53, 13, 17)
-
-[node name="ButtonRight" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(40, 100)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-text = ">"
-
-[node name="ButtonSettings" type="Button" parent="CanvasLayer/MarginContainer"]
-visible = false
-custom_minimum_size = Vector2(200, 80)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-text = "Settings"
-
-[node name="ButtonShop" type="Button" parent="CanvasLayer/MarginContainer"]
-visible = false
-custom_minimum_size = Vector2(200, 80)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-text = "Shop"
-
-[node name="ButtonPlay" type="TextureButton" parent="CanvasLayer/MarginContainer"]
+[node name="ButtonPlay" type="TextureButton" parent="UserInterface/MarginContainer"]
 custom_minimum_size = Vector2(256, 112)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 texture_normal = ExtResource("3_xb4sn")
-stretch_mode = 0
+stretch_mode = 4
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/ButtonPlay"]
+[node name="Label" type="Label" parent="UserInterface/MarginContainer/ButtonPlay"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -150,6 +82,106 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_6pyji")
-text = "Play"
+text = "PLAY"
 
-[connection signal="button_down" from="CanvasLayer/MarginContainer/ButtonPlay" to="." method="_on_button_play_button_down"]
+[node name="CharacterContainer" type="VBoxContainer" parent="UserInterface"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 96
+alignment = 1
+
+[node name="CharacterLabel" type="Control" parent="UserInterface/CharacterContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="LabelParent" type="Node2D" parent="UserInterface/CharacterContainer/CharacterLabel"]
+scale = Vector2(4, 4)
+
+[node name="Label" type="Label" parent="UserInterface/CharacterContainer/CharacterLabel/LabelParent"]
+material = SubResource("ShaderMaterial_sr4bl")
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -3.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_i38xw")
+text = "CHARACTER: Pablo Majster"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="SpriteLabel" type="Control" parent="UserInterface/CharacterContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="UserInterface/CharacterContainer/SpriteLabel"]
+scale = Vector2(8, 8)
+texture = ExtResource("7_65pnu")
+region_enabled = true
+region_rect = Rect2(65, 53, 13, 17)
+
+[node name="ButtonContainer" type="HBoxContainer" parent="UserInterface/CharacterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="ButtonSelect" type="TextureButton" parent="UserInterface/CharacterContainer/ButtonContainer"]
+custom_minimum_size = Vector2(112, 112)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("7_ebt3n")
+stretch_mode = 4
+
+[node name="SpriteParent" type="Control" parent="UserInterface/CharacterContainer/ButtonContainer/ButtonSelect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="UserInterface/CharacterContainer/ButtonContainer/ButtonSelect/SpriteParent"]
+scale = Vector2(8, 8)
+texture = ExtResource("8_472nk")
+
+[node name="ButtonUpgrade" type="TextureButton" parent="UserInterface/CharacterContainer/ButtonContainer"]
+custom_minimum_size = Vector2(256, 112)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture_normal = ExtResource("3_xb4sn")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="UserInterface/CharacterContainer/ButtonContainer/ButtonUpgrade"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_6pyji")
+text = "UPGRADE"
+
+[connection signal="button_down" from="UserInterface/MarginContainer/ButtonPlay" to="." method="_on_button_play_button_down"]

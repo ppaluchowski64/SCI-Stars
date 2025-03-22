@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_270mw"]
 [ext_resource type="SpriteFrames" uid="uid://bajg7a1eoq3sd" path="res://data/player.tres" id="2_m0dh8"]
-[ext_resource type="Texture2D" uid="uid://stk5wbf0mce7" path="res://graphics/UI/healthbar.png" id="3_5fihy"]
+[ext_resource type="Texture2D" uid="uid://stk5wbf0mce7" path="res://graphics/UI/status_bars/healthbar.png" id="3_5fihy"]
 [ext_resource type="Shader" path="res://shaders/outline.gdshader" id="4_5i7bj"]
 [ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="4_q82ve"]
-[ext_resource type="Texture2D" uid="uid://b2vdaem8n0gto" path="res://graphics/UI/ammobar.png" id="5_ptbdj"]
+[ext_resource type="Texture2D" uid="uid://b2vdaem8n0gto" path="res://graphics/UI/status_bars/ammobar.png" id="5_ptbdj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ay0jd"]
 radius = 24.0

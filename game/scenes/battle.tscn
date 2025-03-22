@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://db56006rlw6nc"]
+[gd_scene load_steps=21 format=4 uid="uid://db56006rlw6nc"]
 
 [ext_resource type="Script" path="res://scripts/battle_manager.gd" id="1_f75g0"]
 [ext_resource type="Texture2D" uid="uid://cbrr264nsjo3k" path="res://graphics/environment/wall.png" id="2_uqhyb"]
@@ -7,8 +7,9 @@
 [ext_resource type="Script" path="res://scripts/user_interface.gd" id="4_4e2gx"]
 [ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="4_erh11"]
 [ext_resource type="Shader" path="res://shaders/outline.gdshader" id="6_c3103"]
-[ext_resource type="Texture2D" uid="uid://cgnax06gjmct1" path="res://graphics/UI/superbar_mask.png" id="7_ilcqo"]
-[ext_resource type="Texture2D" uid="uid://prenyjcoslt7" path="res://graphics/UI/superbar.png" id="7_ujvli"]
+[ext_resource type="Texture2D" uid="uid://cgnax06gjmct1" path="res://graphics/UI/status_bars/superbar_mask.png" id="7_ilcqo"]
+[ext_resource type="Texture2D" uid="uid://prenyjcoslt7" path="res://graphics/UI/status_bars/superbar.png" id="7_ujvli"]
+[ext_resource type="Texture2D" uid="uid://c73jppjwm04hn" path="res://graphics/UI/buttons/normal.png" id="10_5ilfr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qfrj4"]
 texture = ExtResource("4_1ls1x")
@@ -40,6 +41,71 @@ shader_parameter/is_visible = true
 [sub_resource type="Theme" id="Theme_yve2r"]
 default_font = ExtResource("4_erh11")
 default_font_size = 5
+
+[sub_resource type="Theme" id="Theme_eiykf"]
+default_font = ExtResource("4_erh11")
+default_font_size = 20
+
+[sub_resource type="Animation" id="Animation_yy2ah"]
+resource_name = "enter"
+length = 3.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ButtonParent/OffsetNode:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(2, 3.5),
+"transitions": PackedFloat32Array(0.1, 1),
+"update": 0,
+"values": [Vector2(256, 48), Vector2(-48, 48)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(0.1, 1),
+"update": 0,
+"values": [Vector2(-256, 144), Vector2(64, 144)]
+}
+
+[sub_resource type="Animation" id="Animation_8g385"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ButtonParent/OffsetNode:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-48, 48)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(64, 144)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fprax"]
+_data = {
+"RESET": SubResource("Animation_8g385"),
+"enter": SubResource("Animation_yy2ah")
+}
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_f75g0")
@@ -111,3 +177,82 @@ metadata/_edit_use_anchors_ = true
 [node name="Sprite2D" type="Sprite2D" parent="UserInterface/MarginContainer/SuperBar"]
 scale = Vector2(8, 8)
 texture = ExtResource("7_ujvli")
+
+[node name="EndScreen" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ButtonParent" type="Control" parent="EndScreen"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="OffsetNode" type="Node2D" parent="EndScreen/ButtonParent"]
+position = Vector2(-48, 48)
+
+[node name="ButtonProceed" type="TextureButton" parent="EndScreen/ButtonParent/OffsetNode"]
+custom_minimum_size = Vector2(256, 112)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -256.0
+offset_bottom = 112.0
+grow_horizontal = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("10_5ilfr")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="EndScreen/ButtonParent/OffsetNode/ButtonProceed"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_eiykf")
+text = "PROCEED"
+
+[node name="ColorRect" type="ColorRect" parent="EndScreen"]
+custom_minimum_size = Vector2(240, 360)
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 64.0
+offset_top = -180.0
+offset_right = 304.0
+offset_bottom = 180.0
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+color = Color(0, 0, 0, 0.5)
+
+[node name="Rank" type="Node2D" parent="EndScreen/ColorRect"]
+position = Vector2(24, 24)
+scale = Vector2(4, 4)
+
+[node name="Label" type="Label" parent="EndScreen/ColorRect/Rank"]
+material = SubResource("ShaderMaterial_bs0a1")
+offset_right = 28.0
+offset_bottom = 6.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = SubResource("Theme_yve2r")
+text = "Rank: -"
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EndScreen"]
+libraries = {
+"": SubResource("AnimationLibrary_fprax")
+}
+
+[connection signal="button_down" from="EndScreen/ButtonParent/OffsetNode/ButtonProceed" to="." method="_on_button_proceed_button_down"]

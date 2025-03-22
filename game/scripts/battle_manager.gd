@@ -5,6 +5,8 @@ var Player = preload("res://scenes/player.tscn")
 @onready var ui = $UserInterface
 @onready var players = $Players
 @onready var camera = $Camera2D
+@onready var end_screen = $EndScreen
+@onready var end_screen_animation = $EndScreen/AnimationPlayer
 
 var next_free_player_id = 0
 
@@ -28,7 +30,7 @@ func _update_player_count() -> void:
 	ui.update_player_count()
 	
 	if players.get_child_count() <= 2:
-		get_tree().call_deferred("change_scene_to_file", "res://scenes/endscreen.tscn")
+		end_game()
 	
 func get_exclusive_player_id() -> int:
 	next_free_player_id += 1
@@ -47,5 +49,15 @@ func start_game() -> void:
 	camera.target = main_player
 	ui.main_player = main_player
 
+func end_game() -> void:
+	for player in players.get_children():
+		player.game_ended = true
+		
+	end_screen.visible = true
+	end_screen_animation.play("enter")
+
 func _ready() -> void:
 	call_deferred("start_game")
+
+func _on_button_proceed_button_down() -> void:
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/lobby.tscn")
