@@ -2,16 +2,18 @@ extends CharacterBody2D
 
 var Projectile = preload("res://scenes/projectile.tscn")
 
-@onready var sprite: Node = $AnimatedSprite2D
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
-@onready var regen_cooldown: Node = $RegenCooldown
-@onready var shoot_cooldown: Node = $ShootCooldown
-@onready var shoot_animation: Node = $ShootAnimation
+@onready var regen_cooldown: Timer = $RegenCooldown
+@onready var shoot_cooldown: Timer = $ShootCooldown
+@onready var shoot_animation: Timer = $ShootAnimation
 
-@onready var healthbar_fill: Node = $Healthbar/ColorRect
-@onready var healthbar_label: Node = $Healthbar/LabelParent/Label
+@onready var healthbar_fill: ColorRect = $Healthbar/ColorRect
+@onready var healthbar_label: Label = $Healthbar/LabelParent/Label
 
-@onready var ammobar_fill: Node = $Ammobar/ColorRect
+@onready var ammobar_fill: ColorRect = $Ammobar/ColorRect
+
+@onready var walk_particles: CPUParticles2D = $WalkParticles
 
 @export var id: int
 
@@ -147,9 +149,13 @@ func animate(delta: float) -> void:
 			animation = fmod(animation, 4)
 		
 		sprite.frame = floor(animation)
+		
+		walk_particles.emitting = true
 	else:
 		animation = 0
 		sprite.frame = 1
+		
+		walk_particles.emitting = false
 
 func _process(delta: float) -> void:
 	if id == 0:

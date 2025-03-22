@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bk3jqor1r48rj"]
+[gd_scene load_steps=12 format=3 uid="uid://bk3jqor1r48rj"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_270mw"]
 [ext_resource type="SpriteFrames" uid="uid://bajg7a1eoq3sd" path="res://data/player.tres" id="2_m0dh8"]
@@ -6,6 +6,15 @@
 [ext_resource type="Shader" path="res://shaders/outline.gdshader" id="4_5i7bj"]
 [ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="4_q82ve"]
 [ext_resource type="Texture2D" uid="uid://b2vdaem8n0gto" path="res://graphics/UI/status_bars/ammobar.png" id="5_ptbdj"]
+
+[sub_resource type="Curve" id="Curve_edcub"]
+max_value = 360.0
+_data = [Vector2(0, 0), 0.0, 360.0, 0, 1, Vector2(1, 360), 360.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_wka2s"]
+_data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
+point_count = 2
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ay0jd"]
 radius = 24.0
@@ -24,6 +33,20 @@ default_font_size = 5
 collision_layer = 3
 collision_mask = 2
 script = ExtResource("1_270mw")
+
+[node name="WalkParticles" type="CPUParticles2D" parent="."]
+position = Vector2(0, 24)
+emitting = false
+amount = 12
+emission_shape = 3
+emission_rect_extents = Vector2(6, 6)
+gravity = Vector2(0, 0)
+angle_min = -0.5
+angle_max = 0.5
+angle_curve = SubResource("Curve_edcub")
+scale_amount_min = 8.0
+scale_amount_max = 12.0
+scale_amount_curve = SubResource("Curve_wka2s")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(4, 4)
