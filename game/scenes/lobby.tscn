@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://r73t4uwivu0e"]
+[gd_scene load_steps=16 format=3 uid="uid://r73t4uwivu0e"]
 
 [ext_resource type="Script" path="res://scripts/lobby.gd" id="1_nn68e"]
 [ext_resource type="Texture2D" uid="uid://f1v34lrprxwu" path="res://graphics/backgrounds/lobby/backlayer.png" id="2_4hsao"]
@@ -8,7 +8,9 @@
 [ext_resource type="Shader" path="res://shaders/outline.gdshader" id="7_1urcf"]
 [ext_resource type="Texture2D" uid="uid://cex3nshoqpwms" path="res://graphics/characters/pablomajster/player.png" id="7_65pnu"]
 [ext_resource type="Texture2D" uid="uid://cmc1rb0x2pxx7" path="res://graphics/UI/buttons/small.png" id="7_ebt3n"]
-[ext_resource type="Texture2D" uid="uid://cstfhxa161fhk" path="res://graphics/UI/signs/expand.png" id="8_472nk"]
+[ext_resource type="Texture2D" uid="uid://cstfhxa161fhk" path="res://graphics/UI/icons/expand.png" id="8_472nk"]
+[ext_resource type="PackedScene" uid="uid://osklob3vwxx3" path="res://scenes/upgrade.tscn" id="10_say53"]
+[ext_resource type="Texture2D" uid="uid://cm26og86ytcnc" path="res://graphics/UI/icons/money.png" id="11_uejoe"]
 
 [sub_resource type="Theme" id="Theme_6pyji"]
 default_font = ExtResource("4_358r0")
@@ -22,6 +24,10 @@ shader_parameter/is_visible = true
 [sub_resource type="Theme" id="Theme_i38xw"]
 default_font = ExtResource("4_358r0")
 default_font_size = 5
+
+[sub_resource type="Theme" id="Theme_ut2vl"]
+default_font = ExtResource("4_358r0")
+default_font_size = 20
 
 [node name="Lobby" type="Node2D"]
 script = ExtResource("1_nn68e")
@@ -61,7 +67,7 @@ theme_override_constants/margin_right = 48
 theme_override_constants/margin_bottom = 48
 
 [node name="ButtonPlay" type="TextureButton" parent="UserInterface/MarginContainer"]
-custom_minimum_size = Vector2(256, 112)
+custom_minimum_size = Vector2(200, 88)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
@@ -138,15 +144,15 @@ layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ButtonSelect" type="TextureButton" parent="UserInterface/CharacterContainer/ButtonContainer"]
-custom_minimum_size = Vector2(112, 112)
+[node name="ButtonExpand" type="TextureButton" parent="UserInterface/CharacterContainer/ButtonContainer"]
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("7_ebt3n")
 stretch_mode = 4
 
-[node name="SpriteParent" type="Control" parent="UserInterface/CharacterContainer/ButtonContainer/ButtonSelect"]
+[node name="SpriteParent" type="Control" parent="UserInterface/CharacterContainer/ButtonContainer/ButtonExpand"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -156,12 +162,12 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="UserInterface/CharacterContainer/ButtonContainer/ButtonSelect/SpriteParent"]
-scale = Vector2(8, 8)
+[node name="Sprite2D" type="Sprite2D" parent="UserInterface/CharacterContainer/ButtonContainer/ButtonExpand/SpriteParent"]
+scale = Vector2(4, 4)
 texture = ExtResource("8_472nk")
 
 [node name="ButtonUpgrade" type="TextureButton" parent="UserInterface/CharacterContainer/ButtonContainer"]
-custom_minimum_size = Vector2(256, 112)
+custom_minimum_size = Vector2(200, 88)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
@@ -184,4 +190,146 @@ grow_vertical = 2
 theme = SubResource("Theme_6pyji")
 text = "UPGRADE"
 
+[node name="UpgradeInterface" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="UpgradeInterface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="PanelLayer1" type="MarginContainer" parent="UpgradeInterface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="ColorRect" type="ColorRect" parent="UpgradeInterface/PanelLayer1"]
+layout_mode = 2
+
+[node name="PanelLayer2" type="MarginContainer" parent="UpgradeInterface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 104
+theme_override_constants/margin_top = 104
+theme_override_constants/margin_right = 104
+theme_override_constants/margin_bottom = 104
+
+[node name="ColorRect" type="ColorRect" parent="UpgradeInterface/PanelLayer2"]
+layout_mode = 2
+color = Color(0.117647, 0.243137, 0.384314, 1)
+
+[node name="PanelLayer3" type="MarginContainer" parent="UpgradeInterface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 112
+theme_override_constants/margin_top = 112
+theme_override_constants/margin_right = 112
+theme_override_constants/margin_bottom = 112
+
+[node name="ColorRect" type="ColorRect" parent="UpgradeInterface/PanelLayer3"]
+layout_mode = 2
+color = Color(0.0431373, 0.0980392, 0.172549, 1)
+
+[node name="Buttons" type="HBoxContainer" parent="UpgradeInterface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Upgrade1" parent="UpgradeInterface/Buttons" instance=ExtResource("10_say53")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Upgrade2" parent="UpgradeInterface/Buttons" instance=ExtResource("10_say53")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+type = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="UpgradeInterface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 60
+
+[node name="ButtonExitUpgrade" type="TextureButton" parent="UpgradeInterface/MarginContainer"]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("7_ebt3n")
+stretch_mode = 4
+
+[node name="SpriteParent" type="Control" parent="UpgradeInterface/MarginContainer/ButtonExitUpgrade"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="UpgradeInterface/MarginContainer/ButtonExitUpgrade/SpriteParent"]
+scale = Vector2(4, 4)
+texture = ExtResource("8_472nk")
+
+[node name="ReasourcesInterface" type="CanvasLayer" parent="."]
+
+[node name="CoinsContainer" type="PanelContainer" parent="ReasourcesInterface"]
+offset_left = 64.0
+offset_right = 336.0
+offset_bottom = 96.0
+
+[node name="ColorRect" type="ColorRect" parent="ReasourcesInterface/CoinsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ReasourcesInterface/CoinsContainer"]
+position = Vector2(48, 48)
+scale = Vector2(4, 4)
+texture = ExtResource("11_uejoe")
+
+[node name="MarginContainer" type="MarginContainer" parent="ReasourcesInterface/CoinsContainer"]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
+theme_override_constants/margin_left = 88
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Label" type="Label" parent="ReasourcesInterface/CoinsContainer/MarginContainer"]
+layout_mode = 2
+theme = SubResource("Theme_ut2vl")
+text = "COINS: 100
+"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
 [connection signal="button_down" from="UserInterface/MarginContainer/ButtonPlay" to="." method="_on_button_play_button_down"]
+[connection signal="button_down" from="UserInterface/CharacterContainer/ButtonContainer/ButtonUpgrade" to="." method="_on_button_upgrade_button_down"]
+[connection signal="button_down" from="UpgradeInterface/MarginContainer/ButtonExitUpgrade" to="." method="_on_button_exit_upgrade_button_down"]
