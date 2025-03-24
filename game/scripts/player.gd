@@ -75,7 +75,7 @@ func take_damage(damage: int) -> void:
 		emit_signal("update_player_count")
 		queue_free()
 	
-	healthbar_label.text = str(health)
+	healthbar_label.text = str(int(health))
 	
 	regen_cooldown.start(3)
 

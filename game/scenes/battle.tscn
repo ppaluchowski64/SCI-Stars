@@ -1,15 +1,15 @@
 [gd_scene load_steps=21 format=4 uid="uid://db56006rlw6nc"]
 
 [ext_resource type="Script" uid="uid://cv6524wyxtia0" path="res://scripts/battle_manager.gd" id="1_f75g0"]
-[ext_resource type="Texture2D" uid="uid://dgw2tbqi5mnpd" path="res://graphics/environment/wall.png" id="2_uqhyb"]
+[ext_resource type="Texture2D" uid="uid://cbrr264nsjo3k" path="res://graphics/environment/wall.png" id="2_uqhyb"]
 [ext_resource type="Script" uid="uid://crl3buo8iijru" path="res://scripts/camera.gd" id="3_m8bpv"]
-[ext_resource type="Texture2D" uid="uid://d5vxutt8xd3i" path="res://graphics/environment/tile.png" id="4_1ls1x"]
+[ext_resource type="Texture2D" uid="uid://dce4elq1ctffp" path="res://graphics/environment/tile.png" id="4_1ls1x"]
 [ext_resource type="Script" uid="uid://bum1xbhdfejbe" path="res://scripts/user_interface.gd" id="4_4e2gx"]
-[ext_resource type="FontFile" uid="uid://yylv23jad2la" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="4_erh11"]
+[ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="4_erh11"]
 [ext_resource type="Shader" uid="uid://du0d20jc2uexq" path="res://shaders/outline.gdshader" id="6_c3103"]
-[ext_resource type="Texture2D" uid="uid://5ohr858wca3s" path="res://graphics/UI/status_bars/superbar_mask.png" id="7_ilcqo"]
-[ext_resource type="Texture2D" uid="uid://cp1wqmtwngtvb" path="res://graphics/UI/status_bars/superbar.png" id="7_ujvli"]
-[ext_resource type="Texture2D" uid="uid://tvxuu8dm4tey" path="res://graphics/UI/buttons/normal.png" id="10_5ilfr"]
+[ext_resource type="Texture2D" uid="uid://cgnax06gjmct1" path="res://graphics/UI/status_bars/superbar_mask.png" id="7_ilcqo"]
+[ext_resource type="Texture2D" uid="uid://prenyjcoslt7" path="res://graphics/UI/status_bars/superbar.png" id="7_ujvli"]
+[ext_resource type="Texture2D" uid="uid://c73jppjwm04hn" path="res://graphics/UI/buttons/normal.png" id="10_5ilfr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qfrj4"]
 texture = ExtResource("4_1ls1x")
