@@ -1,14 +1,14 @@
 [gd_scene load_steps=12 format=3 uid="uid://bk3jqor1r48rj"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_270mw"]
+[ext_resource type="Script" uid="uid://6mc3jt4aqv5r" path="res://scripts/player.gd" id="1_270mw"]
 [ext_resource type="SpriteFrames" uid="uid://bajg7a1eoq3sd" path="res://data/player.tres" id="2_m0dh8"]
-[ext_resource type="Texture2D" uid="uid://stk5wbf0mce7" path="res://graphics/UI/status_bars/healthbar.png" id="3_5fihy"]
-[ext_resource type="Shader" path="res://shaders/outline.gdshader" id="4_5i7bj"]
-[ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="4_q82ve"]
-[ext_resource type="Texture2D" uid="uid://b2vdaem8n0gto" path="res://graphics/UI/status_bars/ammobar.png" id="5_ptbdj"]
+[ext_resource type="Texture2D" uid="uid://1exhfnjiulpn" path="res://graphics/UI/status_bars/healthbar.png" id="3_5fihy"]
+[ext_resource type="Shader" uid="uid://du0d20jc2uexq" path="res://shaders/outline.gdshader" id="4_5i7bj"]
+[ext_resource type="FontFile" uid="uid://yylv23jad2la" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="4_q82ve"]
+[ext_resource type="Texture2D" uid="uid://bjw4sviy0kmhk" path="res://graphics/UI/status_bars/ammobar.png" id="5_ptbdj"]
 
 [sub_resource type="Curve" id="Curve_edcub"]
-max_value = 360.0
+_limits = [0.0, 360.0, 0.0, 1.0]
 _data = [Vector2(0, 0), 0.0, 360.0, 0, 1, Vector2(1, 360), 360.0, 0.0, 1, 0]
 point_count = 2
 
@@ -22,7 +22,7 @@ height = 64.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ux241"]
 shader = ExtResource("4_5i7bj")
-shader_parameter/outline_color = null
+shader_parameter/outline_color = Color(0, 0, 0, 1)
 shader_parameter/is_visible = true
 
 [sub_resource type="Theme" id="Theme_60cmk"]

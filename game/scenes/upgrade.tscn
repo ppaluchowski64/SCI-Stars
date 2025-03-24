@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://osklob3vwxx3"]
 
-[ext_resource type="Texture2D" uid="uid://d4bsciklmihcf" path="res://graphics/UI/buttons/upgrade.png" id="1_6d3wl"]
-[ext_resource type="Script" path="res://scripts/upgrade.gd" id="1_7aklf"]
-[ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="2_gdlu7"]
-[ext_resource type="Texture2D" uid="uid://b5hx8tifarjrl" path="res://graphics/UI/icons/damage.png" id="2_xvwvg"]
+[ext_resource type="Texture2D" uid="uid://sx6sp3q8866d" path="res://graphics/UI/buttons/upgrade.png" id="1_6d3wl"]
+[ext_resource type="Script" uid="uid://c0mr6o8ethto8" path="res://scripts/upgrade.gd" id="1_7aklf"]
+[ext_resource type="FontFile" uid="uid://yylv23jad2la" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="2_gdlu7"]
+[ext_resource type="Texture2D" uid="uid://bhv03qlnd1nxr" path="res://graphics/UI/icons/damage.png" id="2_xvwvg"]
 
 [sub_resource type="Theme" id="Theme_ybxfr"]
 default_font = ExtResource("2_gdlu7")
