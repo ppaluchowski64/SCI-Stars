@@ -1,0 +1,19 @@
+# Docker
+Dockerfile
+.dockerignore
+
+# Python Cache
+__pycache__/
+*.py[cod]
+
+# Virtual Environments
+venv/
+ENV/
+env/
+.venv/
+
+# JetBrains
+.idea
+
+# Log Files
+*.log
