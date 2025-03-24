@@ -50,6 +50,7 @@ fabric.properties
 # Godot-specific ignores
 .import/
 *.import
+*.uid
 export.cfg
 export_presets.cfg
 
