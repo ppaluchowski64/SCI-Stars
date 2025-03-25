@@ -1,11 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://osklob3vwxx3"]
+[gd_scene load_steps=9 format=3 uid="uid://osklob3vwxx3"]
 
 [ext_resource type="Texture2D" uid="uid://d4bsciklmihcf" path="res://graphics/UI/buttons/upgrade.png" id="1_6d3wl"]
-[ext_resource type="Script" uid="uid://c0mr6o8ethto8" path="res://scripts/upgrade.gd" id="1_7aklf"]
+[ext_resource type="Script" uid="uid://dc6f63gdu7bw" path="res://scripts/upgrade.gd" id="1_7aklf"]
 [ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="2_gdlu7"]
 [ext_resource type="Texture2D" uid="uid://b5hx8tifarjrl" path="res://graphics/UI/icons/damage.png" id="2_xvwvg"]
+[ext_resource type="Texture2D" uid="uid://c73jppjwm04hn" path="res://graphics/UI/buttons/normal.png" id="5_00gwf"]
+[ext_resource type="Texture2D" uid="uid://cm26og86ytcnc" path="res://graphics/UI/icons/money.png" id="6_jnjjj"]
 
 [sub_resource type="Theme" id="Theme_ybxfr"]
+default_font = ExtResource("2_gdlu7")
+default_font_size = 20
+
+[sub_resource type="Theme" id="Theme_jnjjj"]
 default_font = ExtResource("2_gdlu7")
 default_font_size = 20
 
@@ -140,4 +146,56 @@ offset_bottom = -44.0
 pivot_offset = Vector2(20, 20)
 color = Color(0.117647, 0.243137, 0.384314, 1)
 
+[node name="DescriptionLabel" type="Label" parent="Panel"]
+visible = false
+offset_left = -32.0
+offset_top = -164.0
+offset_right = 232.0
+offset_bottom = -59.0
+theme = SubResource("Theme_ybxfr")
+text = "DAMAGE LVL 1
+increase damage per projectile
+400 -> 600"
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="ButtonAccept" type="TextureButton" parent="Panel"]
+visible = false
+custom_minimum_size = Vector2(200, 88)
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -44.0
+offset_right = 188.0
+offset_bottom = 44.0
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture_normal = ExtResource("5_00gwf")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Panel/ButtonAccept"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 12.0
+offset_top = -12.0
+offset_right = -88.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_jnjjj")
+text = "200"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel/ButtonAccept"]
+position = Vector2(156, 40)
+scale = Vector2(4, 4)
+texture = ExtResource("6_jnjjj")
+
 [connection signal="button_down" from="TextureButton" to="." method="_on_texture_button_button_down"]
+[connection signal="button_down" from="Panel/ButtonAccept" to="." method="_on_button_accept_button_down"]

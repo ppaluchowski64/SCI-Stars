@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dce4elq1ctffp" path="res://graphics/environment/tile.png" id="4_1ls1x"]
 [ext_resource type="Script" uid="uid://bum1xbhdfejbe" path="res://scripts/user_interface.gd" id="4_4e2gx"]
 [ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="4_erh11"]
-[ext_resource type="Shader" uid="uid://du0d20jc2uexq" path="res://shaders/outline.gdshader" id="6_c3103"]
+[ext_resource type="Shader" uid="uid://dvotcn36qw0jj" path="res://shaders/outline.gdshader" id="6_c3103"]
 [ext_resource type="Texture2D" uid="uid://cgnax06gjmct1" path="res://graphics/UI/status_bars/superbar_mask.png" id="7_ilcqo"]
 [ext_resource type="Texture2D" uid="uid://prenyjcoslt7" path="res://graphics/UI/status_bars/superbar.png" id="7_ujvli"]
 [ext_resource type="Texture2D" uid="uid://c73jppjwm04hn" path="res://graphics/UI/buttons/normal.png" id="10_5ilfr"]

@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cggfwt6q3o4n2" path="res://graphics/backgrounds/lobby/frontlayer.png" id="3_rgei6"]
 [ext_resource type="Texture2D" uid="uid://c73jppjwm04hn" path="res://graphics/UI/buttons/normal.png" id="3_xb4sn"]
 [ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="4_358r0"]
-[ext_resource type="Shader" uid="uid://du0d20jc2uexq" path="res://shaders/outline.gdshader" id="7_1urcf"]
+[ext_resource type="Shader" uid="uid://dvotcn36qw0jj" path="res://shaders/outline.gdshader" id="7_1urcf"]
 [ext_resource type="Texture2D" uid="uid://cex3nshoqpwms" path="res://graphics/characters/pablomajster/player.png" id="7_65pnu"]
 [ext_resource type="Texture2D" uid="uid://cmc1rb0x2pxx7" path="res://graphics/UI/buttons/small.png" id="7_ebt3n"]
 [ext_resource type="Texture2D" uid="uid://cstfhxa161fhk" path="res://graphics/UI/icons/expand.png" id="8_472nk"]
@@ -326,7 +326,7 @@ theme_override_constants/margin_bottom = 24
 [node name="Label" type="Label" parent="ReasourcesInterface/CoinsContainer/MarginContainer"]
 layout_mode = 2
 theme = SubResource("Theme_ut2vl")
-text = "COINS: 100"
+text = "COINS: 2000"
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
