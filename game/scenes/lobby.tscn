@@ -257,12 +257,15 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+description = "increase damage per projectile"
 
 [node name="Upgrade2" parent="UpgradeInterface/Buttons" instance=ExtResource("10_say53")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 type = 1
+stat_id = 1
+description = "increase max health"
 
 [node name="MarginContainer" type="MarginContainer" parent="UpgradeInterface"]
 anchors_preset = 15

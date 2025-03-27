@@ -20,8 +20,10 @@ var corner_origin_pos: Array
 
 @export var type: TYPE
 @export var stat_id: int
+@export var description: String
+var stat_name: String
 
-var stat: PlayerData.Stat = PlayerData.character_stats[0][stat_id]
+var stat: PlayerData.Stat
 
 @onready var scale_tween: Tween
 var scale_factor: float = 1.0
@@ -32,16 +34,24 @@ func update_values() -> void:
 	var cost: float = stat.base_cost * (1.15 ** (stat.level - 1))
 	accept_button.get_node("Label").text = str(int(cost))
 	
-	lobby.money_label.text = "COINS: " + str(int(PlayerData.money))
+	level_label.text = "LVL " + str(stat.level)
+	
+	description_label.text = "%s %s\n%s\n%s -> %s" % [stat_name, stat.level, description, int(stat.value), int(stat.value + stat.delta_value)]
 
 func _ready() -> void:
+	stat = PlayerData.character_stats[0][stat_id]
+	
 	match type:
 		TYPE.DAMAGE:
 			sprite.texture = preload("res://graphics/UI/icons/damage.png")
-			name_label.text = "DAMAGE"
+			stat_name = "DAMAGE"
 		TYPE.HEALTH:
 			sprite.texture = preload("res://graphics/UI/icons/heart.png")
-			name_label.text = "HEALTH"
+			stat_name = "HEALTH"
+			
+	name_label.text = stat_name
+	
+	update_values()
 	
 	for corner in sprite_corners:
 		corner_origin_pos.append(corner.position)
@@ -79,8 +89,6 @@ func _on_texture_button_button_down() -> void:
 	scale_tween.tween_property(description_label, "visible", true, 0.0) # Slick but probably a bad way to do this
 	scale_tween.tween_property(accept_button, "visible", true, 0.0)
 	
-	var cost: float = stat.base_cost * (1.15 ** (stat.level - 1))
-	
 	update_values()
 
 func _on_button_accept_button_down() -> void:
@@ -88,8 +96,12 @@ func _on_button_accept_button_down() -> void:
 	
 	if PlayerData.money >= cost:
 		PlayerData.money -= cost
+		stat.value += stat.delta_value
 		stat.level += 1
+		
 		update_values()
+		lobby.money_label.text = "COINS: " + str(int(PlayerData.money))
+		
 		print("stat upgraded")
 	else:
 		print("not enough resources")

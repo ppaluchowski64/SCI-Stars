@@ -87,6 +87,8 @@ func spawn_projectile(projectile_id: Projectiles.ID = Projectiles.ID.DEFAULT) ->
 	projectile.global_rotation = get_angle_to(get_global_mouse_position())
 	projectile.parent = self
 	
+	projectile.damage = PlayerData.character_stats[0][0].value
+	
 	get_tree().get_root().call_deferred("add_child", projectile)
 
 func move() -> void:
@@ -157,6 +159,12 @@ func animate(delta: float) -> void:
 		
 		walk_particles.emitting = false
 
+func _ready() -> void:
+	if id == 0:
+		max_health = PlayerData.character_stats[0][1].value
+		health = max_health
+		healthbar_label.text = str(int(health))
+
 func _process(delta: float) -> void:
 	if id == 0:
 		move()
@@ -169,7 +177,7 @@ func _on_regen_cooldown_timeout() -> void:
 	health += max_health * 15 / 100
 	health = min(health, max_health)
 	
-	healthbar_label.text = str(health)
+	healthbar_label.text = str(int(health))
 	
 	if health < max_health:
 		regen_cooldown.start(1)
