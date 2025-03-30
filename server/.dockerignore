@@ -13,7 +13,7 @@ env/
 .venv/
 
 # JetBrains
-.idea
+.idea/
 
 # Log Files
 *.log
