@@ -1,0 +1,199 @@
+import sqlite3
+
+
+class AccountManager:
+    def __init__(self, db_path="accounts.db"):
+        self.db_path = db_path
+        self._init_db()
+
+    def _init_db(self):
+        conn = sqlite3.connect(self.db_path)
+        cur = conn.cursor()
+
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS users (
+                token TEXT NOT NULL PRIMARY KEY,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                last_login TIMESTAMP
+            );
+        """)
+
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS stats (
+                token TEXT NOT NULL PRIMARY KEY,
+                games_played INTEGER DEFAULT 0,
+                wins INTEGER DEFAULT 0,
+                losses INTEGER DEFAULT 0,
+                FOREIGN KEY (token) REFERENCES users (token) ON DELETE CASCADE
+            );
+        """)
+
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS inventory (
+                token TEXT NOT NULL PRIMARY KEY,
+                currency_balance INTEGER DEFAULT 0,
+                FOREIGN KEY (token) REFERENCES users (token) ON DELETE CASCADE
+            );
+        """)
+
+        conn.commit()
+        conn.close()
+
+    def _validate_columns(self, table, columns):
+        conn = sqlite3.connect(self.db_path)
+        cur = conn.cursor()
+
+        cur.execute(f"PRAGMA table_info({table});")
+        table_info = cur.fetchall()
+        table_columns = {row[1] for row in table_info}
+
+        conn.close()
+
+        if not set(columns).issubset(table_columns):
+            return False
+
+        return True
+
+    def register(self, token):
+        conn = sqlite3.connect(self.db_path)
+
+        try:
+            cur = conn.cursor()
+
+            tables = ["users", "stats", "inventory"]
+            for table in tables:
+                cur.execute(f"INSERT INTO {table} (token) VALUES (?);", (token,))
+
+            conn.commit()
+            return 0
+
+        except sqlite3.IntegrityError:
+            return 1
+
+        finally:
+            conn.close()
+
+    def login(self, token):
+        conn = sqlite3.connect(self.db_path)
+
+        try:
+            cur = conn.cursor()
+
+            cur.execute("SELECT token FROM users WHERE token = ?;", (token,))
+            row = cur.fetchone()
+
+            if row:
+                cur.execute(
+                    "UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE token = ?;",
+                    (token,)
+                )
+
+                conn.commit()
+                return 0
+
+            return 1
+
+        finally:
+            conn.close()
+
+    def update_data(self, token, table, **kwargs):
+        if not self._validate_columns(table, kwargs.keys()):
+            return 1
+
+        conn = sqlite3.connect(self.db_path)
+        cur = conn.cursor()
+
+        fields = ", ".join([f"{col} = ?" for col in kwargs.keys()])
+        values = list(kwargs.values())
+        values.append(token)
+
+        sql = f"UPDATE {table} SET {fields} WHERE token = ?;"
+        cur.execute(sql, tuple(values))
+
+        conn.commit()
+        conn.close()
+        
+        return 0
+
+    def get_data(self, token, table, *args):
+        if not self._validate_columns(table, args):
+            return None
+
+        conn = sqlite3.connect(self.db_path)
+        cur = conn.cursor()
+
+        fields = ", ".join(args)
+        sql = f"SELECT {fields} FROM {table} WHERE token = ?;"
+        cur.execute(sql, (token,))
+        result = cur.fetchone()
+
+        conn.close()
+        
+        return result if result else None
+
+
+if __name__ == "__main__":
+    account = AccountManager()
+
+    test_token = "example-token-123"
+
+    if account.register(test_token) == 0:
+        print("Account registered.")
+    else:
+        print("Account already exists.")
+
+    if account.login(test_token) == 0:
+        print("Login successful.")
+    else:
+        print("Login failed.")
+
+    result_stats = account.update_data(
+        test_token,
+        "stats",
+        games_played=5,
+        wins=3,
+        losses=2
+    )
+
+    if result_stats == 0:
+        print("Updated stats result")
+
+    result_inventory = account.update_data(
+        test_token,
+        "inventory",
+        currency_balance=500
+    )
+
+    if result_inventory == 0:
+        print("Updated inventory result")
+
+    sections = [
+        (
+            ["Token", "Created at", "Last login"],
+            account.get_data(
+                test_token, "users", "token", "created_at", "last_login"
+            ),
+        ),
+        (
+            ["Games played", "Wins", "Losses"],
+            account.get_data(
+                test_token, "stats", "games_played", "wins", "losses"
+            ),
+        ),
+        (
+            ["Currency balance"],
+            account.get_data(
+                test_token, "inventory", "currency_balance"
+            ),
+        ),
+    ]
+
+    output = "\n".join(
+        "\n".join(
+            f"{label}: {val}"
+            for label, val in zip(labels, data)
+        )
+        for labels, data in sections
+    )
+
+    print(output)
