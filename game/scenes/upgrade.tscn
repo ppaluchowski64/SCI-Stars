@@ -21,6 +21,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+size_flags_vertical = 4
 script = ExtResource("1_7aklf")
 
 [node name="NameLabel" type="Label" parent="."]

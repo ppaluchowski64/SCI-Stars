@@ -18,17 +18,45 @@ var corner_origin_pos: Array
 
 @onready var lobby: Node2D
 
-@export var type: TYPE
 @export var stat_id: int
 @export var description: String
 var stat_name: String
 
 var stat: PlayerData.Stat
 
+var texture: Texture
+
 @onready var scale_tween: Tween
 var scale_factor: float = 1.0
 
-enum TYPE {DAMAGE, HEALTH}
+func enter_panel() -> void:
+	corner_sprites.visible = true
+	rect.visible = true
+	
+	button.visible = false
+	name_label.visible = false
+	level_label.visible = false
+	
+	scale_tween = create_tween()
+	scale_tween.set_trans(Tween.TRANS_CUBIC)
+	scale_tween.tween_property(self, "scale_factor", 4.0, 0.5)
+	
+	scale_tween.tween_property(description_label, "visible", true, 0.0) # Slick but probably a bad way to do this
+	scale_tween.tween_property(accept_button, "visible", true, 0.0)
+
+func exit_panel() -> void:
+	description_label.visible = false
+	accept_button.visible = false
+	
+	scale_tween = create_tween()
+	scale_tween.set_trans(Tween.TRANS_CUBIC)
+	scale_tween.tween_property(self, "scale_factor", 1.0, 0.5)
+	
+	scale_tween.tween_property(button, "visible", true, 0.0)
+	scale_tween.tween_property(name_label, "visible", true, 0.0)
+	scale_tween.tween_property(level_label, "visible", true, 0.0)
+	scale_tween.tween_property(corner_sprites, "visible", false, 0.0)
+	scale_tween.tween_property(rect, "visible", false, 0.0)
 
 func update_values() -> void:
 	var cost: float = stat.base_cost * (1.15 ** (stat.level - 1))
@@ -39,17 +67,9 @@ func update_values() -> void:
 	description_label.text = "%s %s\n%s\n%s -> %s" % [stat_name, stat.level, description, int(stat.value), int(stat.value + stat.delta_value)]
 
 func _ready() -> void:
-	stat = PlayerData.character_stats[0][stat_id]
-	
-	match type:
-		TYPE.DAMAGE:
-			sprite.texture = preload("res://graphics/UI/icons/damage.png")
-			stat_name = "DAMAGE"
-		TYPE.HEALTH:
-			sprite.texture = preload("res://graphics/UI/icons/heart.png")
-			stat_name = "HEALTH"
-			
+	stat = PlayerData.character_stats[PlayerData.selected_character][stat_id]
 	name_label.text = stat_name
+	sprite.texture = texture
 	
 	update_values()
 	
@@ -74,22 +94,12 @@ func _process(_delta: float) -> void:
 	
 	custom_minimum_size.x = 176 / 2.0 * (1 + scale_factor)
 	panel.position.x = (custom_minimum_size.x - 176) / 2.0
+	
+	if not Rect2(80, -52, 280, 280).has_point(get_local_mouse_position()) and Input.is_action_just_pressed("ui_click") and scale_factor == 4.0:
+		exit_panel()
 
 func _on_texture_button_button_down() -> void:
-	corner_sprites.visible = true
-	rect.visible = true
-	
-	button.visible = false
-	name_label.visible = false
-	level_label.visible = false
-	
-	scale_tween = create_tween()
-	scale_tween.set_trans(Tween.TRANS_CUBIC)
-	scale_tween.tween_property(self, "scale_factor", 4.0, 0.5)
-	scale_tween.tween_property(description_label, "visible", true, 0.0) # Slick but probably a bad way to do this
-	scale_tween.tween_property(accept_button, "visible", true, 0.0)
-	
-	update_values()
+	enter_panel()
 
 func _on_button_accept_button_down() -> void:
 	var cost: float = int(stat.base_cost * (1.15 ** (stat.level - 1)))

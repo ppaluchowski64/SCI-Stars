@@ -160,10 +160,11 @@ func animate(delta: float) -> void:
 		walk_particles.emitting = false
 
 func _ready() -> void:
-	if id == 0:
-		max_health = PlayerData.character_stats[0][1].value
-		health = max_health
-		healthbar_label.text = str(int(health))
+	health = max_health
+	healthbar_label.text = str(int(health))
+	
+	sprite.animation = "7"
+	sprite.frame = 1
 
 func _process(delta: float) -> void:
 	if id == 0:

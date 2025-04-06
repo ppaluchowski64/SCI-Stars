@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://bk3jqor1r48rj"]
 
 [ext_resource type="Script" uid="uid://6mc3jt4aqv5r" path="res://scripts/player.gd" id="1_270mw"]
-[ext_resource type="SpriteFrames" uid="uid://bajg7a1eoq3sd" path="res://data/player.tres" id="2_m0dh8"]
+[ext_resource type="SpriteFrames" uid="uid://bkq4gysbuwr1y" path="res://data/jackflower.tres" id="2_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://stk5wbf0mce7" path="res://graphics/UI/status_bars/healthbar.png" id="3_5fihy"]
 [ext_resource type="Shader" uid="uid://dvotcn36qw0jj" path="res://shaders/outline.gdshader" id="4_5i7bj"]
 [ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="4_q82ve"]
@@ -50,8 +50,8 @@ scale_amount_curve = SubResource("Curve_wka2s")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(4, 4)
-sprite_frames = ExtResource("2_m0dh8")
-animation = &"7"
+sprite_frames = ExtResource("2_tuyoq")
+animation = &"5"
 offset = Vector2(0.5, -2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

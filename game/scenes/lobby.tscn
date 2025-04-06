@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://r73t4uwivu0e"]
+[gd_scene load_steps=17 format=3 uid="uid://r73t4uwivu0e"]
 
 [ext_resource type="Script" uid="uid://dedbthjrkqd2o" path="res://scripts/lobby.gd" id="1_nn68e"]
 [ext_resource type="Texture2D" uid="uid://f1v34lrprxwu" path="res://graphics/backgrounds/lobby/backlayer.png" id="2_4hsao"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cmc1rb0x2pxx7" path="res://graphics/UI/buttons/small.png" id="7_ebt3n"]
 [ext_resource type="Texture2D" uid="uid://cstfhxa161fhk" path="res://graphics/UI/icons/expand.png" id="8_472nk"]
 [ext_resource type="PackedScene" uid="uid://osklob3vwxx3" path="res://scenes/upgrade.tscn" id="10_say53"]
+[ext_resource type="Texture2D" uid="uid://byalpowexrkof" path="res://graphics/characters/jackflower/player.png" id="11_m1sns"]
 [ext_resource type="Texture2D" uid="uid://cm26og86ytcnc" path="res://graphics/UI/icons/money.png" id="11_uejoe"]
 
 [sub_resource type="Theme" id="Theme_6pyji"]
@@ -129,11 +130,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="SpriteLabel" type="Control" parent="UserInterface/CharacterContainer"]
+[node name="SpriteParent" type="Control" parent="UserInterface/CharacterContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Sprite2D" type="Sprite2D" parent="UserInterface/CharacterContainer/SpriteLabel"]
+[node name="Sprite2D" type="Sprite2D" parent="UserInterface/CharacterContainer/SpriteParent"]
 scale = Vector2(8, 8)
 texture = ExtResource("7_65pnu")
 region_enabled = true
@@ -144,7 +145,7 @@ layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ButtonExpand" type="TextureButton" parent="UserInterface/CharacterContainer/ButtonContainer"]
+[node name="ButtonCharacterSelect" type="TextureButton" parent="UserInterface/CharacterContainer/ButtonContainer"]
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -152,7 +153,7 @@ size_flags_vertical = 4
 texture_normal = ExtResource("7_ebt3n")
 stretch_mode = 4
 
-[node name="SpriteParent" type="Control" parent="UserInterface/CharacterContainer/ButtonContainer/ButtonExpand"]
+[node name="SpriteParent" type="Control" parent="UserInterface/CharacterContainer/ButtonContainer/ButtonCharacterSelect"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -162,7 +163,7 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="UserInterface/CharacterContainer/ButtonContainer/ButtonExpand/SpriteParent"]
+[node name="Sprite2D" type="Sprite2D" parent="UserInterface/CharacterContainer/ButtonContainer/ButtonCharacterSelect/SpriteParent"]
 scale = Vector2(4, 4)
 texture = ExtResource("8_472nk")
 
@@ -256,14 +257,11 @@ alignment = 1
 [node name="Upgrade1" parent="UpgradeInterface/Buttons" instance=ExtResource("10_say53")]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
 description = "increase damage per projectile"
 
 [node name="Upgrade2" parent="UpgradeInterface/Buttons" instance=ExtResource("10_say53")]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
-type = 1
 stat_id = 1
 description = "increase max health"
 
@@ -301,6 +299,230 @@ grow_vertical = 2
 scale = Vector2(4, 4)
 texture = ExtResource("8_472nk")
 
+[node name="CharacterSelectInterface" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="CharacterSelectInterface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="PanelLayer1" type="MarginContainer" parent="CharacterSelectInterface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="ColorRect" type="ColorRect" parent="CharacterSelectInterface/PanelLayer1"]
+layout_mode = 2
+
+[node name="PanelLayer2" type="MarginContainer" parent="CharacterSelectInterface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 104
+theme_override_constants/margin_top = 104
+theme_override_constants/margin_right = 104
+theme_override_constants/margin_bottom = 104
+
+[node name="ColorRect" type="ColorRect" parent="CharacterSelectInterface/PanelLayer2"]
+layout_mode = 2
+color = Color(0.117647, 0.243137, 0.384314, 1)
+
+[node name="PanelLayer3" type="MarginContainer" parent="CharacterSelectInterface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 112
+theme_override_constants/margin_top = 112
+theme_override_constants/margin_right = 112
+theme_override_constants/margin_bottom = 112
+
+[node name="ColorRect" type="ColorRect" parent="CharacterSelectInterface/PanelLayer3"]
+layout_mode = 2
+color = Color(0.0431373, 0.0980392, 0.172549, 1)
+
+[node name="Characters" type="HBoxContainer" parent="CharacterSelectInterface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="CharacterContainer1" type="VBoxContainer" parent="CharacterSelectInterface/Characters"]
+layout_mode = 2
+theme_override_constants/separation = 96
+alignment = 1
+
+[node name="CharacterLabel" type="Control" parent="CharacterSelectInterface/Characters/CharacterContainer1"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="LabelParent" type="Node2D" parent="CharacterSelectInterface/Characters/CharacterContainer1/CharacterLabel"]
+scale = Vector2(4, 4)
+
+[node name="Label" type="Label" parent="CharacterSelectInterface/Characters/CharacterContainer1/CharacterLabel/LabelParent"]
+material = SubResource("ShaderMaterial_sr4bl")
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -3.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_i38xw")
+text = "Pablo Majster"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="SpriteParent" type="Control" parent="CharacterSelectInterface/Characters/CharacterContainer1"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterSelectInterface/Characters/CharacterContainer1/SpriteParent"]
+scale = Vector2(8, 8)
+texture = ExtResource("7_65pnu")
+region_enabled = true
+region_rect = Rect2(65, 53, 13, 17)
+
+[node name="ButtonSelect" type="TextureButton" parent="CharacterSelectInterface/Characters/CharacterContainer1"]
+custom_minimum_size = Vector2(200, 88)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture_normal = ExtResource("3_xb4sn")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="CharacterSelectInterface/Characters/CharacterContainer1/ButtonSelect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_6pyji")
+text = "SELECT"
+
+[node name="CharacterContainer2" type="VBoxContainer" parent="CharacterSelectInterface/Characters"]
+layout_mode = 2
+theme_override_constants/separation = 96
+alignment = 1
+
+[node name="CharacterLabel" type="Control" parent="CharacterSelectInterface/Characters/CharacterContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="LabelParent" type="Node2D" parent="CharacterSelectInterface/Characters/CharacterContainer2/CharacterLabel"]
+scale = Vector2(4, 4)
+
+[node name="Label" type="Label" parent="CharacterSelectInterface/Characters/CharacterContainer2/CharacterLabel/LabelParent"]
+material = SubResource("ShaderMaterial_sr4bl")
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -3.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_i38xw")
+text = "Jack Flower"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="SpriteParent" type="Control" parent="CharacterSelectInterface/Characters/CharacterContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterSelectInterface/Characters/CharacterContainer2/SpriteParent"]
+scale = Vector2(8, 8)
+texture = ExtResource("11_m1sns")
+region_enabled = true
+region_rect = Rect2(65, 53, 13, 17)
+
+[node name="ButtonSelect" type="TextureButton" parent="CharacterSelectInterface/Characters/CharacterContainer2"]
+custom_minimum_size = Vector2(200, 88)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture_normal = ExtResource("3_xb4sn")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="CharacterSelectInterface/Characters/CharacterContainer2/ButtonSelect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_6pyji")
+text = "SELECT"
+
+[node name="MarginContainer" type="MarginContainer" parent="CharacterSelectInterface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 60
+
+[node name="ButtonExitCharacterSelect" type="TextureButton" parent="CharacterSelectInterface/MarginContainer"]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("7_ebt3n")
+stretch_mode = 4
+
+[node name="SpriteParent" type="Control" parent="CharacterSelectInterface/MarginContainer/ButtonExitCharacterSelect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterSelectInterface/MarginContainer/ButtonExitCharacterSelect/SpriteParent"]
+scale = Vector2(4, 4)
+texture = ExtResource("8_472nk")
+
 [node name="ReasourcesInterface" type="CanvasLayer" parent="."]
 
 [node name="CoinsContainer" type="PanelContainer" parent="ReasourcesInterface"]
@@ -334,5 +556,9 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [connection signal="button_down" from="UserInterface/MarginContainer/ButtonPlay" to="." method="_on_button_play_button_down"]
+[connection signal="button_down" from="UserInterface/CharacterContainer/ButtonContainer/ButtonCharacterSelect" to="." method="_on_button_character_select_button_down"]
 [connection signal="button_down" from="UserInterface/CharacterContainer/ButtonContainer/ButtonUpgrade" to="." method="_on_button_upgrade_button_down"]
 [connection signal="button_down" from="UpgradeInterface/MarginContainer/ButtonExitUpgrade" to="." method="_on_button_exit_upgrade_button_down"]
+[connection signal="button_down" from="CharacterSelectInterface/Characters/CharacterContainer1/ButtonSelect" to="." method="_on_button_select_button_down_pablo"]
+[connection signal="button_down" from="CharacterSelectInterface/Characters/CharacterContainer2/ButtonSelect" to="." method="_on_button_select_button_down_jack"]
+[connection signal="button_down" from="CharacterSelectInterface/MarginContainer/ButtonExitCharacterSelect" to="." method="_on_button_exit_character_select_button_down"]

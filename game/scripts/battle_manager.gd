@@ -10,10 +10,10 @@ var Player = preload("res://scenes/player.tscn")
 
 var next_free_player_id = 0
 
-func spawn_player(x: float, y: float) -> Node:
+func spawn_player(x: float, y: float, character_id: Characters.ID) -> Node:
 	print("Spawning a player...")
 	
-	var player = Player.instantiate()
+	var player = Characters.custom_character(character_id)
 	
 	player.global_position = Vector2(x, y)
 	player.id = get_exclusive_player_id()
@@ -38,10 +38,11 @@ func get_exclusive_player_id() -> int:
 
 func start_game() -> void:
 	#Engine.max_fps = 60
-	var main_player = spawn_player(0, 0)
 	
-	spawn_player(630, 520)
-	spawn_player(867, 332)
+	var main_player = spawn_player(0, 0, PlayerData.selected_character)
+	
+	spawn_player(630, 520, Characters.ID.JACK)
+	spawn_player(867, 332, Characters.ID.PABLO)
 	
 	# If you are reading this Pablo, use this if you can't get main_player anyhow else
 	# camera.setup_target()

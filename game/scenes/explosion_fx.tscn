@@ -28,6 +28,7 @@ atlas = ExtResource("1_kfmb1")
 region = Rect2(55, 0, 11, 11)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_e4jxa"]
+resource_local_to_scene = true
 animations = [{
 "frames": [{
 "duration": 1.0,
