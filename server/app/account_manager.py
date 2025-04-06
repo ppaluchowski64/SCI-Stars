@@ -1,4 +1,5 @@
 import sqlite3
+from hashlib import sha512
 
 
 class AccountManager:
@@ -54,15 +55,22 @@ class AccountManager:
 
         return True
 
-    def register(self, token):
-        conn = sqlite3.connect(self.db_path)
+    def _hash_token(self, token):
+        encoded = token.encode("utf-8")
+        hash_obj = sha512(encoded)
+        hashed_token = hash_obj.hexdigest()
+        return hashed_token
 
+    def register(self, token):
+        token_hash = self._hash_token(token)
+
+        conn = sqlite3.connect(self.db_path)
         try:
             cur = conn.cursor()
 
             tables = ["users", "stats", "inventory"]
             for table in tables:
-                cur.execute(f"INSERT INTO {table} (token) VALUES (?);", (token,))
+                cur.execute(f"INSERT INTO {table} (token) VALUES (?);", (token_hash,))
 
             conn.commit()
             return 0
@@ -74,18 +82,19 @@ class AccountManager:
             conn.close()
 
     def login(self, token):
-        conn = sqlite3.connect(self.db_path)
+        token_hash = self._hash_token(token)
 
+        conn = sqlite3.connect(self.db_path)
         try:
             cur = conn.cursor()
 
-            cur.execute("SELECT token FROM users WHERE token = ?;", (token,))
+            cur.execute("SELECT token FROM users WHERE token = ?;", (token_hash,))
             row = cur.fetchone()
 
             if row:
                 cur.execute(
                     "UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE token = ?;",
-                    (token,)
+                    (token_hash,)
                 )
 
                 conn.commit()
@@ -97,6 +106,8 @@ class AccountManager:
             conn.close()
 
     def update_data(self, token, table, **kwargs):
+        token_hash = self._hash_token(token)
+
         if not self._validate_columns(table, kwargs.keys()):
             return 1
 
@@ -105,7 +116,7 @@ class AccountManager:
 
         fields = ", ".join([f"{col} = ?" for col in kwargs.keys()])
         values = list(kwargs.values())
-        values.append(token)
+        values.append(token_hash)
 
         sql = f"UPDATE {table} SET {fields} WHERE token = ?;"
         cur.execute(sql, tuple(values))
@@ -116,6 +127,8 @@ class AccountManager:
         return 0
 
     def get_data(self, token, table, *args):
+        token_hash = self._hash_token(token)
+
         if not self._validate_columns(table, args):
             return None
 
@@ -124,7 +137,7 @@ class AccountManager:
 
         fields = ", ".join(args)
         sql = f"SELECT {fields} FROM {table} WHERE token = ?;"
-        cur.execute(sql, (token,))
+        cur.execute(sql, (token_hash,))
         result = cur.fetchone()
 
         conn.close()
