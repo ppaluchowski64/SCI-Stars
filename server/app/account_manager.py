@@ -7,60 +7,60 @@ class AccountManager:
         self.db_path = db_path
         self._init_db()
 
-    def _init_db(self):
+    def _connect(self):
         conn = sqlite3.connect(self.db_path)
         conn.execute("PRAGMA foreign_keys = ON;")
-        cur = conn.cursor()
+        return conn
 
-        cur.execute("""
-            CREATE TABLE IF NOT EXISTS users (
-                token TEXT NOT NULL PRIMARY KEY,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                last_login TIMESTAMP
-            );
-        """)
+    def _init_db(self):
+        with self._connect() as conn:
+            cur = conn.cursor()
 
-        cur.execute("""
-            CREATE TABLE IF NOT EXISTS stats (
-                token TEXT NOT NULL PRIMARY KEY,
-                games_played INTEGER DEFAULT 0,
-                wins INTEGER DEFAULT 0,
-                losses INTEGER DEFAULT 0,
-                FOREIGN KEY (token) REFERENCES users (token) ON DELETE CASCADE
-            );
-        """)
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS users (
+                    token TEXT NOT NULL PRIMARY KEY,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    last_login TIMESTAMP
+                );
+            """)
 
-        cur.execute("""
-            CREATE TABLE IF NOT EXISTS inventory (
-                token TEXT NOT NULL PRIMARY KEY,
-                currency_balance INTEGER DEFAULT 0,
-                FOREIGN KEY (token) REFERENCES users (token) ON DELETE CASCADE
-            );
-        """)
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS stats (
+                    token TEXT NOT NULL PRIMARY KEY,
+                    games_played INTEGER DEFAULT 0,
+                    wins INTEGER DEFAULT 0,
+                    losses INTEGER DEFAULT 0,
+                    FOREIGN KEY (token) REFERENCES users (token) ON DELETE CASCADE
+                );
+            """)
 
-        conn.commit()
-        conn.close()
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS inventory (
+                    token TEXT NOT NULL PRIMARY KEY,
+                    currency_balance INTEGER DEFAULT 0,
+                    FOREIGN KEY (token) REFERENCES users (token) ON DELETE CASCADE
+                );
+            """)
+
+            conn.commit()
 
     def _validate_columns(self, table, columns):
-        conn = sqlite3.connect(self.db_path)
-        conn.execute("PRAGMA foreign_keys = ON;")
-        
-        try:
-            cur = conn.cursor()
-            cur.execute(f"PRAGMA table_info({table});")
-            table_info = cur.fetchall()
+        with self._connect() as conn:
+            try:
+                cur = conn.cursor()
 
-            if not table_info:
+                cur.execute(f"PRAGMA table_info({table});")
+                table_info = cur.fetchall()
+
+                if not table_info:
+                    return False
+
+                table_columns = {row[1] for row in table_info}
+
+                return set(columns).issubset(table_columns)
+
+            except sqlite3.Error:
                 return False
-
-            table_columns = {row[1] for row in table_info}
-            return set(columns).issubset(table_columns)
-
-        except sqlite3.Error:
-            return False
-
-        finally:
-            conn.close()
 
     @staticmethod
     def _hash_token(token):
@@ -72,50 +72,39 @@ class AccountManager:
     def register(self, token):
         token_hash = self._hash_token(token)
 
-        conn = sqlite3.connect(self.db_path)
-        conn.execute("PRAGMA foreign_keys = ON;")
+        with self._connect() as conn:
+            try:
+                cur = conn.cursor()
 
-        try:
-            cur = conn.cursor()
+                tables = ["users", "stats", "inventory"]
+                for table in tables:
+                    cur.execute(f"INSERT INTO {table} (token) VALUES (?);", (token_hash,))
 
-            tables = ["users", "stats", "inventory"]
-            for table in tables:
-                cur.execute(f"INSERT INTO {table} (token) VALUES (?);", (token_hash,))
+                conn.commit()
 
-            conn.commit()
-            return 0
+                return 0
 
-        except sqlite3.IntegrityError:
-            return 1
-
-        finally:
-            conn.close()
+            except sqlite3.IntegrityError:
+                return 1
 
     def login(self, token):
         token_hash = self._hash_token(token)
 
-        conn = sqlite3.connect(self.db_path)
-        conn.execute("PRAGMA foreign_keys = ON;")
-
-        try:
+        with self._connect() as conn:
             cur = conn.cursor()
 
             cur.execute("SELECT token FROM users WHERE token = ?;", (token_hash,))
-            row = cur.fetchone()
-
-            if row:
+            if cur.fetchone():
                 cur.execute(
                     "UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE token = ?;",
                     (token_hash,)
                 )
 
                 conn.commit()
+
                 return 0
 
             return 1
-
-        finally:
-            conn.close()
 
     def update_data(self, token, table, **kwargs):
         token_hash = self._hash_token(token)
@@ -123,26 +112,23 @@ class AccountManager:
         if not self._validate_columns(table, kwargs.keys()):
             return 1
 
-        conn = sqlite3.connect(self.db_path)
-        conn.execute("PRAGMA foreign_keys = ON;")
-        cur = conn.cursor()
+        with self._connect() as conn:
+            cur = conn.cursor()
 
-        cur.execute(f"SELECT 1 FROM {table} WHERE token = ?;", (token_hash,))
-        if not cur.fetchone():
-            conn.close()
-            return 1
+            cur.execute(f"SELECT 1 FROM {table} WHERE token = ?;", (token_hash,))
+            if not cur.fetchone():
+                return 1
 
-        fields = ", ".join([f"{col} = ?" for col in kwargs.keys()])
-        values = list(kwargs.values())
-        values.append(token_hash)
+            fields = ", ".join([f"{col} = ?" for col in kwargs.keys()])
+            values = list(kwargs.values())
+            values.append(token_hash)
 
-        sql = f"UPDATE {table} SET {fields} WHERE token = ?;"
-        cur.execute(sql, tuple(values))
+            sql = f"UPDATE {table} SET {fields} WHERE token = ?;"
+            cur.execute(sql, tuple(values))
 
-        conn.commit()
-        conn.close()
+            conn.commit()
 
-        return 0
+            return 0
 
     def get_data(self, token, table, *args):
         token_hash = self._hash_token(token)
@@ -150,42 +136,35 @@ class AccountManager:
         if not self._validate_columns(table, args):
             return ()
 
-        conn = sqlite3.connect(self.db_path)
-        conn.execute("PRAGMA foreign_keys = ON;")
-        cur = conn.cursor()
+        with self._connect() as conn:
+            cur = conn.cursor()
 
-        fields = ", ".join(args)
-        sql = f"SELECT {fields} FROM {table} WHERE token = ?;"
-        cur.execute(sql, (token_hash,))
-        result = cur.fetchone()
+            fields = ", ".join(args)
+            sql = f"SELECT {fields} FROM {table} WHERE token = ?;"
+            cur.execute(sql, (token_hash,))
+            result = cur.fetchone()
 
-        conn.close()
-
-        return result if result else ()
+            return result if result else ()
 
     def delete(self, token):
         token_hash = self._hash_token(token)
 
-        conn = sqlite3.connect(self.db_path)
-        conn.execute("PRAGMA foreign_keys = ON;")
+        with self._connect() as conn:
+            try:
+                cur = conn.cursor()
 
-        try:
-            cur = conn.cursor()
+                cur.execute("SELECT 1 FROM users WHERE token = ?;", (token_hash,))
+                if not cur.fetchone():
+                    return 1
 
-            cur.execute("SELECT 1 FROM users WHERE token = ?;", (token_hash,))
-            if not cur.fetchone():
+                cur.execute("DELETE FROM users WHERE token = ?;", (token_hash,))
+
+                conn.commit()
+
+                return 0
+
+            except sqlite3.Error:
                 return 1
-
-            cur.execute("DELETE FROM users WHERE token = ?;", (token_hash,))
-
-            conn.commit()
-            return 0
-
-        except sqlite3.Error:
-            return 1
-
-        finally:
-            conn.close()
 
 
 if __name__ == "__main__":
