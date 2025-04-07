@@ -9,6 +9,7 @@ class AccountManager:
 
     def _init_db(self):
         conn = sqlite3.connect(self.db_path)
+        conn.execute("PRAGMA foreign_keys = ON;")
         cur = conn.cursor()
 
         cur.execute("""
@@ -42,20 +43,27 @@ class AccountManager:
 
     def _validate_columns(self, table, columns):
         conn = sqlite3.connect(self.db_path)
-        cur = conn.cursor()
+        conn.execute("PRAGMA foreign_keys = ON;")
+        
+        try:
+            cur = conn.cursor()
+            cur.execute(f"PRAGMA table_info({table});")
+            table_info = cur.fetchall()
 
-        cur.execute(f"PRAGMA table_info({table});")
-        table_info = cur.fetchall()
-        table_columns = {row[1] for row in table_info}
+            if not table_info:
+                return False
 
-        conn.close()
+            table_columns = {row[1] for row in table_info}
+            return set(columns).issubset(table_columns)
 
-        if not set(columns).issubset(table_columns):
+        except sqlite3.Error:
             return False
 
-        return True
+        finally:
+            conn.close()
 
-    def _hash_token(self, token):
+    @staticmethod
+    def _hash_token(token):
         encoded = token.encode("utf-8")
         hash_obj = sha512(encoded)
         hashed_token = hash_obj.hexdigest()
@@ -65,6 +73,8 @@ class AccountManager:
         token_hash = self._hash_token(token)
 
         conn = sqlite3.connect(self.db_path)
+        conn.execute("PRAGMA foreign_keys = ON;")
+
         try:
             cur = conn.cursor()
 
@@ -85,6 +95,8 @@ class AccountManager:
         token_hash = self._hash_token(token)
 
         conn = sqlite3.connect(self.db_path)
+        conn.execute("PRAGMA foreign_keys = ON;")
+
         try:
             cur = conn.cursor()
 
@@ -112,7 +124,13 @@ class AccountManager:
             return 1
 
         conn = sqlite3.connect(self.db_path)
+        conn.execute("PRAGMA foreign_keys = ON;")
         cur = conn.cursor()
+
+        cur.execute(f"SELECT 1 FROM {table} WHERE token = ?;", (token_hash,))
+        if not cur.fetchone():
+            conn.close()
+            return 1
 
         fields = ", ".join([f"{col} = ?" for col in kwargs.keys()])
         values = list(kwargs.values())
@@ -123,16 +141,17 @@ class AccountManager:
 
         conn.commit()
         conn.close()
-        
+
         return 0
 
     def get_data(self, token, table, *args):
         token_hash = self._hash_token(token)
 
         if not self._validate_columns(table, args):
-            return None
+            return ()
 
         conn = sqlite3.connect(self.db_path)
+        conn.execute("PRAGMA foreign_keys = ON;")
         cur = conn.cursor()
 
         fields = ", ".join(args)
@@ -141,8 +160,32 @@ class AccountManager:
         result = cur.fetchone()
 
         conn.close()
-        
-        return result if result else None
+
+        return result if result else ()
+
+    def delete(self, token):
+        token_hash = self._hash_token(token)
+
+        conn = sqlite3.connect(self.db_path)
+        conn.execute("PRAGMA foreign_keys = ON;")
+
+        try:
+            cur = conn.cursor()
+
+            cur.execute("SELECT 1 FROM users WHERE token = ?;", (token_hash,))
+            if not cur.fetchone():
+                return 1
+
+            cur.execute("DELETE FROM users WHERE token = ?;", (token_hash,))
+
+            conn.commit()
+            return 0
+
+        except sqlite3.Error:
+            return 1
+
+        finally:
+            conn.close()
 
 
 if __name__ == "__main__":
@@ -182,7 +225,7 @@ if __name__ == "__main__":
 
     sections = [
         (
-            ["Token", "Created at", "Last login"],
+            ["Hashed token", "Created at", "Last login"],
             account.get_data(
                 test_token, "users", "token", "created_at", "last_login"
             ),
@@ -210,3 +253,8 @@ if __name__ == "__main__":
     )
 
     print(output)
+
+    if account.delete(test_token) == 0:
+        print(f"Account with token {test_token} has been deleted")
+    else:
+        print(f"Account with token {test_token} doesn't exist")
