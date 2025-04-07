@@ -39,7 +39,8 @@ var reload_speed: float = 0.75
 var super_charge: float = 0.0
 
 # Other
-var game_ended: bool = false
+var block_controls: bool = true
+var is_main_player: bool = false
 
 func rad_to_double_dir(angle: float) -> Array:
 	if angle < 0:
@@ -92,7 +93,7 @@ func spawn_projectile(projectile_id: Projectiles.ID = Projectiles.ID.DEFAULT) ->
 	get_tree().get_root().call_deferred("add_child", projectile)
 
 func move() -> void:
-	if not game_ended:
+	if not block_controls:
 		dir_vec = Input.get_vector("left", "right", "up", "down")
 	else:
 		dir_vec = Vector2.ZERO
@@ -108,7 +109,7 @@ func move() -> void:
 # This has to use delta FIX IT
 func shoot(delta: float) -> void:
 	if shoot_cooldown.time_left == 0:
-		if Input.is_action_just_pressed("attack") and ammo >= 1 and not game_ended:
+		if Input.is_action_just_pressed("attack") and ammo >= 1 and not block_controls:
 			shoot_cooldown.start()
 			shoot_animation.start()
 			
@@ -125,7 +126,7 @@ func shoot(delta: float) -> void:
 		
 		# It's >= instead of == just in case you broke the game and got it above 1
 		# It's pretty much impossible but who knows 
-		elif Input.is_action_just_pressed("super_attack") and super_charge >= 1 and not game_ended:
+		elif Input.is_action_just_pressed("super_attack") and super_charge >= 1 and not block_controls:
 			shoot_cooldown.start()
 			shoot_animation.start()
 			
@@ -167,7 +168,7 @@ func _ready() -> void:
 	sprite.frame = 1
 
 func _process(delta: float) -> void:
-	if id == 0:
+	if is_main_player:
 		move()
 		shoot(delta)
 	

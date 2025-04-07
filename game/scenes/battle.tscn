@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://db56006rlw6nc"]
+[gd_scene load_steps=29 format=4 uid="uid://db56006rlw6nc"]
 
 [ext_resource type="Script" uid="uid://cv6524wyxtia0" path="res://scripts/battle_manager.gd" id="1_f75g0"]
 [ext_resource type="Texture2D" uid="uid://cbrr264nsjo3k" path="res://graphics/environment/wall.png" id="2_uqhyb"]
@@ -32,6 +32,21 @@ tile_size = Vector2i(12, 12)
 physics_layer_0/collision_layer = 3
 physics_layer_0/collision_mask = 3
 sources/0 = SubResource("TileSetAtlasSource_urc0o")
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_v7i3o"]
+normal = Vector2(0, 1)
+distance = -1024.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_66ngm"]
+normal = Vector2(-1, 0)
+distance = -1024.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_03edq"]
+distance = -1024.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_22uqi"]
+normal = Vector2(1, 0)
+distance = -1024.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bs0a1"]
 shader = ExtResource("6_c3103")
@@ -107,11 +122,225 @@ _data = {
 &"enter": SubResource("Animation_yy2ah")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v7i3o"]
+shader = ExtResource("6_c3103")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/is_visible = true
+
+[sub_resource type="Animation" id="Animation_v7i3o"]
+resource_name = "countdown"
+length = 6.5
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Labels/CountLabel/Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": ["5", "4", "3", "2", "1"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Labels/CountLabel:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.95, 1, 1.95, 2, 2.95, 3, 3.95, 4, 5),
+"transitions": PackedFloat32Array(1, 1, 2, 1, 2, 1, 2, 1, 2, 1),
+"update": 0,
+"values": [Vector2(10, 10), Vector2(8, 8), Vector2(10, 10), Vector2(8, 8), Vector2(10, 10), Vector2(8, 8), Vector2(10, 10), Vector2(8, 8), Vector2(10, 10), Vector2(8, 8)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Labels/CountLabel/Label:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Labels/TextLabel:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 5, 5.3333, 5.6667, 6, 6.5),
+"transitions": PackedFloat32Array(1, 2, -2, -2, -2, -2),
+"update": 0,
+"values": [Vector2(8, 8), Vector2(8, 8), Vector2(12, 12), Vector2(10, 10), Vector2(12, 12), Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Labels/TextLabel/Label:text")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["GET READY", "GO!"]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Labels/TextLabel:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 4.9999, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, 40)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../Camera2D:is_following")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.03, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/7/type = "method"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../Camera2D")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.03),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start_animation"
+}]
+}
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("..")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"block_player_controls"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_66ngm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Labels/CountLabel/Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["1"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Labels/CountLabel:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8, 8)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Labels/CountLabel/Label:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Labels/TextLabel:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8, 8)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Labels/TextLabel/Label:text")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["GET READY"]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Labels/TextLabel:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../Camera2D:is_following")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_03edq"]
+_data = {
+&"RESET": SubResource("Animation_66ngm"),
+&"countdown": SubResource("Animation_v7i3o")
+}
+
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_f75g0")
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("players")]
-position = Vector2(576, 324)
 script = ExtResource("3_m8bpv")
 players = NodePath("../Players")
 
@@ -124,12 +353,28 @@ tile_set = SubResource("TileSet_bj48v")
 
 [node name="Walls" type="TileMapLayer" parent="Environment" groups=["obstacle"]]
 scale = Vector2(4, 4)
-tile_map_data = PackedByteArray("AAARAO7/AAAAAAAAAAAQAO7/AAAAAAAAAAARAO//AAAAAAAAAAAKAO7/AAAAAAAAAAAEAO7/AAAAAAAAAAADAO7/AAAAAAAAAAACAO7/AAAAAAAAAAARAPX/AAAAAAAAAAARAPv/AAAAAAAAAAARAPz/AAAAAAAAAAARAP3/AAAAAAAAAAAKAPT/AAAAAAAAAAAKAPX/AAAAAAAAAAALAPX/AAAAAAAAAAAFAPf/AAAAAAAAAAAGAPj/AAAAAAAAAAAHAPn/AAAAAAAAAAAIAPr/AAAAAAAAAAD9/+7/AAAAAAAAAAD8/+7/AAAAAAAAAAD7/+7/AAAAAAAAAAD1/+7/AAAAAAAAAADv/+7/AAAAAAAAAADu/+7/AAAAAAAAAADu/+//AAAAAAAAAADu//X/AAAAAAAAAADu//v/AAAAAAAAAADu//z/AAAAAAAAAADu//3/AAAAAAAAAAD0//X/AAAAAAAAAAD1//X/AAAAAAAAAAD1//T/AAAAAAAAAAD6//f/AAAAAAAAAAD5//j/AAAAAAAAAAD4//n/AAAAAAAAAAD3//r/AAAAAAAAAADu/wIAAAAAAAAAAADu/wMAAAAAAAAAAADu/wQAAAAAAAAAAADu/woAAAAAAAAAAADu/xAAAAAAAAAAAADu/xEAAAAAAAAAAADv/xEAAAAAAAAAAAD1/xEAAAAAAAAAAAD7/xEAAAAAAAAAAAD8/xEAAAAAAAAAAAD9/xEAAAAAAAAAAAACABEAAAAAAAAAAAADABEAAAAAAAAAAAAEABEAAAAAAAAAAAAKABEAAAAAAAAAAAAQABEAAAAAAAAAAAARABEAAAAAAAAAAAARABAAAAAAAAAAAAARAAoAAAAAAAAAAAARAAQAAAAAAAAAAAARAAMAAAAAAAAAAAARAAIAAAAAAAAAAAD3/wUAAAAAAAAAAAD4/wYAAAAAAAAAAAD5/wcAAAAAAAAAAAD6/wgAAAAAAAAAAAAFAAgAAAAAAAAAAAAGAAcAAAAAAAAAAAAHAAYAAAAAAAAAAAAIAAUAAAAAAAAAAAAAAPz/AAAAAAAAAAAAAAMAAAAAAAAAAAD///z/AAAAAAAAAAD//wMAAAAAAAAAAAD8////AAAAAAAAAAD8/wAAAAAAAAAAAAADAP//AAAAAAAAAAADAAAAAAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAARAO7/AAAAAAAAAAAQAO7/AAAAAAAAAAARAO//AAAAAAAAAAAKAO7/AAAAAAAAAAAEAO7/AAAAAAAAAAADAO7/AAAAAAAAAAACAO7/AAAAAAAAAAARAPX/AAAAAAAAAAARAPv/AAAAAAAAAAARAPz/AAAAAAAAAAARAP3/AAAAAAAAAAAKAPT/AAAAAAAAAAAKAPX/AAAAAAAAAAALAPX/AAAAAAAAAAAFAPf/AAAAAAAAAAAGAPj/AAAAAAAAAAAHAPn/AAAAAAAAAAAIAPr/AAAAAAAAAAD9/+7/AAAAAAAAAAD8/+7/AAAAAAAAAAD7/+7/AAAAAAAAAAD1/+7/AAAAAAAAAADv/+7/AAAAAAAAAADu/+7/AAAAAAAAAADu/+//AAAAAAAAAADu//X/AAAAAAAAAADu//v/AAAAAAAAAADu//z/AAAAAAAAAADu//3/AAAAAAAAAAD0//X/AAAAAAAAAAD1//X/AAAAAAAAAAD1//T/AAAAAAAAAAD6//f/AAAAAAAAAAD5//j/AAAAAAAAAAD4//n/AAAAAAAAAAD3//r/AAAAAAAAAADu/wIAAAAAAAAAAADu/wMAAAAAAAAAAADu/wQAAAAAAAAAAADu/woAAAAAAAAAAADu/xAAAAAAAAAAAADu/xEAAAAAAAAAAADv/xEAAAAAAAAAAAD1/xEAAAAAAAAAAAD7/xEAAAAAAAAAAAD8/xEAAAAAAAAAAAD9/xEAAAAAAAAAAAACABEAAAAAAAAAAAADABEAAAAAAAAAAAAEABEAAAAAAAAAAAAKABEAAAAAAAAAAAAQABEAAAAAAAAAAAARABEAAAAAAAAAAAARABAAAAAAAAAAAAARAAoAAAAAAAAAAAARAAQAAAAAAAAAAAARAAMAAAAAAAAAAAARAAIAAAAAAAAAAAD3/wUAAAAAAAAAAAD4/wYAAAAAAAAAAAD5/wcAAAAAAAAAAAD6/wgAAAAAAAAAAAAFAAgAAAAAAAAAAAAGAAcAAAAAAAAAAAAHAAYAAAAAAAAAAAAIAAUAAAAAAAAAAAAAAPz/AAAAAAAAAAAAAAMAAAAAAAAAAAD///z/AAAAAAAAAAD//wMAAAAAAAAAAAD8////AAAAAAAAAAD8/wAAAAAAAAAAAAADAP//AAAAAAAAAAADAAAAAAAAAAAAAAAKAAoAAAAAAAAAAAALAAoAAAAAAAAAAAAKAAsAAAAAAAAAAAD1/woAAAAAAAAAAAD0/woAAAAAAAAAAAD1/wsAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_82aoe")
 
 [node name="Players" type="Node2D" parent="."]
 
 [node name="FX" type="Node2D" parent="."]
+
+[node name="WorldBorder" type="StaticBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="Top" type="CollisionShape2D" parent="WorldBorder"]
+shape = SubResource("WorldBoundaryShape2D_v7i3o")
+
+[node name="Right" type="CollisionShape2D" parent="WorldBorder"]
+shape = SubResource("WorldBoundaryShape2D_66ngm")
+
+[node name="Bottom" type="CollisionShape2D" parent="WorldBorder"]
+shape = SubResource("WorldBoundaryShape2D_03edq")
+
+[node name="Left" type="CollisionShape2D" parent="WorldBorder"]
+shape = SubResource("WorldBoundaryShape2D_22uqi")
 
 [node name="UserInterface" type="CanvasLayer" parent="." node_paths=PackedStringArray("players")]
 script = ExtResource("4_4e2gx")
@@ -255,5 +500,74 @@ metadata/_edit_use_anchors_ = true
 libraries = {
 &"": SubResource("AnimationLibrary_fprax")
 }
+
+[node name="StartScreen" type="CanvasLayer" parent="."]
+offset = Vector2(24, -16)
+transform = Transform2D(1, 0, 0, 1, 24, -16)
+
+[node name="Labels" type="Control" parent="StartScreen"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextLabel" type="Node2D" parent="StartScreen/Labels"]
+scale = Vector2(8, 8)
+
+[node name="Label" type="Label" parent="StartScreen/Labels/TextLabel"]
+material = SubResource("ShaderMaterial_v7i3o")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -18.0
+offset_top = -3.0
+offset_right = 18.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_yve2r")
+text = "GET READY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CountLabel" type="Node2D" parent="StartScreen/Labels"]
+position = Vector2(0, 80)
+scale = Vector2(8, 8)
+
+[node name="Label" type="Label" parent="StartScreen/Labels/CountLabel"]
+material = SubResource("ShaderMaterial_v7i3o")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -18.0
+offset_top = -3.0
+offset_right = 18.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_yve2r")
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StartScreen"]
+libraries = {
+&"": SubResource("AnimationLibrary_03edq")
+}
+autoplay = "countdown"
 
 [connection signal="button_down" from="EndScreen/ButtonParent/OffsetNode/ButtonProceed" to="." method="_on_button_proceed_button_down"]
