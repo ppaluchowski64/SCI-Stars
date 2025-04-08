@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bk3jqor1r48rj"]
+[gd_scene load_steps=13 format=3 uid="uid://bk3jqor1r48rj"]
 
 [ext_resource type="Script" uid="uid://6mc3jt4aqv5r" path="res://scripts/player.gd" id="1_270mw"]
 [ext_resource type="SpriteFrames" uid="uid://bkq4gysbuwr1y" path="res://data/jackflower.tres" id="2_tuyoq"]
@@ -6,6 +6,7 @@
 [ext_resource type="Shader" uid="uid://dvotcn36qw0jj" path="res://shaders/outline.gdshader" id="4_5i7bj"]
 [ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="4_q82ve"]
 [ext_resource type="Texture2D" uid="uid://b2vdaem8n0gto" path="res://graphics/UI/status_bars/ammobar.png" id="5_ptbdj"]
+[ext_resource type="Texture2D" uid="uid://td18x41778tk" path="res://graphics/misc/character_shadow.png" id="7_fjrip"]
 
 [sub_resource type="Curve" id="Curve_edcub"]
 _limits = [0.0, 360.0, 0.0, 1.0]
@@ -115,5 +116,12 @@ metadata/_edit_use_anchors_ = true
 [node name="Sprite2D" type="Sprite2D" parent="Ammobar"]
 scale = Vector2(4, 4)
 texture = ExtResource("5_ptbdj")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.3)
+z_index = -1
+position = Vector2(0, 32)
+scale = Vector2(4, 4)
+texture = ExtResource("7_fjrip")
 
 [connection signal="timeout" from="RegenCooldown" to="." method="_on_regen_cooldown_timeout"]

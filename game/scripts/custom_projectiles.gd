@@ -15,6 +15,7 @@ static func explosion_death(parent: Node):
 		projectile.global_position = parent.global_position
 		projectile.global_rotation = parent.global_rotation + i * TAU / 4 + TAU / 8
 		projectile.parent = parent.parent
+		projectile.spawn_immunity = 7.5
 		
 		Engine.get_main_loop().root.call_deferred("add_child", projectile)
 

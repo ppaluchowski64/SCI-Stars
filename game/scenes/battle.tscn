@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://db56006rlw6nc"]
+[gd_scene load_steps=38 format=4 uid="uid://db56006rlw6nc"]
 
 [ext_resource type="Script" uid="uid://cv6524wyxtia0" path="res://scripts/battle_manager.gd" id="1_f75g0"]
 [ext_resource type="Texture2D" uid="uid://cbrr264nsjo3k" path="res://graphics/environment/wall.png" id="2_uqhyb"]
@@ -6,10 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://dce4elq1ctffp" path="res://graphics/environment/tile.png" id="4_1ls1x"]
 [ext_resource type="Script" uid="uid://bum1xbhdfejbe" path="res://scripts/user_interface.gd" id="4_4e2gx"]
 [ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="4_erh11"]
+[ext_resource type="Texture2D" uid="uid://ckdueduv60b06" path="res://graphics/misc/wall_shadow.png" id="5_03edq"]
 [ext_resource type="Shader" uid="uid://dvotcn36qw0jj" path="res://shaders/outline.gdshader" id="6_c3103"]
 [ext_resource type="Texture2D" uid="uid://cgnax06gjmct1" path="res://graphics/UI/status_bars/superbar_mask.png" id="7_ilcqo"]
 [ext_resource type="Texture2D" uid="uid://prenyjcoslt7" path="res://graphics/UI/status_bars/superbar.png" id="7_ujvli"]
 [ext_resource type="Texture2D" uid="uid://c73jppjwm04hn" path="res://graphics/UI/buttons/normal.png" id="10_5ilfr"]
+[ext_resource type="Texture2D" uid="uid://7n748d12rng5" path="res://graphics/UI/status_bars/superbar_icon.png" id="10_66ngm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qfrj4"]
 texture = ExtResource("4_1ls1x")
@@ -27,11 +29,20 @@ use_texture_padding = false
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6.5, -10, 6, -10, 6, 10, -6.5, 10)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_22uqi"]
+texture = ExtResource("5_03edq")
+texture_region_size = Vector2i(12, 4)
+use_texture_padding = false
+0:0/0 = 0
+0:0/0/modulate = Color(1, 1, 1, 0.3)
+0:0/0/z_index = -1
+
 [sub_resource type="TileSet" id="TileSet_82aoe"]
 tile_size = Vector2i(12, 12)
 physics_layer_0/collision_layer = 3
 physics_layer_0/collision_mask = 3
 sources/0 = SubResource("TileSetAtlasSource_urc0o")
+sources/1 = SubResource("TileSetAtlasSource_22uqi")
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_v7i3o"]
 normal = Vector2(0, 1)
@@ -56,6 +67,103 @@ shader_parameter/is_visible = true
 [sub_resource type="Theme" id="Theme_yve2r"]
 default_font = ExtResource("4_erh11")
 default_font_size = 5
+
+[sub_resource type="Curve" id="Curve_v7i3o"]
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_66ngm"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Animation" id="Animation_03edq"]
+resource_name = "super_gain"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/SuperBar/Icon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(0.2, 2, -2),
+"update": 0,
+"values": [Vector2(56, -28), Vector2(56, -32), Vector2(56, -28)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/SuperBar/Icon:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8, 8)]
+}
+
+[sub_resource type="Animation" id="Animation_22uqi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/SuperBar/Icon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(56, -28)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/SuperBar/Icon:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8, 8)]
+}
+
+[sub_resource type="Animation" id="Animation_6ni85"]
+resource_name = "super_charged"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/SuperBar/Icon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(56, -28), Vector2(56, -36), Vector2(56, -28)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/SuperBar/Icon:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3332, 0.333333, 0.433333, 1),
+"transitions": PackedFloat32Array(2, 1, 1, 2, 1, 1),
+"update": 0,
+"values": [Vector2(10, 10), Vector2(8, 8), Vector2(8, 8), Vector2(10, 10), Vector2(8, 8), Vector2(8, 8)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6ni85"]
+_data = {
+&"RESET": SubResource("Animation_22uqi"),
+&"super_charged": SubResource("Animation_6ni85"),
+&"super_gain": SubResource("Animation_03edq")
+}
 
 [sub_resource type="Theme" id="Theme_eiykf"]
 default_font = ExtResource("4_erh11")
@@ -213,6 +321,18 @@ tracks/6/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../UserInterface:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_v7i3o"]
 resource_name = "countdown"
@@ -330,6 +450,18 @@ tracks/8/keys = {
 "method": &"block_player_controls"
 }]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../UserInterface:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_03edq"]
 _data = {
@@ -347,13 +479,14 @@ players = NodePath("../Players")
 [node name="Environment" type="Node2D" parent="."]
 
 [node name="Ground" type="TileMapLayer" parent="Environment"]
+z_index = -2
 scale = Vector2(4, 4)
 tile_map_data = PackedByteArray("AAD/////AAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAD//wAAAAAAAAAAAAD+//7/AAAAAAAAAAD+////AAAAAAAAAAD+/wAAAAAAAAAAAAD+/wEAAAAAAAAAAAD///7/AAAAAAAAAAD//wEAAAAAAAAAAAAAAP7/AAAAAAAAAAAAAAEAAAAAAAAAAAABAP7/AAAAAAAAAAABAP//AAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAAAAAAAAAAD9//3/AAAAAAAAAAD9//7/AAAAAAAAAAD9////AAAAAAAAAAD9/wAAAAAAAAAAAAD9/wEAAAAAAAAAAAD9/wIAAAAAAAAAAAD+//3/AAAAAAAAAAD+/wIAAAAAAAAAAAD///3/AAAAAAAAAAD//wIAAAAAAAAAAAAAAP3/AAAAAAAAAAAAAAIAAAAAAAAAAAABAP3/AAAAAAAAAAABAAIAAAAAAAAAAAACAP3/AAAAAAAAAAACAP7/AAAAAAAAAAACAP//AAAAAAAAAAACAAAAAAAAAAAAAAACAAEAAAAAAAAAAAACAAIAAAAAAAAAAAD8//z/AAAAAAAAAAD8//3/AAAAAAAAAAD8//7/AAAAAAAAAAD8////AAAAAAAAAAD8/wAAAAAAAAAAAAD8/wEAAAAAAAAAAAD8/wIAAAAAAAAAAAD8/wMAAAAAAAAAAAD9//z/AAAAAAAAAAD9/wMAAAAAAAAAAAD+//z/AAAAAAAAAAD+/wMAAAAAAAAAAAD///z/AAAAAAAAAAD//wMAAAAAAAAAAAAAAPz/AAAAAAAAAAAAAAMAAAAAAAAAAAABAPz/AAAAAAAAAAABAAMAAAAAAAAAAAACAPz/AAAAAAAAAAACAAMAAAAAAAAAAAADAPz/AAAAAAAAAAADAP3/AAAAAAAAAAADAP7/AAAAAAAAAAADAP//AAAAAAAAAAADAAAAAAAAAAAAAAADAAEAAAAAAAAAAAADAAIAAAAAAAAAAAADAAMAAAAAAAAAAAD7//v/AAAAAAAAAAD7//z/AAAAAAAAAAD7//3/AAAAAAAAAAD7//7/AAAAAAAAAAD7////AAAAAAAAAAD7/wAAAAAAAAAAAAD7/wEAAAAAAAAAAAD7/wIAAAAAAAAAAAD7/wMAAAAAAAAAAAD7/wQAAAAAAAAAAAD8//v/AAAAAAAAAAD8/wQAAAAAAAAAAAD9//v/AAAAAAAAAAD9/wQAAAAAAAAAAAD+//v/AAAAAAAAAAD+/wQAAAAAAAAAAAD///v/AAAAAAAAAAD//wQAAAAAAAAAAAAAAPv/AAAAAAAAAAAAAAQAAAAAAAAAAAABAPv/AAAAAAAAAAABAAQAAAAAAAAAAAACAPv/AAAAAAAAAAACAAQAAAAAAAAAAAADAPv/AAAAAAAAAAADAAQAAAAAAAAAAAAEAPv/AAAAAAAAAAAEAPz/AAAAAAAAAAAEAP3/AAAAAAAAAAAEAP7/AAAAAAAAAAAEAP//AAAAAAAAAAAEAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAQAAAAAAAAAAAD6//r/AAAAAAAAAAD6//v/AAAAAAAAAAD6//z/AAAAAAAAAAD6//3/AAAAAAAAAAD6//7/AAAAAAAAAAD6////AAAAAAAAAAD6/wAAAAAAAAAAAAD6/wEAAAAAAAAAAAD6/wIAAAAAAAAAAAD6/wMAAAAAAAAAAAD6/wQAAAAAAAAAAAD6/wUAAAAAAAAAAAD7//r/AAAAAAAAAAD7/wUAAAAAAAAAAAD8//r/AAAAAAAAAAD8/wUAAAAAAAAAAAD9//r/AAAAAAAAAAD9/wUAAAAAAAAAAAD+//r/AAAAAAAAAAD+/wUAAAAAAAAAAAD///r/AAAAAAAAAAD//wUAAAAAAAAAAAAAAPr/AAAAAAAAAAAAAAUAAAAAAAAAAAABAPr/AAAAAAAAAAABAAUAAAAAAAAAAAACAPr/AAAAAAAAAAACAAUAAAAAAAAAAAADAPr/AAAAAAAAAAADAAUAAAAAAAAAAAAEAPr/AAAAAAAAAAAEAAUAAAAAAAAAAAAFAPr/AAAAAAAAAAAFAPv/AAAAAAAAAAAFAPz/AAAAAAAAAAAFAP3/AAAAAAAAAAAFAP7/AAAAAAAAAAAFAP//AAAAAAAAAAAFAAAAAAAAAAAAAAAFAAEAAAAAAAAAAAAFAAIAAAAAAAAAAAAFAAMAAAAAAAAAAAAFAAQAAAAAAAAAAAAFAAUAAAAAAAAAAAD5//n/AAAAAAAAAAD5//r/AAAAAAAAAAD5//v/AAAAAAAAAAD5//z/AAAAAAAAAAD5//3/AAAAAAAAAAD5//7/AAAAAAAAAAD5////AAAAAAAAAAD5/wAAAAAAAAAAAAD5/wEAAAAAAAAAAAD5/wIAAAAAAAAAAAD5/wMAAAAAAAAAAAD5/wQAAAAAAAAAAAD5/wUAAAAAAAAAAAD5/wYAAAAAAAAAAAD6//n/AAAAAAAAAAD6/wYAAAAAAAAAAAD7//n/AAAAAAAAAAD7/wYAAAAAAAAAAAD8//n/AAAAAAAAAAD8/wYAAAAAAAAAAAD9//n/AAAAAAAAAAD9/wYAAAAAAAAAAAD+//n/AAAAAAAAAAD+/wYAAAAAAAAAAAD///n/AAAAAAAAAAD//wYAAAAAAAAAAAAAAPn/AAAAAAAAAAAAAAYAAAAAAAAAAAABAPn/AAAAAAAAAAABAAYAAAAAAAAAAAACAPn/AAAAAAAAAAACAAYAAAAAAAAAAAADAPn/AAAAAAAAAAADAAYAAAAAAAAAAAAEAPn/AAAAAAAAAAAEAAYAAAAAAAAAAAAFAPn/AAAAAAAAAAAFAAYAAAAAAAAAAAAGAPn/AAAAAAAAAAAGAPr/AAAAAAAAAAAGAPv/AAAAAAAAAAAGAPz/AAAAAAAAAAAGAP3/AAAAAAAAAAAGAP7/AAAAAAAAAAAGAP//AAAAAAAAAAAGAAAAAAAAAAAAAAAGAAEAAAAAAAAAAAAGAAIAAAAAAAAAAAAGAAMAAAAAAAAAAAAGAAQAAAAAAAAAAAAGAAUAAAAAAAAAAAAGAAYAAAAAAAAAAAD4//j/AAAAAAAAAAD4//n/AAAAAAAAAAD4//r/AAAAAAAAAAD4//v/AAAAAAAAAAD4//z/AAAAAAAAAAD4//3/AAAAAAAAAAD4//7/AAAAAAAAAAD4////AAAAAAAAAAD4/wAAAAAAAAAAAAD4/wEAAAAAAAAAAAD4/wIAAAAAAAAAAAD4/wMAAAAAAAAAAAD4/wQAAAAAAAAAAAD4/wUAAAAAAAAAAAD4/wYAAAAAAAAAAAD4/wcAAAAAAAAAAAD5//j/AAAAAAAAAAD5/wcAAAAAAAAAAAD6//j/AAAAAAAAAAD6/wcAAAAAAAAAAAD7//j/AAAAAAAAAAD7/wcAAAAAAAAAAAD8//j/AAAAAAAAAAD8/wcAAAAAAAAAAAD9//j/AAAAAAAAAAD9/wcAAAAAAAAAAAD+//j/AAAAAAAAAAD+/wcAAAAAAAAAAAD///j/AAAAAAAAAAD//wcAAAAAAAAAAAAAAPj/AAAAAAAAAAAAAAcAAAAAAAAAAAABAPj/AAAAAAAAAAABAAcAAAAAAAAAAAACAPj/AAAAAAAAAAACAAcAAAAAAAAAAAADAPj/AAAAAAAAAAADAAcAAAAAAAAAAAAEAPj/AAAAAAAAAAAEAAcAAAAAAAAAAAAFAPj/AAAAAAAAAAAFAAcAAAAAAAAAAAAGAPj/AAAAAAAAAAAGAAcAAAAAAAAAAAAHAPj/AAAAAAAAAAAHAPn/AAAAAAAAAAAHAPr/AAAAAAAAAAAHAPv/AAAAAAAAAAAHAPz/AAAAAAAAAAAHAP3/AAAAAAAAAAAHAP7/AAAAAAAAAAAHAP//AAAAAAAAAAAHAAAAAAAAAAAAAAAHAAEAAAAAAAAAAAAHAAIAAAAAAAAAAAAHAAMAAAAAAAAAAAAHAAQAAAAAAAAAAAAHAAUAAAAAAAAAAAAHAAYAAAAAAAAAAAAHAAcAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_bj48v")
 
 [node name="Walls" type="TileMapLayer" parent="Environment" groups=["obstacle"]]
 scale = Vector2(4, 4)
-tile_map_data = PackedByteArray("AAARAO7/AAAAAAAAAAAQAO7/AAAAAAAAAAARAO//AAAAAAAAAAAKAO7/AAAAAAAAAAAEAO7/AAAAAAAAAAADAO7/AAAAAAAAAAACAO7/AAAAAAAAAAARAPX/AAAAAAAAAAARAPv/AAAAAAAAAAARAPz/AAAAAAAAAAARAP3/AAAAAAAAAAAKAPT/AAAAAAAAAAAKAPX/AAAAAAAAAAALAPX/AAAAAAAAAAAFAPf/AAAAAAAAAAAGAPj/AAAAAAAAAAAHAPn/AAAAAAAAAAAIAPr/AAAAAAAAAAD9/+7/AAAAAAAAAAD8/+7/AAAAAAAAAAD7/+7/AAAAAAAAAAD1/+7/AAAAAAAAAADv/+7/AAAAAAAAAADu/+7/AAAAAAAAAADu/+//AAAAAAAAAADu//X/AAAAAAAAAADu//v/AAAAAAAAAADu//z/AAAAAAAAAADu//3/AAAAAAAAAAD0//X/AAAAAAAAAAD1//X/AAAAAAAAAAD1//T/AAAAAAAAAAD6//f/AAAAAAAAAAD5//j/AAAAAAAAAAD4//n/AAAAAAAAAAD3//r/AAAAAAAAAADu/wIAAAAAAAAAAADu/wMAAAAAAAAAAADu/wQAAAAAAAAAAADu/woAAAAAAAAAAADu/xAAAAAAAAAAAADu/xEAAAAAAAAAAADv/xEAAAAAAAAAAAD1/xEAAAAAAAAAAAD7/xEAAAAAAAAAAAD8/xEAAAAAAAAAAAD9/xEAAAAAAAAAAAACABEAAAAAAAAAAAADABEAAAAAAAAAAAAEABEAAAAAAAAAAAAKABEAAAAAAAAAAAAQABEAAAAAAAAAAAARABEAAAAAAAAAAAARABAAAAAAAAAAAAARAAoAAAAAAAAAAAARAAQAAAAAAAAAAAARAAMAAAAAAAAAAAARAAIAAAAAAAAAAAD3/wUAAAAAAAAAAAD4/wYAAAAAAAAAAAD5/wcAAAAAAAAAAAD6/wgAAAAAAAAAAAAFAAgAAAAAAAAAAAAGAAcAAAAAAAAAAAAHAAYAAAAAAAAAAAAIAAUAAAAAAAAAAAAAAPz/AAAAAAAAAAAAAAMAAAAAAAAAAAD///z/AAAAAAAAAAD//wMAAAAAAAAAAAD8////AAAAAAAAAAD8/wAAAAAAAAAAAAADAP//AAAAAAAAAAADAAAAAAAAAAAAAAAKAAoAAAAAAAAAAAALAAoAAAAAAAAAAAAKAAsAAAAAAAAAAAD1/woAAAAAAAAAAAD0/woAAAAAAAAAAAD1/wsAAAAAAAAAAAA=")
+tile_map_data = PackedByteArray("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")
 tile_set = SubResource("TileSet_82aoe")
 
 [node name="Players" type="Node2D" parent="."]
@@ -390,7 +523,7 @@ offset_top = 12.0
 offset_right = 72.0
 offset_bottom = 18.0
 theme = SubResource("Theme_yve2r")
-text = "Players left: 3"
+text = "Players left: 8"
 metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="UserInterface"]
@@ -412,6 +545,7 @@ clip_children = 1
 texture = ExtResource("7_ilcqo")
 
 [node name="ColorRect" type="ColorRect" parent="UserInterface/MarginContainer/SuperBar/Mask"]
+clip_children = 2
 offset_left = -112.0
 offset_top = -32.0
 offset_right = -112.0
@@ -419,9 +553,47 @@ offset_bottom = 32.0
 color = Color(0.8859, 0.9, 0.477, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="UserInterface/MarginContainer/SuperBar"]
+[node name="Frame" type="Sprite2D" parent="UserInterface/MarginContainer/SuperBar"]
 scale = Vector2(8, 8)
 texture = ExtResource("7_ujvli")
+
+[node name="Icon" type="Sprite2D" parent="UserInterface/MarginContainer/SuperBar"]
+position = Vector2(56, -28)
+scale = Vector2(8, 8)
+texture = ExtResource("10_66ngm")
+region_rect = Rect2(0, 0, 10, 11)
+
+[node name="ParticleMask" type="ColorRect" parent="UserInterface/MarginContainer/SuperBar"]
+clip_children = 1
+layout_mode = 0
+offset_left = -152.0
+offset_top = -72.0
+offset_right = 152.0
+offset_bottom = 72.0
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="UserInterface/MarginContainer/SuperBar/ParticleMask"]
+position = Vector2(0, 72)
+emitting = false
+amount = 64
+lifetime = 3.0
+emission_shape = 3
+emission_rect_extents = Vector2(308, 64)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 65.0
+initial_velocity_max = 65.0
+damping_min = 10.0
+damping_max = 10.0
+scale_amount_min = 8.0
+scale_amount_max = 12.0
+scale_amount_curve = SubResource("Curve_v7i3o")
+color = Color(0.886275, 0.901961, 0.478431, 1)
+color_ramp = SubResource("Gradient_66ngm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UserInterface"]
+libraries = {
+&"": SubResource("AnimationLibrary_6ni85")
+}
 
 [node name="EndScreen" type="CanvasLayer" parent="."]
 visible = false
