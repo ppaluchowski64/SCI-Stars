@@ -1,0 +1,157 @@
+[gd_scene load_steps=13 format=3 uid="uid://cduynep6nsjgj"]
+
+[ext_resource type="Texture2D" uid="uid://b3n3hyu011a3q" path="res://graphics/environment/powerpod-base.png" id="1_8ffhp"]
+[ext_resource type="Script" uid="uid://bqgdqadlglwdp" path="res://scripts/power_pod.gd" id="1_cj14a"]
+[ext_resource type="Texture2D" uid="uid://do53bn02e5g42" path="res://graphics/environment/powerpod-hologram.png" id="2_xwi6h"]
+[ext_resource type="Texture2D" uid="uid://stk5wbf0mce7" path="res://graphics/UI/status_bars/healthbar.png" id="3_84xkc"]
+[ext_resource type="Shader" uid="uid://dvotcn36qw0jj" path="res://shaders/outline.gdshader" id="4_cj14a"]
+[ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="5_6ts4v"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8ffhp"]
+radius = 24.0
+height = 104.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_asyr2"]
+shader = ExtResource("4_cj14a")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/is_visible = true
+
+[sub_resource type="Theme" id="Theme_bv3iq"]
+default_font = ExtResource("5_6ts4v")
+default_font_size = 5
+
+[sub_resource type="Animation" id="Animation_cgn11"]
+resource_name = "hologram"
+length = 2.0
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hologram:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(0, -38), Vector2(0, -42), Vector2(0, -38)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Base:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.4, 0.533333, 0.8, 0.933333, 1.2, 1.33333, 1.6, 1.73333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hologram:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.4, 0.533333, 0.8, 0.933333, 1.2, 1.33333, 1.6, 1.73333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_84xkc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hologram:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -9.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Base:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cj14a"]
+_data = {
+&"RESET": SubResource("Animation_84xkc"),
+&"hologram": SubResource("Animation_cgn11")
+}
+
+[node name="PowerPod" type="CharacterBody2D" groups=["powerpod"]]
+collision_layer = 3
+collision_mask = 2
+script = ExtResource("1_cj14a")
+
+[node name="Base" type="Sprite2D" parent="."]
+scale = Vector2(4, 4)
+texture = ExtResource("1_8ffhp")
+hframes = 2
+region_rect = Rect2(0, 0, 13, 15)
+
+[node name="Hologram" type="Sprite2D" parent="."]
+self_modulate = Color(0.928086, 0.928086, 0.928086, 1)
+position = Vector2(0, -9.5)
+scale = Vector2(4, 4)
+texture = ExtResource("2_xwi6h")
+hframes = 2
+region_rect = Rect2(0, 0, 13, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -22)
+shape = SubResource("CapsuleShape2D_8ffhp")
+
+[node name="Healthbar" type="Node2D" parent="."]
+z_index = 1
+position = Vector2(0, -88)
+
+[node name="ColorRect" type="ColorRect" parent="Healthbar"]
+offset_left = -28.0
+offset_top = -4.0
+offset_right = 28.0
+offset_bottom = 4.0
+color = Color(0.5634, 0.9, 0.504, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Healthbar"]
+scale = Vector2(4, 4)
+texture = ExtResource("3_84xkc")
+
+[node name="LabelParent" type="Node2D" parent="Healthbar"]
+position = Vector2(-2, 0)
+scale = Vector2(4, 4)
+
+[node name="Label" type="Label" parent="Healthbar/LabelParent"]
+material = SubResource("ShaderMaterial_asyr2")
+offset_left = -25.0
+offset_top = -26.0
+offset_right = 27.0
+offset_bottom = -3.0
+theme = SubResource("Theme_bv3iq")
+text = "3000"
+horizontal_alignment = 1
+vertical_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_cj14a")
+}
+autoplay = "hologram"
