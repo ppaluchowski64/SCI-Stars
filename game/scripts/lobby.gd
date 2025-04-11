@@ -67,3 +67,6 @@ func _on_button_select_button_down_jack() -> void:
 	character_select_interface.visible = false
 	update_selected_character()
 	update_upgrades()
+
+func _on_button_loot_box_button_down() -> void:
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/loot_box.tscn")

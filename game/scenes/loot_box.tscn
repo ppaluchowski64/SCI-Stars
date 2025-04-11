@@ -1,0 +1,272 @@
+[gd_scene load_steps=14 format=3 uid="uid://deeaqf4jm5l0m"]
+
+[ext_resource type="Script" uid="uid://u5bt83vps2nq" path="res://scripts/loot_box.gd" id="1_e1ge6"]
+[ext_resource type="Texture2D" uid="uid://cb875gah6qpn" path="res://graphics/backgrounds/lootbox/background.png" id="1_i2dow"]
+[ext_resource type="Texture2D" uid="uid://dq3rfvk8pejil" path="res://graphics/misc/lootbox.png" id="1_naqu1"]
+[ext_resource type="Texture2D" uid="uid://obn3lprv716v" path="res://graphics/misc/box_shadow.png" id="3_xkvc1"]
+[ext_resource type="Texture2D" uid="uid://cm26og86ytcnc" path="res://graphics/UI/icons/money.png" id="5_ie58p"]
+[ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="6_rbqgs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i2dow"]
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.2788, 0.30124, 0.34, 1)
+
+[sub_resource type="Animation" id="Animation_e1ge6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ContentLayer/SpriteParent/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ContentLayer/SpriteParent/Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:block_click")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ContentLayer/SpriteParent/Sprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_5d3k3"]
+resource_name = "open"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ContentLayer/SpriteParent/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ContentLayer/SpriteParent/Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_xkvc1"]
+resource_name = "shake"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ContentLayer/SpriteParent/Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2),
+"update": 0,
+"values": [0.0, 0.174533, -0.174533, 0.174533, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_i2dow"]
+resource_name = "start"
+length = 1.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ContentLayer/SpriteParent/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Vector2(0, -500), Vector2(0, 88)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ContentLayer/AnimationPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"shake"],
+"method": &"play"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:block_click")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xkvc1"]
+_data = {
+&"RESET": SubResource("Animation_e1ge6"),
+&"open": SubResource("Animation_5d3k3"),
+&"shake": SubResource("Animation_xkvc1"),
+&"start": SubResource("Animation_i2dow")
+}
+
+[sub_resource type="Theme" id="Theme_rm6d6"]
+default_font = ExtResource("6_rbqgs")
+default_font_size = 20
+
+[node name="LootBox" type="Node2D"]
+script = ExtResource("1_e1ge6")
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.337255, 0.364706, 0.411765, 1)
+
+[node name="BackLayer" type="Parallax2D" parent="Background"]
+repeat_size = Vector2(458, 308)
+autoscroll = Vector2(-10, -10)
+repeat_times = 8
+
+[node name="Panel" type="Panel" parent="Background/BackLayer"]
+offset_right = 450.0
+offset_bottom = 300.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_i2dow")
+
+[node name="FrontLayer" type="Parallax2D" parent="Background"]
+repeat_size = Vector2(320, 1600)
+autoscroll = Vector2(0, 20)
+repeat_times = 8
+
+[node name="Sprite1" type="Sprite2D" parent="Background/FrontLayer"]
+scale = Vector2(8, 8)
+texture = ExtResource("1_i2dow")
+
+[node name="Sprite2" type="Sprite2D" parent="Background/FrontLayer"]
+position = Vector2(0, 800)
+scale = Vector2(8, 8)
+texture = ExtResource("1_i2dow")
+flip_v = true
+
+[node name="ContentLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="SpriteParent" type="Control" parent="ContentLayer"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Shadow" type="Sprite2D" parent="ContentLayer/SpriteParent"]
+self_modulate = Color(1, 1, 1, 0.301961)
+position = Vector2(0, 160)
+scale = Vector2(8, 8)
+texture = ExtResource("3_xkvc1")
+
+[node name="Sprite2D" type="Sprite2D" parent="ContentLayer/SpriteParent"]
+scale = Vector2(8, 8)
+texture = ExtResource("1_naqu1")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ContentLayer"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_xkvc1")
+}
+autoplay = "start"
+
+[node name="ReasourcesInterface" type="CanvasLayer" parent="."]
+
+[node name="CoinsContainer" type="PanelContainer" parent="ReasourcesInterface"]
+offset_left = 64.0
+offset_right = 336.0
+offset_bottom = 96.0
+
+[node name="ColorRect" type="ColorRect" parent="ReasourcesInterface/CoinsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ReasourcesInterface/CoinsContainer"]
+position = Vector2(48, 48)
+scale = Vector2(4, 4)
+texture = ExtResource("5_ie58p")
+
+[node name="MarginContainer" type="MarginContainer" parent="ReasourcesInterface/CoinsContainer"]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
+theme_override_constants/margin_left = 88
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Label" type="Label" parent="ReasourcesInterface/CoinsContainer/MarginContainer"]
+layout_mode = 2
+theme = SubResource("Theme_rm6d6")
+text = "COINS: 2000"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
