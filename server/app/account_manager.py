@@ -30,7 +30,7 @@ class AccountManager:
                     games_played INTEGER DEFAULT 0,
                     wins INTEGER DEFAULT 0,
                     losses INTEGER DEFAULT 0,
-                    FOREIGN KEY (token) REFERENCES users (token) ON DELETE CASCADE
+                    FOREIGN KEY (token) REFERENCES users(token) ON DELETE CASCADE
                 );
             """)
 
@@ -38,7 +38,7 @@ class AccountManager:
                 CREATE TABLE IF NOT EXISTS inventory (
                     token TEXT NOT NULL PRIMARY KEY,
                     currency_balance INTEGER DEFAULT 0,
-                    FOREIGN KEY (token) REFERENCES users (token) ON DELETE CASCADE
+                    FOREIGN KEY (token) REFERENCES users(token) ON DELETE CASCADE
                 );
             """)
 
