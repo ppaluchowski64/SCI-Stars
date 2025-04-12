@@ -47,12 +47,12 @@ class QuestionAdmin:
         with self._connect() as conn:
             cur = conn.cursor()
 
-            cur.execute("INSERT INTO questions (question) VALUES (?);", (question,))
+            cur.execute("INSERT INTO questions (content) VALUES (?);", (question,))
             question_id = cur.lastrowid
 
             for letter, text in answers.items():
                 cur.execute(
-                    "INSERT INTO answers (question_id, id, question) VALUES (?, ?, ?);",
+                    "INSERT INTO answers (question_id, id, content) VALUES (?, ?, ?);",
                     (question_id, letter, text)
                 )
 
@@ -123,4 +123,3 @@ if __name__ == "__main__":
             print("Invalid option. Please try again.")
 
         print()
- 
