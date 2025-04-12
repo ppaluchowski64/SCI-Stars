@@ -37,10 +37,12 @@ var health: float = max_health
 var ammo: float = 3.0
 var reload_speed: float = 0.75
 var super_charge: float = 0.0
+var kills: int = 0
 
 # Other
 var block_controls: bool = true
 var is_main_player: bool = false
+var is_dead: bool = false
 
 func rad_to_double_dir(angle: float) -> Array:
 	if angle < 0:
@@ -69,10 +71,16 @@ func update_ui() -> void:
 	healthbar_fill.size.x = lerp(healthbar_fill.size.x, health / max_health * 56, Const.STATUS_BAR_SMOOTHNESS)
 	ammobar_fill.size.x = lerp(ammobar_fill.size.x, ammo / 3 * 56, Const.STATUS_BAR_SMOOTHNESS)
 
-func take_damage(damage: int) -> void:
+func take_damage(damage: int, hitter: Node = null) -> void:
 	health -= damage
 	
 	if health <= 0:
+		is_dead = true
+		
+		if hitter:
+			get_tree().get_first_node_in_group("camera").target = hitter
+			hitter.kills += 1
+		
 		emit_signal("update_player_count")
 		queue_free()
 	
@@ -171,6 +179,14 @@ func _process(delta: float) -> void:
 	if is_main_player:
 		move()
 		shoot(delta)
+		
+		# DEBUG PURPOSES
+		if Input.is_action_just_pressed("debug_1"):
+			take_damage(9999, get_parent().get_children().pick_random())
+		elif Input.is_action_just_pressed("debug_2"):
+			for player in get_parent().get_children():
+				if player != self:
+					player.take_damage(9999)
 	
 	animate(delta)
 	update_ui()

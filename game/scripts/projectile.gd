@@ -40,7 +40,7 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 	if travelled >= spawn_immunity:
 		if body.is_in_group("player"):
 			if body.id != player_id:
-				body.take_damage(damage)
+				body.take_damage(damage, parent)
 				parent.super_charge = min(parent.super_charge + 0.15, 1.0)
 				destroy()
 		

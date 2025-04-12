@@ -473,7 +473,7 @@ _data = {
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_f75g0")
 
-[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("players")]
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("players") groups=["camera"]]
 script = ExtResource("3_m8bpv")
 players = NodePath("../Players")
 
@@ -662,7 +662,7 @@ anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 64.0
 offset_top = -180.0
-offset_right = 304.0
+offset_right = 323.0
 offset_bottom = 180.0
 grow_vertical = 2
 size_flags_horizontal = 0
@@ -681,6 +681,50 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = SubResource("Theme_yve2r")
 text = "Rank: -"
+metadata/_edit_use_anchors_ = true
+
+[node name="Kills" type="Node2D" parent="EndScreen/ColorRect"]
+position = Vector2(24, 80)
+scale = Vector2(4, 4)
+
+[node name="Label" type="Label" parent="EndScreen/ColorRect/Kills"]
+material = SubResource("ShaderMaterial_bs0a1")
+offset_right = 28.0
+offset_bottom = 6.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = SubResource("Theme_yve2r")
+text = "Kills: -"
+metadata/_edit_use_anchors_ = true
+
+[node name="Bonus" type="Node2D" parent="EndScreen/ColorRect"]
+position = Vector2(24, 136)
+scale = Vector2(4, 4)
+
+[node name="Label" type="Label" parent="EndScreen/ColorRect/Bonus"]
+material = SubResource("ShaderMaterial_bs0a1")
+offset_right = 28.0
+offset_bottom = 6.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = SubResource("Theme_yve2r")
+text = "Top placement
+bonus: -"
+metadata/_edit_use_anchors_ = true
+
+[node name="Tokens" type="Node2D" parent="EndScreen/ColorRect"]
+position = Vector2(24, 280)
+scale = Vector2(4, 4)
+
+[node name="Label" type="Label" parent="EndScreen/ColorRect/Tokens"]
+material = SubResource("ShaderMaterial_bs0a1")
+offset_right = 28.0
+offset_bottom = 6.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = SubResource("Theme_yve2r")
+text = "Total plugs:
+-"
 metadata/_edit_use_anchors_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="EndScreen"]

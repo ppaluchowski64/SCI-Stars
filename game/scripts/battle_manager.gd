@@ -5,9 +5,17 @@ var Player = preload("res://scenes/player.tscn")
 @onready var ui = $UserInterface
 @onready var players = $Players
 @onready var camera = $Camera2D
+
 @onready var end_screen = $EndScreen
 @onready var end_screen_animation = $EndScreen/AnimationPlayer
 
+@onready var end_screen_rank_label = $EndScreen/ColorRect/Rank/Label
+@onready var end_screen_kills_label = $EndScreen/ColorRect/Kills/Label
+@onready var end_screen_bonus_label = $EndScreen/ColorRect/Bonus/Label
+@onready var end_screen_tokens_label = $EndScreen/ColorRect/Tokens/Label
+
+var main_player: Node
+var player_count: int = 8
 var next_free_player_id = 0
 
 func block_player_controls(value: bool):
@@ -31,9 +39,11 @@ func spawn_player(x: float, y: float, character_id: Characters.ID, player_id: in
 	return player
 
 func _update_player_count() -> void:
-	ui.update_player_count()
+	player_count -= 1
 	
-	if players.get_child_count() <= 2:
+	ui.update_player_count(player_count)
+	
+	if player_count <= 1 or main_player.is_dead:
 		end_game()
 	
 func get_exclusive_player_id() -> int:
@@ -46,7 +56,6 @@ func start_game() -> void:
 		Vector2(680, -680), Vector2(680, 680), Vector2(-680, 680), Vector2(-680, -680)
 	]
 	
-	var main_player: Node
 	var main_player_id: int = randi_range(0, 7)
 	var i: int = 0
 	
@@ -66,9 +75,21 @@ func start_game() -> void:
 	ui.main_player = main_player
 
 func end_game() -> void:
-	for player in players.get_children():
-		player.block_controls = true
-		
+	main_player.block_controls = true
+	
+	var rank = player_count + 1 if main_player.is_dead else 1
+	var kills = main_player.kills
+	var bonus = 1.2 if rank <= 3 else 1.0
+	
+	var tokens = floori(((9 - rank) * 4 + kills * 8) * bonus)
+	
+	PlayerData.tokens += tokens
+	
+	end_screen_rank_label.text = "Rank: " + str(rank)
+	end_screen_kills_label.text = "Kills: " + str(kills)
+	end_screen_bonus_label.text = "Top placement\nbonus: " + str(roundi((bonus - 1) * 100)) + "%"
+	end_screen_tokens_label.text = "Total plugs:\n" + str(tokens)
+	
 	end_screen.visible = true
 	end_screen_animation.play("enter")
 

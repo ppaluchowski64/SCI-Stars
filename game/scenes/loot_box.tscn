@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://deeaqf4jm5l0m"]
+[gd_scene load_steps=15 format=3 uid="uid://deeaqf4jm5l0m"]
 
 [ext_resource type="Script" uid="uid://u5bt83vps2nq" path="res://scripts/loot_box.gd" id="1_e1ge6"]
 [ext_resource type="Texture2D" uid="uid://cb875gah6qpn" path="res://graphics/backgrounds/lootbox/background.png" id="1_i2dow"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://obn3lprv716v" path="res://graphics/misc/box_shadow.png" id="3_xkvc1"]
 [ext_resource type="Texture2D" uid="uid://cm26og86ytcnc" path="res://graphics/UI/icons/money.png" id="5_ie58p"]
 [ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="6_rbqgs"]
+[ext_resource type="Texture2D" uid="uid://dptmt2ajlx2jf" path="res://graphics/UI/icons/connector.png" id="7_rbqgs"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i2dow"]
 draw_center = false
@@ -241,22 +242,26 @@ autoplay = "start"
 
 [node name="ReasourcesInterface" type="CanvasLayer" parent="."]
 
-[node name="CoinsContainer" type="PanelContainer" parent="ReasourcesInterface"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ReasourcesInterface"]
 offset_left = 64.0
-offset_right = 336.0
+offset_right = 688.0
 offset_bottom = 96.0
+theme_override_constants/separation = 48
 
-[node name="ColorRect" type="ColorRect" parent="ReasourcesInterface/CoinsContainer"]
+[node name="CoinsContainer" type="PanelContainer" parent="ReasourcesInterface/HBoxContainer"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="ReasourcesInterface/HBoxContainer/CoinsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0, 0, 0, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="ReasourcesInterface/CoinsContainer"]
+[node name="Sprite2D" type="Sprite2D" parent="ReasourcesInterface/HBoxContainer/CoinsContainer"]
 position = Vector2(48, 48)
 scale = Vector2(4, 4)
 texture = ExtResource("5_ie58p")
 
-[node name="MarginContainer" type="MarginContainer" parent="ReasourcesInterface/CoinsContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ReasourcesInterface/HBoxContainer/CoinsContainer"]
 custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
 theme_override_constants/margin_left = 88
@@ -264,9 +269,37 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="Label" type="Label" parent="ReasourcesInterface/CoinsContainer/MarginContainer"]
+[node name="Label" type="Label" parent="ReasourcesInterface/HBoxContainer/CoinsContainer/MarginContainer"]
 layout_mode = 2
 theme = SubResource("Theme_rm6d6")
 text = "COINS: 2000"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="TokensContainer" type="PanelContainer" parent="ReasourcesInterface/HBoxContainer"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="ReasourcesInterface/HBoxContainer/TokensContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ReasourcesInterface/HBoxContainer/TokensContainer"]
+position = Vector2(48, 48)
+scale = Vector2(4, 4)
+texture = ExtResource("7_rbqgs")
+
+[node name="MarginContainer" type="MarginContainer" parent="ReasourcesInterface/HBoxContainer/TokensContainer"]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
+theme_override_constants/margin_left = 96
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Label" type="Label" parent="ReasourcesInterface/HBoxContainer/TokensContainer/MarginContainer"]
+layout_mode = 2
+theme = SubResource("Theme_rm6d6")
+text = "PLUGS: 100"
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true

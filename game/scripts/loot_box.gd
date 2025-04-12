@@ -4,10 +4,12 @@ extends Node2D
 
 @onready var animation: AnimationPlayer = $ContentLayer/AnimationPlayer
 @onready var content: CanvasLayer = $ContentLayer
-@onready var coins_label: Label = $ReasourcesInterface/CoinsContainer/MarginContainer/Label
+@onready var coins_label: Label = $ReasourcesInterface/HBoxContainer/CoinsContainer/MarginContainer/Label
 
 @onready var coins_tween: Tween
 var coins_tween_dummy: bool = true
+
+@onready var tokens_label: Label = $ReasourcesInterface/HBoxContainer/TokensContainer/MarginContainer/Label
 
 @export var block_click: bool = true
 
@@ -16,6 +18,7 @@ var drop_n: int = 0
 
 func _ready() -> void:
 	coins_label.text = "COINS: " + str(int(PlayerData.money))
+	tokens_label.text = "RJ-45: " + str(int(PlayerData.tokens))
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_click") and not block_click:

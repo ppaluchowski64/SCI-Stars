@@ -5,10 +5,13 @@ extends Node2D
 @onready var upgrade_interface: CanvasLayer = $UpgradeInterface
 @onready var character_select_interface: CanvasLayer = $CharacterSelectInterface
 @onready var upgrade_parent: HBoxContainer = $UpgradeInterface/Buttons
-@onready var money_label: Label = $ReasourcesInterface/CoinsContainer/MarginContainer/Label
+@onready var money_label: Label = $ReasourcesInterface/HBoxContainer/CoinsContainer/MarginContainer/Label
 
 @onready var character_sprite: Sprite2D = $UserInterface/CharacterContainer/SpriteParent/Sprite2D
 @onready var character_label: Label = $UserInterface/CharacterContainer/CharacterLabel/LabelParent/Label
+
+@onready var tokens_label: Label = $ReasourcesInterface/HBoxContainer/TokensContainer/MarginContainer/Label
+@onready var loot_box_label: Label = $UserInterface/MarginContainer/LootBox/Label
 
 func update_upgrades() -> void:
 	for upgrade in upgrade_parent.get_children():
@@ -39,6 +42,12 @@ func _ready() -> void:
 	update_selected_character()
 	
 	money_label.text = "COINS: " + str(int(PlayerData.money))
+	tokens_label.text = "RJ-45: " + str(int(PlayerData.tokens))
+	
+	if PlayerData.tokens >= 100:
+		loot_box_label.theme.set_color("font_color", "Label", Color("#8DEB8D"))
+	else:
+		loot_box_label.theme.set_color("font_color", "Label", Color("#EB8D8B"))
 
 func _on_button_play_button_down() -> void:
 	get_tree().call_deferred("change_scene_to_file", "res://scenes/battle.tscn")
@@ -69,4 +78,6 @@ func _on_button_select_button_down_jack() -> void:
 	update_upgrades()
 
 func _on_button_loot_box_button_down() -> void:
-	get_tree().call_deferred("change_scene_to_file", "res://scenes/loot_box.tscn")
+	if PlayerData.tokens >= 100:
+		PlayerData.tokens -= 100
+		get_tree().call_deferred("change_scene_to_file", "res://scenes/loot_box.tscn")

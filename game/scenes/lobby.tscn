@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://r73t4uwivu0e"]
+[gd_scene load_steps=20 format=3 uid="uid://r73t4uwivu0e"]
 
 [ext_resource type="Script" uid="uid://dedbthjrkqd2o" path="res://scripts/lobby.gd" id="1_nn68e"]
 [ext_resource type="Texture2D" uid="uid://f1v34lrprxwu" path="res://graphics/backgrounds/lobby/backlayer.png" id="2_4hsao"]
@@ -13,8 +13,13 @@
 [ext_resource type="PackedScene" uid="uid://osklob3vwxx3" path="res://scenes/upgrade.tscn" id="10_say53"]
 [ext_resource type="Texture2D" uid="uid://byalpowexrkof" path="res://graphics/characters/jackflower/player.png" id="11_m1sns"]
 [ext_resource type="Texture2D" uid="uid://cm26og86ytcnc" path="res://graphics/UI/icons/money.png" id="11_uejoe"]
+[ext_resource type="Texture2D" uid="uid://dptmt2ajlx2jf" path="res://graphics/UI/icons/connector.png" id="14_q6qq2"]
 
 [sub_resource type="Theme" id="Theme_6pyji"]
+default_font = ExtResource("4_358r0")
+default_font_size = 20
+
+[sub_resource type="Theme" id="Theme_q6qq2"]
 default_font = ExtResource("4_358r0")
 default_font_size = 20
 
@@ -136,7 +141,33 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 
-[node name="Sprite2D" type="Sprite2D" parent="UserInterface/MarginContainer/LootBox"]
+[node name="ColorRect" type="ColorRect" parent="UserInterface/MarginContainer/LootBox"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -88.0
+offset_right = 280.0
+grow_vertical = 0
+color = Color(0.0862745, 0.0901961, 0.105882, 1)
+
+[node name="Label" type="Label" parent="UserInterface/MarginContainer/LootBox"]
+layout_mode = 0
+offset_left = 208.0
+offset_top = -54.0
+offset_right = 256.0
+offset_bottom = -30.0
+theme = SubResource("Theme_q6qq2")
+text = "100"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="TokenSprite" type="Sprite2D" parent="UserInterface/MarginContainer/LootBox"]
+position = Vector2(156, -44)
+scale = Vector2(4, 4)
+texture = ExtResource("14_q6qq2")
+
+[node name="BoxSprite" type="Sprite2D" parent="UserInterface/MarginContainer/LootBox"]
 scale = Vector2(8, 8)
 texture = ExtResource("6_dyhay")
 offset = Vector2(7, -9)
@@ -588,22 +619,26 @@ texture = ExtResource("8_472nk")
 
 [node name="ReasourcesInterface" type="CanvasLayer" parent="."]
 
-[node name="CoinsContainer" type="PanelContainer" parent="ReasourcesInterface"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ReasourcesInterface"]
 offset_left = 64.0
-offset_right = 336.0
+offset_right = 688.0
 offset_bottom = 96.0
+theme_override_constants/separation = 48
 
-[node name="ColorRect" type="ColorRect" parent="ReasourcesInterface/CoinsContainer"]
+[node name="CoinsContainer" type="PanelContainer" parent="ReasourcesInterface/HBoxContainer"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="ReasourcesInterface/HBoxContainer/CoinsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0, 0, 0, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="ReasourcesInterface/CoinsContainer"]
+[node name="Sprite2D" type="Sprite2D" parent="ReasourcesInterface/HBoxContainer/CoinsContainer"]
 position = Vector2(48, 48)
 scale = Vector2(4, 4)
 texture = ExtResource("11_uejoe")
 
-[node name="MarginContainer" type="MarginContainer" parent="ReasourcesInterface/CoinsContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ReasourcesInterface/HBoxContainer/CoinsContainer"]
 custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
 theme_override_constants/margin_left = 88
@@ -611,10 +646,38 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="Label" type="Label" parent="ReasourcesInterface/CoinsContainer/MarginContainer"]
+[node name="Label" type="Label" parent="ReasourcesInterface/HBoxContainer/CoinsContainer/MarginContainer"]
 layout_mode = 2
 theme = SubResource("Theme_ut2vl")
 text = "COINS: 2000"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="TokensContainer" type="PanelContainer" parent="ReasourcesInterface/HBoxContainer"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="ReasourcesInterface/HBoxContainer/TokensContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ReasourcesInterface/HBoxContainer/TokensContainer"]
+position = Vector2(48, 48)
+scale = Vector2(4, 4)
+texture = ExtResource("14_q6qq2")
+
+[node name="MarginContainer" type="MarginContainer" parent="ReasourcesInterface/HBoxContainer/TokensContainer"]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
+theme_override_constants/margin_left = 96
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Label" type="Label" parent="ReasourcesInterface/HBoxContainer/TokensContainer/MarginContainer"]
+layout_mode = 2
+theme = SubResource("Theme_ut2vl")
+text = "PLUGS: 100"
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 

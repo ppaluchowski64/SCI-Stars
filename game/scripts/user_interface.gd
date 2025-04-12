@@ -14,8 +14,8 @@ var main_player: Node
 var superbar_icon_modulate: float = 0.3
 var last_player_super_charge: float = 0.0
 
-func update_player_count() -> void:
-	player_count.text = "Players left: %s" % (players.get_child_count() - 1)
+func update_player_count(count: int) -> void:
+	player_count.text = "Players left: %s" % count
 
 func _process(_delta: float) -> void:
 	if main_player:

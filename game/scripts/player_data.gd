@@ -1,6 +1,7 @@
 extends Node
 
 var money: float = 2000.0
+var tokens: float = 100.0
 
 class Stat:
 	var base_cost: float
