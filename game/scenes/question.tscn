@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4s6yjde2g4p3"]
+
+[ext_resource type="Script" uid="uid://dmv6vmksmlr35" path="res://scripts/question.gd" id="1_lk18j"]
+
+[node name="Question" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lk18j")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+scale = Vector2(0.9, 0.9)
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 34.0
+offset_right = 1155.0
+offset_bottom = 682.0
+
+[node name="ButtonA" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ButtonB" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ButtonC" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ButtonD" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[connection signal="pressed" from="Panel/VBoxContainer/ButtonA" to="." method="_on_button_a_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/ButtonB" to="." method="_on_button_b_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/ButtonC" to="." method="_on_button_c_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/ButtonD" to="." method="_on_button_d_pressed"]

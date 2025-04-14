@@ -22,6 +22,10 @@ Const="*res://scripts/consts.gd"
 PlayerData="*res://scripts/player_data.gd"
 Autoload="res://scripts/autoload.gd"
 
+[dotnet]
+
+project/assembly_name="SCI Stars"
+
 [input]
 
 up={
