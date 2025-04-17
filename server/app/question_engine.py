@@ -28,16 +28,16 @@ class QuestionEngine:
             ).fetchall()
 
             return [row["content"] for row in rows]
-
-    def check_answer(self, question_id, answer_id):
+    
+    def get_correct_answer(self, question_id):
         with self._connect() as conn:
             row = conn.execute(
                 "SELECT answer_id FROM correct_answers WHERE question_id = ?;",
                 (question_id,)
             ).fetchone()
 
-            return row and row["answer_id"].lower() == answer_id.lower()
-
+            return row["answer_id"] if row else None
+    
     def get_random_question(self):
         with self._connect() as conn:
             row = conn.execute(
@@ -48,6 +48,11 @@ class QuestionEngine:
                 return None
 
             return self.get_question(row["id"])
+
+    def check_answer(self, question_id, answer_id):
+        correct = self.get_correct_answer(question_id)
+        matches = correct.lower() == answer_id.lower()
+        return correct and matches
 
 
 if __name__ == "__main__":
@@ -80,7 +85,7 @@ if __name__ == "__main__":
             print("Quiz ended.")
             break
 
-        if user_answer not in ["a", "b", "c", "d"]:
+        if user_answer not in ("a", "b", "c", "d"):
             print("Invalid choice. Please try again.\n")
             continue
 
@@ -89,6 +94,7 @@ if __name__ == "__main__":
         if is_correct:
             print("Correct answer!\n")
         else:
-            print("Wrong answer!\n")
+            correct_answer = question.get_correct_answer(question_id)
+            print(f"Wrong answer! The correct answer is: {correct_answer}\n")
 
     print("\n=== QUIZ FINISHED ===")
