@@ -19,6 +19,15 @@ class QuestionEngine:
             ).fetchone()
 
             return row["content"] if row else None
+    
+    def get_question_id(self, question_content):
+        with self._connect() as conn:
+            row = conn.execute(
+                "SELECT id FROM questions WHERE content = ?;",
+                (question_content,)
+            ).fetchone()
+            
+            return row["id"] if row else None
 
     def get_answers(self, question_id):
         with self._connect() as conn:
@@ -62,15 +71,7 @@ if __name__ == "__main__":
 
     while True:
         question_content = question.get_random_question()
-
-        with question._connect() as conn:
-            row = conn.execute(
-                "SELECT id FROM questions WHERE content = ?;",
-                (question_content,)
-            ).fetchone()
-
-            question_id = row["id"]
-
+        question_id = question.get_question_id(question_content)
         answers = question.get_answers(question_id)
 
         print(question_content)
