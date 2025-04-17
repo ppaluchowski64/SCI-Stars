@@ -96,6 +96,6 @@ if __name__ == "__main__":
             print("Correct answer!\n")
         else:
             correct_answer = question.get_correct_answer(question_id)
-            print(f"Wrong answer! The correct answer is: {correct_answer}\n")
+            print(f"Wrong answer! The correct answer is {correct_answer.upper()}\n")
 
     print("\n=== QUIZ FINISHED ===")
