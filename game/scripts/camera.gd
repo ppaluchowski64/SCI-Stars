@@ -29,3 +29,6 @@ func _process(_delta: float) -> void:
 		target_pos.y = clamp(target_pos.y, h - 1024 - Const.CAMERA_BORDER_MARGIN, 1024 - h + Const.CAMERA_BORDER_MARGIN)
 		
 		global_position = lerp(global_position, target_pos, 0.05)
+	
+	#global_position = Vector2.ZERO
+	#zoom = Vector2(0.5, 0.5)

@@ -17,6 +17,7 @@ var Player = preload("res://scenes/player.tscn")
 var main_player: Node
 var player_count: int = 8
 var next_free_player_id = 0
+var game_ended: bool = false
 
 func block_player_controls(value: bool):
 	for player in players.get_children():
@@ -43,8 +44,10 @@ func _update_player_count() -> void:
 	
 	ui.update_player_count(player_count)
 	
-	if player_count <= 1 or main_player.is_dead:
-		end_game()
+	if not game_ended:
+		if player_count <= 1 or main_player.is_dead:
+			game_ended = true
+			end_game()
 	
 func get_exclusive_player_id() -> int:
 	next_free_player_id += 1
@@ -56,14 +59,17 @@ func start_game() -> void:
 		Vector2(680, -680), Vector2(680, 680), Vector2(-680, 680), Vector2(-680, -680)
 	]
 	
-	var main_player_id: int = randi_range(0, 7)
+	var main_player_id: int = 4#randi_range(0, 7)
 	var i: int = 0
 	
 	for pos in player_spawn_pos:
 		if i == main_player_id:
 			main_player = spawn_player(pos.x, pos.y, PlayerData.selected_character, i)
 		else:
-			spawn_player(pos.x, pos.y, Characters.ID.values().pick_random(), i)
+			var p = spawn_player(pos.x, pos.y, Characters.ID.values().pick_random(), i)
+			p.setup_ai()
+			p.ammobar.visible = false
+			p.nickname_label.visible = true
 		
 		i += 1
 	

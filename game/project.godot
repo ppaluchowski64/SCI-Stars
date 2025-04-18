@@ -21,10 +21,7 @@ config/icon="res://icon.svg"
 Const="*res://scripts/consts.gd"
 PlayerData="*res://scripts/player_data.gd"
 Autoload="res://scripts/autoload.gd"
-
-[dotnet]
-
-project/assembly_name="SCI Stars"
+AStarAI="*res://scripts/player_ai_astar.gd"
 
 [input]
 

@@ -11,7 +11,10 @@ var Projectile = preload("res://scenes/projectile.tscn")
 @onready var healthbar_fill: ColorRect = $Healthbar/ColorRect
 @onready var healthbar_label: Label = $Healthbar/LabelParent/Label
 
+@onready var ammobar: Node2D = $Ammobar
 @onready var ammobar_fill: ColorRect = $Ammobar/ColorRect
+
+@onready var nickname_label: Label = $NicknameLabel/Label
 
 @onready var walk_particles: CPUParticles2D = $WalkParticles
 
@@ -38,11 +41,20 @@ var ammo: float = 3.0
 var reload_speed: float = 0.75
 var super_charge: float = 0.0
 var kills: int = 0
+var ai: Node
 
 # Other
 var block_controls: bool = true
 var is_main_player: bool = false
 var is_dead: bool = false
+
+func setup_ai() -> void:
+	var AI = preload("res://scenes/player_ai.tscn")
+	
+	ai = AI.instantiate()
+	ai.player = self
+	
+	add_child(ai)
 
 func rad_to_double_dir(angle: float) -> Array:
 	if angle < 0:
@@ -74,11 +86,13 @@ func update_ui() -> void:
 func take_damage(damage: int, hitter: Node = null) -> void:
 	health -= damage
 	
-	if health <= 0:
+	if health <= 0 and not is_dead:
 		is_dead = true
 		
 		if hitter:
-			get_tree().get_first_node_in_group("camera").target = hitter
+			if is_main_player:
+				get_tree().get_first_node_in_group("camera").target = hitter
+			
 			hitter.kills += 1
 		
 		emit_signal("update_player_count")
@@ -88,12 +102,12 @@ func take_damage(damage: int, hitter: Node = null) -> void:
 	
 	regen_cooldown.start(3)
 
-func spawn_projectile(projectile_id: Projectiles.ID = Projectiles.ID.DEFAULT) -> void:
+func spawn_projectile(projectile_id: Projectiles.ID = Projectiles.ID.DEFAULT, angle: float = get_angle_to(get_global_mouse_position())) -> void:
 	var projectile = Projectiles.custom_projectile(projectile_id)
 	
 	projectile.player_id = id
 	projectile.global_position = get_global_position()
-	projectile.global_rotation = get_angle_to(get_global_mouse_position())
+	projectile.global_rotation = angle
 	projectile.parent = self
 	
 	projectile.damage = PlayerData.character_stats[0][0].value
@@ -174,6 +188,8 @@ func _ready() -> void:
 	
 	sprite.animation = "7"
 	sprite.frame = 1
+	
+	nickname_label.text = "Player" + str(id)
 
 func _process(delta: float) -> void:
 	if is_main_player:
@@ -187,6 +203,9 @@ func _process(delta: float) -> void:
 			for player in get_parent().get_children():
 				if player != self:
 					player.take_damage(9999)
+	else:
+		if not block_controls and ai:
+			ai.update(delta)
 	
 	animate(delta)
 	update_ui()

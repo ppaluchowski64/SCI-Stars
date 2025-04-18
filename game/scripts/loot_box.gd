@@ -18,7 +18,7 @@ var drop_n: int = 0
 
 func _ready() -> void:
 	coins_label.text = "COINS: " + str(int(PlayerData.money))
-	tokens_label.text = "RJ-45: " + str(int(PlayerData.tokens))
+	tokens_label.text = "PLUGS: " + str(int(PlayerData.tokens))
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_click") and not block_click:

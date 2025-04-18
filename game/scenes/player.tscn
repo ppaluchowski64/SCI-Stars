@@ -117,6 +117,29 @@ metadata/_edit_use_anchors_ = true
 scale = Vector2(4, 4)
 texture = ExtResource("5_ptbdj")
 
+[node name="NicknameLabel" type="Node2D" parent="."]
+scale = Vector2(4, 4)
+
+[node name="Label" type="Label" parent="NicknameLabel"]
+visible = false
+material = SubResource("ShaderMaterial_ux241")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = 11.0
+offset_right = 8.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_60cmk")
+text = "Player1"
+horizontal_alignment = 1
+vertical_alignment = 2
+metadata/_edit_use_anchors_ = true
+
 [node name="Shadow" type="Sprite2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.3)
 z_index = -1

@@ -42,7 +42,7 @@ func _ready() -> void:
 	update_selected_character()
 	
 	money_label.text = "COINS: " + str(int(PlayerData.money))
-	tokens_label.text = "RJ-45: " + str(int(PlayerData.tokens))
+	tokens_label.text = "PLUGS: " + str(int(PlayerData.tokens))
 	
 	if PlayerData.tokens >= 100:
 		loot_box_label.theme.set_color("font_color", "Label", Color("#8DEB8D"))

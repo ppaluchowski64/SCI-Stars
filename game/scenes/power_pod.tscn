@@ -112,6 +112,7 @@ position = Vector2(0, -9.5)
 scale = Vector2(4, 4)
 texture = ExtResource("2_xwi6h")
 hframes = 2
+frame = 1
 region_rect = Rect2(0, 0, 13, 16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

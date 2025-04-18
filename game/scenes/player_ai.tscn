@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://db8pnbkya5j33"]
+
+[ext_resource type="Script" uid="uid://bnmqmhtoyry5" path="res://scripts/player_ai.gd" id="1_dorh7"]
+
+[node name="PlayerAI" type="Node2D"]
+z_index = 2
+script = ExtResource("1_dorh7")
+
+[node name="MoveTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+autostart = true
+
+[node name="ShootTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
