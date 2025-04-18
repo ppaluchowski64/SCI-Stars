@@ -18,7 +18,7 @@ class QuestionEngine:
                 (question_id,)
             ).fetchone()
 
-            return row["content"] if row else None
+            return row["content"] if row else ""
     
     def get_question_id(self, question_content):
         with self._connect() as conn:
@@ -27,7 +27,7 @@ class QuestionEngine:
                 (question_content,)
             ).fetchone()
             
-            return row["id"] if row else None
+            return row["id"] if row else -1
 
     def get_answers(self, question_id):
         with self._connect() as conn:
@@ -45,7 +45,7 @@ class QuestionEngine:
                 (question_id,)
             ).fetchone()
 
-            return row["answer_id"] if row else None
+            return row["answer_id"] if row else ""
     
     def get_random_question(self):
         with self._connect() as conn:
@@ -54,14 +54,14 @@ class QuestionEngine:
             ).fetchone()
 
             if not row:
-                return None
+                return ""
 
             return self.get_question(row["id"])
 
     def check_answer(self, question_id, answer_id):
         correct = self.get_correct_answer(question_id)
         matches = correct.lower() == answer_id.lower()
-        return correct and matches
+        return bool(correct and matches)
 
 
 if __name__ == "__main__":
