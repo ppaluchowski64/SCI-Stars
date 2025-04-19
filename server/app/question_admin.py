@@ -1,19 +1,16 @@
 import sqlite3
 
+import db_utils as db
+
 
 class QuestionAdmin:
     def __init__(self, db_path="questions.db"):
-        self.db_path = db_path
+        self.conn = db.connect(db_path)
         self._init_db()
     
-    def _connect(self):
-        conn = sqlite3.connect(self.db_path)
-        conn.execute("PRAGMA foreign_keys = ON;")
-        return conn
-    
     def _init_db(self):
-        with self._connect() as conn:
-            cur = conn.cursor()
+        with self.conn:
+            cur = db.get_cursor(self.conn)
 
             cur.execute("""
                 CREATE TABLE IF NOT EXISTS questions (
@@ -40,43 +37,45 @@ class QuestionAdmin:
                     FOREIGN KEY (question_id, answer_id) REFERENCES answers(question_id, id)
                 );
             """)
-
-            conn.commit()
     
     def add_question(self, question, answers, correct_answer):
-        with self._connect() as conn:
-            cur = conn.cursor()
+        with self.conn:
+            cur = db.get_cursor(self.conn)
 
-            cur.execute("INSERT INTO questions (content) VALUES (?);", (question,))
+            cur.execute(
+                "INSERT INTO questions (content) VALUES (?);",
+                (question,)
+            )
+
             question_id = cur.lastrowid
-
-            for letter, text in answers.items():
-                cur.execute(
-                    "INSERT INTO answers (question_id, id, content) VALUES (?, ?, ?);",
-                    (question_id, letter, text)
-                )
+            answer_data = tuple((question_id, letter, text) for letter, text in answers.items())
+            
+            cur.executemany(
+                "INSERT INTO answers (question_id, id, content) VALUES (?, ?, ?);",
+                answer_data
+            )
 
             cur.execute(
                 "INSERT INTO correct_answers (question_id, answer_id) VALUES (?, ?);",
                 (question_id, correct_answer)
             )
 
-            conn.commit()
-            return question_id
+        return question_id
     
     def delete_question(self, question_id):
         # TODO: Consider updating question IDs after deletion
-        with self._connect() as conn:
-            cur = conn.cursor()
+        with self.conn:
+            cur = db.get_cursor(self.conn)
 
-            cur.execute("SELECT 1 FROM questions WHERE id = ?;", (question_id,))
-            if not cur.fetchone():
-                return 1
-            
-            cur.execute("DELETE FROM questions WHERE id = ?;", (question_id,))
+            cur.execute(
+                "DELETE FROM questions WHERE id = ?;",
+                (question_id,)
+            )
 
-            conn.commit()
-            return 0
+            return 0 if cur.rowcount else 1
+    
+    def __del__(self):
+        db.close(self.conn)
 
 
 if __name__ == "__main__":
@@ -97,7 +96,7 @@ if __name__ == "__main__":
             question = input("Content of the question: ").strip()
 
             answers = {}
-            for letter in ["a", "b", "c", "d"]:
+            for letter in ("a", "b", "c", "d"):
                 answer = input(f"Answer {letter.upper()}: ").strip()
                 answers[letter] = answer
 

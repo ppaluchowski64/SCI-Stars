@@ -1,20 +1,17 @@
 import sqlite3
 from hashlib import sha512
 
+import db_utils as db
+
 
 class AccountManager:
     def __init__(self, db_path="accounts.db"):
-        self.db_path = db_path
+        self.conn = db.connect(db_path)
         self._init_db()
 
-    def _connect(self):
-        conn = sqlite3.connect(self.db_path)
-        conn.execute("PRAGMA foreign_keys = ON;")
-        return conn
-
     def _init_db(self):
-        with self._connect() as conn:
-            cur = conn.cursor()
+        with self.conn:
+            cur = db.get_cursor(self.conn)
 
             cur.execute("""
                 CREATE TABLE IF NOT EXISTS users (
@@ -42,45 +39,32 @@ class AccountManager:
                 );
             """)
 
-            conn.commit()
-
     def _validate_columns(self, table, columns):
-        with self._connect() as conn:
-            try:
-                cur = conn.cursor()
+        with self.conn:
+            cur = db.get_cursor(self.conn)
+            cur.execute(f"PRAGMA table_info({table});")
+            table_info = cur.fetchall()
 
-                cur.execute(f"PRAGMA table_info({table});")
-                table_info = cur.fetchall()
-
-                if not table_info:
-                    return False
-
-                table_columns = {row[1] for row in table_info}
-
-                return set(columns).issubset(table_columns)
-
-            except sqlite3.Error:
+            if not table_info:
                 return False
+
+            table_columns = {row["name"] for row in table_info}
+            return set(columns).issubset(table_columns)
 
     @staticmethod
     def _hash_token(token):
-        encoded = token.encode("utf-8")
-        hash_obj = sha512(encoded)
-        hashed_token = hash_obj.hexdigest()
-        return hashed_token
+        return sha512(token.encode("utf-8")).hexdigest()
 
     def register(self, token):
         token_hash = self._hash_token(token)
 
-        with self._connect() as conn:
+        with self.conn:
             try:
-                cur = conn.cursor()
+                cur = db.get_cursor(self.conn)
 
-                tables = ["users", "stats", "inventory"]
+                tables = ("users", "stats", "inventory")
                 for table in tables:
                     cur.execute(f"INSERT INTO {table} (token) VALUES (?);", (token_hash,))
-
-                conn.commit()
 
                 return 0
 
@@ -90,8 +74,8 @@ class AccountManager:
     def login(self, token):
         token_hash = self._hash_token(token)
 
-        with self._connect() as conn:
-            cur = conn.cursor()
+        with self.conn:
+            cur = db.get_cursor(self.conn)
 
             cur.execute("SELECT token FROM users WHERE token = ?;", (token_hash,))
             if cur.fetchone():
@@ -100,11 +84,9 @@ class AccountManager:
                     (token_hash,)
                 )
 
-                conn.commit()
-
                 return 0
 
-            return 1
+        return 1
 
     def update_data(self, token, table, **kwargs):
         token_hash = self._hash_token(token)
@@ -112,23 +94,17 @@ class AccountManager:
         if not self._validate_columns(table, kwargs.keys()):
             return 1
 
-        with self._connect() as conn:
-            cur = conn.cursor()
+        fields = ", ".join(f"{col} = ?" for col in kwargs.keys())
+        values = list(kwargs.values()) + [token_hash]
 
-            cur.execute(f"SELECT 1 FROM {table} WHERE token = ?;", (token_hash,))
-            if not cur.fetchone():
-                return 1
-
-            fields = ", ".join([f"{col} = ?" for col in kwargs.keys()])
-            values = list(kwargs.values())
-            values.append(token_hash)
+        with self.conn:
+            cur = db.get_cursor(self.conn)
 
             sql = f"UPDATE {table} SET {fields} WHERE token = ?;"
             cur.execute(sql, tuple(values))
+            result = cur.rowcount
 
-            conn.commit()
-
-            return 0
+        return 0 if result else 1
 
     def get_data(self, token, table, *args):
         token_hash = self._hash_token(token)
@@ -136,35 +112,32 @@ class AccountManager:
         if not self._validate_columns(table, args):
             return ()
 
-        with self._connect() as conn:
-            cur = conn.cursor()
+        fields = ", ".join(args)
 
-            fields = ", ".join(args)
+        with self.conn:
+            cur = db.get_cursor(self.conn)
+
             sql = f"SELECT {fields} FROM {table} WHERE token = ?;"
             cur.execute(sql, (token_hash,))
             result = cur.fetchone()
 
-            return result if result else ()
+        return result if result else ()
 
     def delete(self, token):
         token_hash = self._hash_token(token)
 
-        with self._connect() as conn:
-            try:
-                cur = conn.cursor()
+        with self.conn:
+            cur = db.get_cursor(self.conn)
 
-                cur.execute("SELECT 1 FROM users WHERE token = ?;", (token_hash,))
-                if not cur.fetchone():
-                    return 1
-
-                cur.execute("DELETE FROM users WHERE token = ?;", (token_hash,))
-
-                conn.commit()
-
-                return 0
-
-            except sqlite3.Error:
-                return 1
+            cur.execute(
+                "DELETE FROM users WHERE token = ?;",
+                (token_hash,)
+            )
+            
+            return 0 if cur.rowcount else 1
+    
+    def __del__(self):
+        db.close(self.conn)
 
 
 if __name__ == "__main__":

@@ -1,67 +1,73 @@
 import sqlite3
 
+import db_utils as db
+
 
 class QuestionEngine:
     def __init__(self, db_path="questions.db"):
-        self.db_path = db_path
-
-    def _connect(self):
-        conn = sqlite3.connect(self.db_path)
-        conn.row_factory = sqlite3.Row
-        conn.execute("PRAGMA foreign_keys = ON;")
-        return conn
+        self.conn = db.connect(db_path)
 
     def get_question(self, question_id):
-        with self._connect() as conn:
-            row = conn.execute(
-                "SELECT content FROM questions WHERE id = ?;",
-                (question_id,)
-            ).fetchone()
+        cur = db.get_cursor(self.conn)
 
-            return row["content"] if row else ""
+        cur.execute(
+            "SELECT content FROM questions WHERE id = ?;",
+            (question_id,)
+        )
+
+        row = cur.fetchone()
+        return row["content"] if row else ""
     
     def get_question_id(self, question_content):
-        with self._connect() as conn:
-            row = conn.execute(
-                "SELECT id FROM questions WHERE content = ?;",
-                (question_content,)
-            ).fetchone()
-            
-            return row["id"] if row else -1
+        cur = db.get_cursor(self.conn)
+
+        cur.execute(
+            "SELECT id FROM questions WHERE content = ?;",
+            (question_content,)
+        )
+
+        row = cur.fetchone()
+        return row["id"] if row else -1
 
     def get_answers(self, question_id):
-        with self._connect() as conn:
-            rows = conn.execute(
-                "SELECT content FROM answers WHERE question_id = ? ORDER BY id;",
-                (question_id,)
-            ).fetchall()
+        cur = db.get_cursor(self.conn)
 
-            return [row["content"] for row in rows]
+        cur.execute(
+            "SELECT content FROM answers WHERE question_id = ? ORDER BY id;",
+            (question_id,)
+        )
+
+        rows = cur.fetchall()
+        return tuple(row["content"] for row in rows)
     
     def get_correct_answer(self, question_id):
-        with self._connect() as conn:
-            row = conn.execute(
-                "SELECT answer_id FROM correct_answers WHERE question_id = ?;",
-                (question_id,)
-            ).fetchone()
+        cur = db.get_cursor(self.conn)
 
-            return row["answer_id"] if row else ""
+        cur.execute(
+            "SELECT answer_id FROM correct_answers WHERE question_id = ?;",
+            (question_id,)
+        )
+
+        row = cur.fetchone()
+        return row["answer_id"] if row else ""
     
     def get_random_question(self):
-        with self._connect() as conn:
-            row = conn.execute(
-                "SELECT id FROM questions ORDER BY RANDOM() LIMIT 1;"
-            ).fetchone()
+        cur = db.get_cursor(self.conn)
 
-            if not row:
-                return ""
+        cur.execute(
+            "SELECT content FROM questions ORDER BY RANDOM() LIMIT 1;"
+        )
 
-            return self.get_question(row["id"])
+        row = cur.fetchone()
+        return row["content"] if row else ""
 
     def check_answer(self, question_id, answer_id):
         correct = self.get_correct_answer(question_id)
         matches = correct.lower() == answer_id.lower()
         return bool(correct and matches)
+    
+    def __del__(self):
+        db.close(self.conn)
 
 
 if __name__ == "__main__":
