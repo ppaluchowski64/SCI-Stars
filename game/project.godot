@@ -23,6 +23,10 @@ PlayerData="*res://scripts/player_data.gd"
 Autoload="res://scripts/autoload.gd"
 AStarAI="*res://scripts/player_ai_astar.gd"
 
+[dotnet]
+
+project/assembly_name="SCI Stars"
+
 [input]
 
 up={

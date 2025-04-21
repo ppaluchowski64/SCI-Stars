@@ -71,9 +71,9 @@ func get_random_question() -> String:
 		return ""
 
 	var random_index = randi() % questions.size()
-	var question_id = questions[random_index]["id"]
+	var question = questions[random_index]["content"]
 
-	return get_question(question_id)
+	return question
 
 func check_answer(question_id: int, answer_id: String) -> bool:
 	var correct = get_correct_answer(question_id)
