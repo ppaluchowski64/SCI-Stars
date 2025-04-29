@@ -54,6 +54,8 @@ func get_exclusive_player_id() -> int:
 	return next_free_player_id - 1
 
 func start_game() -> void:
+	AStarAI.setup()
+	
 	var player_spawn_pos = [
 		Vector2(0, -840), Vector2(840, 0), Vector2(0, 840), Vector2(-840, 0),
 		Vector2(680, -680), Vector2(680, 680), Vector2(-680, 680), Vector2(-680, -680)

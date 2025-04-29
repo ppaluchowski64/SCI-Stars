@@ -1,6 +1,6 @@
 extends Node
 
-@onready var obstacles: TileMapLayer = get_tree().get_first_node_in_group("obstacle")
+@onready var obstacles: TileMapLayer
 
 var cell_size = Vector2(24, 24)
 var grid_size: int = 40
@@ -18,7 +18,9 @@ func generate_astar(new_astar: AStarGrid2D, tilemap: TileMapLayer) -> void:
 						if not ox in [-2, 3] or not oy in [-2, 3]:
 							new_astar.set_point_solid(Vector2i(x * 2 + ox, y * 2 + oy))
 
-func _ready() -> void:
+func setup() -> void:
+	obstacles = get_tree().get_first_node_in_group("obstacle")
+	
 	astar.region = Rect2i(-grid_size, -grid_size, grid_size * 2, grid_size * 2)
 	astar.cell_size = cell_size
 	astar.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES

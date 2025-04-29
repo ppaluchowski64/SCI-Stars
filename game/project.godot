@@ -12,7 +12,7 @@ config_version=5
 
 config/name="SCI Stars"
 config/description="Cross-platform multiplayer Battle Royale game with knowledge-based gameplay that captivatingly depicts life at SCI Technical Secondary School."
-run/main_scene="res://scenes/battle.tscn"
+run/main_scene="uid://r73t4uwivu0e"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
