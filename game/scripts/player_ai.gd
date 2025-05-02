@@ -37,7 +37,7 @@ func update(delta: float) -> void:
 				player.dir_y = 0
 			
 			if shoot_timer.is_stopped():
-				player.spawn_projectile(Projectiles.ID.DEFAULT, angle)
+				player.projectile_func.call(angle)
 				player.shoot_animation.start()
 				
 				player.dir_x = dir[0]

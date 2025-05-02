@@ -4,6 +4,7 @@ extends Node2D
 
 @onready var upgrade_interface: CanvasLayer = $UpgradeInterface
 @onready var character_select_interface: CanvasLayer = $CharacterSelectInterface
+@onready var settings_interface: CanvasLayer = $SettingsInterface
 @onready var upgrade_parent: HBoxContainer = $UpgradeInterface/Buttons
 @onready var money_label: Label = $ReasourcesInterface/HBoxContainer/CoinsContainer/MarginContainer/Label
 
@@ -12,6 +13,9 @@ extends Node2D
 
 @onready var tokens_label: Label = $ReasourcesInterface/HBoxContainer/TokensContainer/MarginContainer/Label
 @onready var loot_box_label: Label = $UserInterface/MarginContainer/LootBox/Label
+
+@onready var settings_buttons: VFlowContainer = $SettingsInterface/ButtonsContainer
+@onready var credits: MarginContainer = $SettingsInterface/CreditsContainer
 
 func update_upgrades() -> void:
 	for upgrade in upgrade_parent.get_children():
@@ -81,3 +85,15 @@ func _on_button_loot_box_button_down() -> void:
 	if PlayerData.tokens >= 100:
 		PlayerData.tokens -= 100
 		get_tree().call_deferred("change_scene_to_file", "res://scenes/loot_box.tscn")
+
+func _on_button_settings_button_down() -> void:
+	settings_interface.visible = true
+
+func _on_button_exit_settings_button_down() -> void:
+	settings_interface.visible = false
+	credits.visible = false
+	settings_buttons.visible = true
+
+func _on_button_credits_button_down() -> void:
+	settings_buttons.visible = false
+	credits.visible = true

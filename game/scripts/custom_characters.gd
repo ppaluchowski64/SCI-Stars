@@ -21,4 +21,13 @@ static func custom_character(id: ID) -> Node:
 	p.max_health = PlayerData.character_stats[id][1].value
 	p.get_node("AnimatedSprite2D").frames = spritesheets[id]
 	
+	p.character_id = id
+	
+	if id == ID.JACK:
+		p.projectile_id = Projectiles.ID.FLOPPY
+		p.projectile_func = p.spawn_projectile_spreadshot
+		p.reload_speed = 0.55
+		p.set_deferred("shoot_cooldown:wait_time", 1.0)
+		p.speed = 165.0
+	
 	return p

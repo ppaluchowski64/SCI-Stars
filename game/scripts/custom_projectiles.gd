@@ -5,7 +5,7 @@ class_name Projectiles
 
 static var Projectile = preload("res://scenes/projectile.tscn")
 
-enum ID {DEFAULT, BIG_PROJECTILE}
+enum ID {DEFAULT, BIG_PROJECTILE, FLOPPY}
 
 static func explosion_death(parent: Node):
 	for i in range(4):
@@ -14,7 +14,10 @@ static func explosion_death(parent: Node):
 		projectile.player_id = parent.player_id
 		projectile.global_position = parent.global_position
 		projectile.global_rotation = parent.global_rotation + i * TAU / 4 + TAU / 8
-		projectile.parent = parent.parent
+		
+		if parent:
+			projectile.parent = parent.parent
+			
 		projectile.spawn_immunity = 7.5
 		
 		Engine.get_main_loop().root.call_deferred("add_child", projectile)
@@ -26,6 +29,12 @@ static func custom_projectile(id: ID) -> Node:
 		ID.BIG_PROJECTILE:
 			p.scale = Vector2(6, 6)
 			p.on_death = explosion_death
+			
+			return p
+		
+		ID.FLOPPY:
+			p.scale = Vector2(3, 3)
+			p.speed = 250.0
 			
 			return p
 	

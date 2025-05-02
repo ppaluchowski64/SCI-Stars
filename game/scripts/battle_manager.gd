@@ -54,6 +54,8 @@ func get_exclusive_player_id() -> int:
 	return next_free_player_id - 1
 
 func start_game() -> void:
+	#Engine.max_fps = 60
+	
 	AStarAI.setup()
 	
 	var player_spawn_pos = [

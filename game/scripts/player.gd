@@ -35,13 +35,23 @@ var max_health: float = 3000.0
 var dir_vec: Vector2
 var dir_x: int
 var dir_y: int
+
 var animation: float
+
 var health: float = max_health
 var ammo: float = 3.0
 var reload_speed: float = 0.75
 var super_charge: float = 0.0
+
 var kills: int = 0
+
 var ai: Node
+
+var projectile_id: Projectiles.ID = Projectiles.ID.DEFAULT
+var projectile_func: Callable = spawn_projectile
+var projectile_super_id: Projectiles.ID = Projectiles.ID.BIG_PROJECTILE
+
+var character_id: Characters.ID = Characters.ID.PABLO
 
 # Other
 var block_controls: bool = true
@@ -102,17 +112,30 @@ func take_damage(damage: int, hitter: Node = null) -> void:
 	
 	regen_cooldown.start(3)
 
-func spawn_projectile(projectile_id: Projectiles.ID = Projectiles.ID.DEFAULT, angle: float = get_angle_to(get_global_mouse_position())) -> void:
-	var projectile = Projectiles.custom_projectile(projectile_id)
+func spawn_projectile(angle: float = get_angle_to(get_global_mouse_position()), _projectile_id = projectile_id) -> void:
+	var projectile = Projectiles.custom_projectile(_projectile_id)
 	
 	projectile.player_id = id
 	projectile.global_position = get_global_position()
 	projectile.global_rotation = angle
 	projectile.parent = self
 	
-	projectile.damage = PlayerData.character_stats[0][0].value
+	projectile.damage = PlayerData.character_stats[character_id][0].value
 	
 	get_tree().get_root().call_deferred("add_child", projectile)
+
+func spawn_projectile_spreadshot(angle: float = get_angle_to(get_global_mouse_position()), count: int = 5) -> void:
+	var data: Array = [
+		[0,   0],
+		[20,  0.05],
+		[-10, 0.025],
+		[10,  0.1],
+		[-20, 0.075]
+	]
+	
+	for i in range(count):
+		await get_tree().create_timer(data[i][1]).timeout
+		spawn_projectile(angle + deg_to_rad(data[i][0]))
 
 func move() -> void:
 	if not block_controls:
@@ -139,7 +162,7 @@ func shoot(delta: float) -> void:
 			dir_x = angle[0]
 			dir_y = angle[1]
 			
-			spawn_projectile()
+			projectile_func.call()
 			
 			ammo -= 1
 			
@@ -156,7 +179,7 @@ func shoot(delta: float) -> void:
 			dir_x = angle[0]
 			dir_y = angle[1]
 			
-			spawn_projectile(Projectiles.ID.BIG_PROJECTILE)
+			spawn_projectile(get_angle_to(get_global_mouse_position()), Projectiles.ID.BIG_PROJECTILE)
 			
 			super_charge = 0
 			

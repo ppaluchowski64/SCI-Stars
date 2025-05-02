@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://r73t4uwivu0e"]
+[gd_scene load_steps=24 format=3 uid="uid://r73t4uwivu0e"]
 
 [ext_resource type="Script" uid="uid://dedbthjrkqd2o" path="res://scripts/lobby.gd" id="1_nn68e"]
 [ext_resource type="Texture2D" uid="uid://f1v34lrprxwu" path="res://graphics/backgrounds/lobby/backlayer.png" id="2_4hsao"]
@@ -9,11 +9,13 @@
 [ext_resource type="Shader" uid="uid://dvotcn36qw0jj" path="res://shaders/outline.gdshader" id="7_1urcf"]
 [ext_resource type="Texture2D" uid="uid://cex3nshoqpwms" path="res://graphics/characters/pablomajster/player.png" id="7_65pnu"]
 [ext_resource type="Texture2D" uid="uid://cmc1rb0x2pxx7" path="res://graphics/UI/buttons/small.png" id="7_ebt3n"]
+[ext_resource type="Texture2D" uid="uid://peg1ue5f6nwj" path="res://graphics/UI/icons/gear.png" id="7_rgcd7"]
 [ext_resource type="Texture2D" uid="uid://cstfhxa161fhk" path="res://graphics/UI/icons/expand.png" id="8_472nk"]
 [ext_resource type="PackedScene" uid="uid://osklob3vwxx3" path="res://scenes/upgrade.tscn" id="10_say53"]
 [ext_resource type="Texture2D" uid="uid://byalpowexrkof" path="res://graphics/characters/jackflower/player.png" id="11_m1sns"]
 [ext_resource type="Texture2D" uid="uid://cm26og86ytcnc" path="res://graphics/UI/icons/money.png" id="11_uejoe"]
 [ext_resource type="Texture2D" uid="uid://dptmt2ajlx2jf" path="res://graphics/UI/icons/connector.png" id="14_q6qq2"]
+[ext_resource type="Script" uid="uid://ckbd6d7geipes" path="res://scripts/credits.gd" id="16_lqo1b"]
 
 [sub_resource type="Theme" id="Theme_6pyji"]
 default_font = ExtResource("4_358r0")
@@ -35,6 +37,15 @@ default_font_size = 5
 [sub_resource type="Theme" id="Theme_ut2vl"]
 default_font = ExtResource("4_358r0")
 default_font_size = 20
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rgcd7"]
+shader = ExtResource("7_1urcf")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/is_visible = true
+
+[sub_resource type="Theme" id="Theme_lqo1b"]
+default_font = ExtResource("4_358r0")
+default_font_size = 5
 
 [node name="Lobby" type="Node2D"]
 script = ExtResource("1_nn68e")
@@ -135,6 +146,28 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_6pyji")
 text = "PLAY"
+
+[node name="ButtonSettings" type="TextureButton" parent="UserInterface/MarginContainer"]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("7_ebt3n")
+stretch_mode = 4
+
+[node name="SpriteParent" type="Control" parent="UserInterface/MarginContainer/ButtonSettings"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="UserInterface/MarginContainer/ButtonSettings/SpriteParent"]
+scale = Vector2(4, 4)
+texture = ExtResource("7_rgcd7")
 
 [node name="LootBox" type="Control" parent="UserInterface/MarginContainer"]
 layout_mode = 2
@@ -393,6 +426,70 @@ grow_vertical = 2
 scale = Vector2(4, 4)
 texture = ExtResource("8_472nk")
 
+[node name="ReasourcesInterface" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ReasourcesInterface"]
+offset_left = 64.0
+offset_right = 688.0
+offset_bottom = 96.0
+theme_override_constants/separation = 48
+
+[node name="CoinsContainer" type="PanelContainer" parent="ReasourcesInterface/HBoxContainer"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="ReasourcesInterface/HBoxContainer/CoinsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ReasourcesInterface/HBoxContainer/CoinsContainer"]
+position = Vector2(48, 48)
+scale = Vector2(4, 4)
+texture = ExtResource("11_uejoe")
+
+[node name="MarginContainer" type="MarginContainer" parent="ReasourcesInterface/HBoxContainer/CoinsContainer"]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
+theme_override_constants/margin_left = 88
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Label" type="Label" parent="ReasourcesInterface/HBoxContainer/CoinsContainer/MarginContainer"]
+layout_mode = 2
+theme = SubResource("Theme_ut2vl")
+text = "COINS: 2000"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="TokensContainer" type="PanelContainer" parent="ReasourcesInterface/HBoxContainer"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="ReasourcesInterface/HBoxContainer/TokensContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ReasourcesInterface/HBoxContainer/TokensContainer"]
+position = Vector2(48, 48)
+scale = Vector2(4, 4)
+texture = ExtResource("14_q6qq2")
+
+[node name="MarginContainer" type="MarginContainer" parent="ReasourcesInterface/HBoxContainer/TokensContainer"]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
+theme_override_constants/margin_left = 96
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Label" type="Label" parent="ReasourcesInterface/HBoxContainer/TokensContainer/MarginContainer"]
+layout_mode = 2
+theme = SubResource("Theme_ut2vl")
+text = "PLUGS: 100"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
 [node name="CharacterSelectInterface" type="CanvasLayer" parent="."]
 visible = false
 
@@ -617,71 +714,229 @@ grow_vertical = 2
 scale = Vector2(4, 4)
 texture = ExtResource("8_472nk")
 
-[node name="ReasourcesInterface" type="CanvasLayer" parent="."]
+[node name="SettingsInterface" type="CanvasLayer" parent="."]
+visible = false
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ReasourcesInterface"]
-offset_left = 64.0
-offset_right = 688.0
-offset_bottom = 96.0
-theme_override_constants/separation = 48
+[node name="ColorRect" type="ColorRect" parent="SettingsInterface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5)
 
-[node name="CoinsContainer" type="PanelContainer" parent="ReasourcesInterface/HBoxContainer"]
+[node name="PanelLayer1" type="MarginContainer" parent="SettingsInterface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="ColorRect" type="ColorRect" parent="SettingsInterface/PanelLayer1"]
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="ReasourcesInterface/HBoxContainer/CoinsContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0, 0, 0, 1)
+[node name="PanelLayer2" type="MarginContainer" parent="SettingsInterface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 104
+theme_override_constants/margin_top = 104
+theme_override_constants/margin_right = 104
+theme_override_constants/margin_bottom = 104
 
-[node name="Sprite2D" type="Sprite2D" parent="ReasourcesInterface/HBoxContainer/CoinsContainer"]
-position = Vector2(48, 48)
+[node name="ColorRect" type="ColorRect" parent="SettingsInterface/PanelLayer2"]
+layout_mode = 2
+color = Color(0.117647, 0.243137, 0.384314, 1)
+
+[node name="PanelLayer3" type="MarginContainer" parent="SettingsInterface"]
+clip_children = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 112
+theme_override_constants/margin_top = 112
+theme_override_constants/margin_right = 112
+theme_override_constants/margin_bottom = 112
+
+[node name="ColorRect" type="ColorRect" parent="SettingsInterface/PanelLayer3"]
+layout_mode = 2
+color = Color(0.0431373, 0.0980392, 0.172549, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsInterface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 60
+
+[node name="ButtonExitSettings" type="TextureButton" parent="SettingsInterface/MarginContainer"]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("7_ebt3n")
+stretch_mode = 4
+
+[node name="SpriteParent" type="Control" parent="SettingsInterface/MarginContainer/ButtonExitSettings"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="SettingsInterface/MarginContainer/ButtonExitSettings/SpriteParent"]
 scale = Vector2(4, 4)
-texture = ExtResource("11_uejoe")
+texture = ExtResource("8_472nk")
 
-[node name="MarginContainer" type="MarginContainer" parent="ReasourcesInterface/HBoxContainer/CoinsContainer"]
-custom_minimum_size = Vector2(0, 96)
+[node name="ButtonsContainer" type="VFlowContainer" parent="SettingsInterface"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -104.0
+offset_top = 112.0
+offset_right = 96.0
+offset_bottom = -112.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 40
+theme_override_constants/v_separation = 20
+alignment = 1
+
+[node name="ButtonVolume" type="TextureButton" parent="SettingsInterface/ButtonsContainer"]
+custom_minimum_size = Vector2(200, 88)
 layout_mode = 2
-theme_override_constants/margin_left = 88
-theme_override_constants/margin_top = 24
-theme_override_constants/margin_right = 24
-theme_override_constants/margin_bottom = 24
+texture_normal = ExtResource("3_xb4sn")
+stretch_mode = 4
 
-[node name="Label" type="Label" parent="ReasourcesInterface/HBoxContainer/CoinsContainer/MarginContainer"]
+[node name="Label" type="Label" parent="SettingsInterface/ButtonsContainer/ButtonVolume"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_6pyji")
+text = "VOLUME"
+
+[node name="ButtonLanguage" type="TextureButton" parent="SettingsInterface/ButtonsContainer"]
+custom_minimum_size = Vector2(200, 88)
 layout_mode = 2
-theme = SubResource("Theme_ut2vl")
-text = "COINS: 2000"
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
+texture_normal = ExtResource("3_xb4sn")
+stretch_mode = 4
 
-[node name="TokensContainer" type="PanelContainer" parent="ReasourcesInterface/HBoxContainer"]
+[node name="Label" type="Label" parent="SettingsInterface/ButtonsContainer/ButtonLanguage"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_6pyji")
+text = "LANGUAGE"
+
+[node name="ButtonCredits" type="TextureButton" parent="SettingsInterface/ButtonsContainer"]
+custom_minimum_size = Vector2(200, 88)
+layout_mode = 2
+texture_normal = ExtResource("3_xb4sn")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="SettingsInterface/ButtonsContainer/ButtonCredits"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_6pyji")
+text = "CREDITS"
+
+[node name="CreditsContainer" type="MarginContainer" parent="SettingsInterface"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 120
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 120
+
+[node name="Control" type="Control" parent="SettingsInterface/CreditsContainer"]
+clip_contents = true
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="ReasourcesInterface/HBoxContainer/TokensContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0, 0, 0, 1)
-
-[node name="Sprite2D" type="Sprite2D" parent="ReasourcesInterface/HBoxContainer/TokensContainer"]
-position = Vector2(48, 48)
+[node name="Node2D" type="Node2D" parent="SettingsInterface/CreditsContainer/Control"]
+position = Vector2(-60, -60)
 scale = Vector2(4, 4)
-texture = ExtResource("14_q6qq2")
+script = ExtResource("16_lqo1b")
 
-[node name="MarginContainer" type="MarginContainer" parent="ReasourcesInterface/HBoxContainer/TokensContainer"]
-custom_minimum_size = Vector2(0, 96)
-layout_mode = 2
-theme_override_constants/margin_left = 96
-theme_override_constants/margin_top = 24
-theme_override_constants/margin_right = 24
-theme_override_constants/margin_bottom = 24
+[node name="Label" type="Label" parent="SettingsInterface/CreditsContainer/Control/Node2D"]
+material = SubResource("ShaderMaterial_rgcd7")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 80.49
+offset_bottom = 420.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_lqo1b")
+text = "- CREDITS -
+Main programmer: Lelek
+Art: Lelek
+Art templates: AxulArt
+Networking: Pablo
+Project mentor: Jackflower
+Game engine: Godot 4.4.1
 
-[node name="Label" type="Label" parent="ReasourcesInterface/HBoxContainer/TokensContainer/MarginContainer"]
-layout_mode = 2
-theme = SubResource("Theme_ut2vl")
-text = "PLUGS: 100"
-vertical_alignment = 1
+- SPECIAL THANKS -
+Thanks to Supercell for making the game Brawl Stars which inspired the whole project
+
+Made for SCI++ contest"
+horizontal_alignment = 1
+autowrap_mode = 3
 metadata/_edit_use_anchors_ = true
 
 [connection signal="button_down" from="UserInterface/MarginContainer/ButtonPlay" to="." method="_on_button_play_button_down"]
+[connection signal="button_down" from="UserInterface/MarginContainer/ButtonSettings" to="." method="_on_button_settings_button_down"]
 [connection signal="button_down" from="UserInterface/MarginContainer/LootBox/ButtonLootBox" to="." method="_on_button_loot_box_button_down"]
 [connection signal="button_down" from="UserInterface/CharacterContainer/ButtonContainer/ButtonCharacterSelect" to="." method="_on_button_character_select_button_down"]
 [connection signal="button_down" from="UserInterface/CharacterContainer/ButtonContainer/ButtonUpgrade" to="." method="_on_button_upgrade_button_down"]
@@ -689,3 +944,6 @@ metadata/_edit_use_anchors_ = true
 [connection signal="button_down" from="CharacterSelectInterface/Characters/CharacterContainer1/ButtonSelect" to="." method="_on_button_select_button_down_pablo"]
 [connection signal="button_down" from="CharacterSelectInterface/Characters/CharacterContainer2/ButtonSelect" to="." method="_on_button_select_button_down_jack"]
 [connection signal="button_down" from="CharacterSelectInterface/MarginContainer/ButtonExitCharacterSelect" to="." method="_on_button_exit_character_select_button_down"]
+[connection signal="button_down" from="SettingsInterface/MarginContainer/ButtonExitSettings" to="." method="_on_button_exit_settings_button_down"]
+[connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonCredits" to="." method="_on_button_credits_button_down"]
+[connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonCredits" to="SettingsInterface/CreditsContainer/Control/Node2D" method="_on_button_credits_button_down"]
