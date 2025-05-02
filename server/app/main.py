@@ -1,6 +1,7 @@
 import asyncio
 
 from server_instance import ServerInstance
+from question_server import QuestionServer
 
 
 def initialize_servers():
@@ -55,12 +56,18 @@ def update_server_ids(servers):
     print("Updated instance IDs")
 
 
+async def run_question_server():
+    question_server = QuestionServer()
+    await question_server.start()
+
+
 async def main():
     servers = initialize_servers()
 
     await asyncio.gather(
         add_players_to_servers(servers, 30),
         manage_server_instances(servers),
+        run_question_server(),
     )
 
 

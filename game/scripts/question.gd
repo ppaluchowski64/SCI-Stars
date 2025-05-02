@@ -6,78 +6,102 @@ extends Control
 @onready var button_c = $Panel/VBoxContainer/ButtonC
 @onready var button_d = $Panel/VBoxContainer/ButtonD
 
-var questions = []
-var answers = []
-var correct_answers = []
+@onready var tcp = StreamPeerTCP.new()
+@onready var handler = MessageHandler.new()
 
+var is_connected = false
 var current_question_id = -1
 var current_answers = []
+var buffer_text = ""
 
 func _ready() -> void:
-	load_json_data("res://data/questions.json")
+	call_deferred("_start_connection")
+	set_process(true)
 
-	var question_text = get_random_question()
-	current_question_id = get_question_id(question_text)
-	current_answers = get_answers(current_question_id)
+func _start_connection() -> void:
+	var error = tcp.connect_to_host("127.0.0.1", 12345)
 
-	display_question(question_text, current_answers)
+	if error != OK:
+		push_error("Connection error: %d" % error)
+	else:
+		print("Connection attempt sent")
 
-func load_json_data(file_path: String) -> void:
-	var file = FileAccess.open(file_path, FileAccess.READ)
+func _process(_delta: float) -> void:
+	tcp.poll()
 
-	if file:
-		var json = JSON.new()
-		var parse_result = json.parse(file.get_as_text())
+	if not is_connected and tcp.get_status() == StreamPeerTCP.STATUS_CONNECTED:
+		is_connected = true
+		print("Connected to the server!")
+		request_random_question()
 
-		if parse_result == OK:
-			var data = json.get_data()
+	if is_connected:
+		var available = tcp.get_available_bytes()
 
-			questions = data["questions"]
-			answers = data["answers"]
-			correct_answers = data["correct_answers"]
+		if available > 0:
+			var result = tcp.get_data(available)
+			var err = result[0]
+			var data_buffer = result[1]
 
-func get_question(question_id: int) -> String:
-	for question in questions:
-		if question["id"] == question_id:
-			return question["content"]
+			if err != OK:
+				push_error("Error receiving data")
+				is_connected = false
+				tcp.disconnect_from_host()
+				return
 
-	return ""
+			var chunk = data_buffer.get_string_from_utf8()
+			buffer_text += chunk
 
-func get_question_id(question_content: String) -> int:
-	for question in questions:
-		if question["content"] == question_content:
-			return question["id"]
+			while buffer_text.find("\n") != -1:
+				var newline_index = buffer_text.find("\n")
+				var line = buffer_text.substr(0, newline_index)
+				buffer_text = buffer_text.substr(newline_index + 1)
 
-	return -1
+				handle_server_response(line)
 
-func get_answers(question_id: int) -> Array:
-	var result = []
+func request_random_question() -> void:
+	var request = handler.create_message("request", "get_random_question")
 
-	for answer in answers:
-		if answer["question_id"] == question_id:
-			result.append(answer["content"])
+	if request != null:
+		tcp.put_data(request.to_utf8_buffer())
+		print("Requesting a random question from the server")
 
-	return result
+func submit_answer(selected_id: String) -> void:
+	if not is_connected:
+		push_error("Not connected to the server")
+		return
 
-func get_correct_answer(question_id: int) -> String:
-	for entry in correct_answers:
-		if entry["question_id"] == question_id:
-			return entry["answer_id"]
+	var submit = handler.create_message("request", "submit_answer", {
+		"question_id": current_question_id,
+		"answer": selected_id
+	})
 
-	return ""
+	if submit != null:
+		tcp.put_data(submit.to_utf8_buffer())
+		print("Submitted answer %s" % selected_id.to_upper())
 
-func get_random_question() -> String:
-	if questions.size() == 0:
-		return ""
+func handle_server_response(response_text: String) -> void:
+	var response = handler.parse_message(response_text)
 
-	var random_index = randi() % questions.size()
-	var question = questions[random_index]["content"]
+	if response == null:
+		push_error("JSON parsing error: %s" % response_text)
+		return
 
-	return question
+	if response.type == "response" and response.command == "get_random_question":
+		current_question_id = response.payload.question_id
+		current_answers = response.payload.answers
+		display_question(response.payload.question, current_answers)
 
-func check_answer(question_id: int, answer_id: String) -> bool:
-	var correct = get_correct_answer(question_id)
-	return correct.to_lower() == answer_id.to_lower()
+	elif response.type == "response" and response.command == "submit_answer":
+		if response.payload.has("correct"):
+			if response.payload.correct:
+				print("Correct answer!")
+			else:
+				print("Wrong answer! The correct answer is %s" % response.payload.correct_answer.to_upper())
+
+	else:
+		push_error("Unexpected response: %s" % response_text)
+		is_connected = false
+		tcp.disconnect_from_host()
 
 func display_question(question_text: String, answer_options: Array) -> void:
 	question_label.text = question_text
@@ -89,20 +113,13 @@ func display_question(question_text: String, answer_options: Array) -> void:
 		button_d.text = answer_options[3]
 
 func _on_button_a_pressed() -> void:
-	handle_answer("a")
+	submit_answer("a")
 
 func _on_button_b_pressed() -> void:
-	handle_answer("b")
+	submit_answer("b")
 
 func _on_button_c_pressed() -> void:
-	handle_answer("c")
+	submit_answer("c")
 
 func _on_button_d_pressed() -> void:
-	handle_answer("d")
-
-func handle_answer(selected_id: String) -> void:
-	if check_answer(current_question_id, selected_id):
-		print("Correct answer!")
-	else:
-		var correct = get_correct_answer(current_question_id)
-		print("Wrong answer! The correct answer is %s" % correct.to_upper())
+	submit_answer("d")

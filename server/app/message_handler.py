@@ -1,7 +1,7 @@
 import json
 
 
-class Protocol:
+class MessageHandler:
     def create_message(self, message_type, command, payload=None):
         if payload is not None and not isinstance(payload, dict):
             raise TypeError("payload must be a dict or None")
@@ -29,16 +29,16 @@ class Protocol:
 
 
 if __name__ == "__main__":
-    protocol = Protocol()
+    mh = MessageHandler()
 
-    msg1 = protocol.create_message("type", "command")
-    msg2 = protocol.create_message("type", "command", {"payload": "payload"})
+    msg1 = mh.create_message("type", "command")
+    msg2 = mh.create_message("type", "command", {"payload": "payload"})
 
     print(msg1)
     print(msg2)
 
-    parsed1 = protocol.parse_message(msg1)
-    parsed2 = protocol.parse_message(msg2)
+    parsed1 = mh.parse_message(msg1)
+    parsed2 = mh.parse_message(msg2)
 
     print(parsed1)
     print(parsed2)

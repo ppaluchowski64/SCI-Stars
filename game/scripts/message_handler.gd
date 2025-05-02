@@ -1,4 +1,4 @@
-class_name Protocol
+class_name MessageHandler
 
 func create_message(type, command, payload = null):
 	if payload != null and typeof(payload) != TYPE_DICTIONARY:
