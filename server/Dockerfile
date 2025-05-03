@@ -2,6 +2,6 @@ FROM python:3.12.9-slim-bookworm
 
 WORKDIR /usr/src/app
 
-COPY . .
+COPY app/ ./
 
-CMD [ "python", "./app/main.py" ]
+CMD [ "python", "./main.py" ]

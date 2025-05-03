@@ -6,7 +6,7 @@ from message_handler import MessageHandler
 
 
 class QuestionServer:
-    def __init__(self, host='127.0.0.1', port=12345, db_path='questions.db'):
+    def __init__(self, host='0.0.0.0', port=12345, db_path='questions.db'):
         self.host = host
         self.port = port
         self.engine = QuestionEngine(db_path)
@@ -23,7 +23,7 @@ class QuestionServer:
                     break
 
                 message = data.decode('utf-8').strip()
-                print("[Question] Received...")
+                print("[Question] Received from", address)
 
                 try:
                     request = self.handler.parse_message(message)
@@ -67,7 +67,7 @@ class QuestionServer:
 
                 writer.write(response.encode('utf-8'))
                 await writer.drain()
-                print("[Question] Sending...")
+                print("[Question] Sent to", address)
 
         except Exception as error:
             print("[Question] Error:", error)
@@ -75,7 +75,7 @@ class QuestionServer:
         finally:
             writer.close()
             await writer.wait_closed()
-            print("[Question] Disconnected", address)
+            print("[Question] Disconnected from", address)
 
     async def start(self):
         server = await asyncio.start_server(self.handle_client, self.host, self.port)

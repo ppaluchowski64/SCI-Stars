@@ -2,7 +2,8 @@ import json
 
 
 class MessageHandler:
-    def create_message(self, message_type, command, payload=None):
+    @staticmethod
+    def create_message(message_type, command, payload=None):
         if payload is not None and not isinstance(payload, dict):
             raise TypeError("payload must be a dict or None")
 
@@ -14,7 +15,8 @@ class MessageHandler:
 
         return json.dumps(message, separators=(',', ':')) + '\n'
 
-    def parse_message(self, data):
+    @staticmethod
+    def parse_message(data):
         message = json.loads(data)
         if not isinstance(message, dict):
             raise ValueError("Parsed message must be a JSON object (dict)")

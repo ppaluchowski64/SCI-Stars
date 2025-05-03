@@ -1,7 +1,7 @@
 import sqlite3
 from hashlib import sha512
 
-import db_utils as db
+from db_helper import db
 
 
 class AccountManager:

@@ -1,6 +1,4 @@
-import sqlite3
-
-import db_utils as db
+from db_helper import db
 
 
 class QuestionAdmin:
