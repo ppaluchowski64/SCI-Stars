@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var Explosion = preload("res://scenes/explosion_fx.tscn")
+var Explosion = preload("res://scenes/FX/explosion_fx.tscn")
 
 # Stats
 var speed: float = 300.0
@@ -40,16 +40,21 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 	if travelled >= spawn_immunity:
 		if body.is_in_group("player"):
 			if body.id != player_id:
-				if parent:
-					body.take_damage(damage, parent)
-					parent.super_charge = min(parent.super_charge + 0.15, 1.0)
-				else:
-					body.take_damage(damage)
-					
+				if not body.is_immune:
+					if parent:
+						body.take_damage(damage, parent)
+						parent.super_charge = min(parent.super_charge + 0.15, 1.0)
+					else:
+						body.take_damage(damage)
+				
 				destroy()
 		
 		elif body.is_in_group("powerpod"):
-			body.take_damage(damage)
+			if parent:
+				body.take_damage(damage, parent)
+			else:
+				body.take_damage(damage)
+				
 			destroy()
 	
 		elif body.is_in_group("obstacle"):

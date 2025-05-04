@@ -1,0 +1,113 @@
+[gd_scene load_steps=7 format=3 uid="uid://drqbdja1gkr6y"]
+
+[ext_resource type="Texture2D" uid="uid://cwoekrlmefk3j" path="res://graphics/FX/shield_bubble_out.png" id="1_1t2iw"]
+[ext_resource type="Texture2D" uid="uid://dmgou0g1xn2g" path="res://graphics/FX/shield_bubble_in.png" id="1_3nyx2"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3nyx2"]
+blend_mode = 1
+
+[sub_resource type="Animation" id="Animation_422hd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4, 4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_3nyx2"]
+resource_name = "idle"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(4, 4), Vector2(4.5, 4.5), Vector2(4, 4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.5708]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../SpriteIn:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(4, 4), Vector2(4.5, 4.5), Vector2(4, 4)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../SpriteIn:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.5708]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_liksi"]
+_data = {
+&"RESET": SubResource("Animation_422hd"),
+&"idle": SubResource("Animation_3nyx2")
+}
+
+[node name="ShieldFX" type="Node2D" groups=["shield_fx"]]
+
+[node name="SpriteIn" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.2)
+material = SubResource("CanvasItemMaterial_3nyx2")
+scale = Vector2(4, 4)
+texture = ExtResource("1_3nyx2")
+
+[node name="SpriteOut" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_3nyx2")
+scale = Vector2(4, 4)
+texture = ExtResource("1_1t2iw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../SpriteOut")
+libraries = {
+&"": SubResource("AnimationLibrary_liksi")
+}
+autoplay = "idle"

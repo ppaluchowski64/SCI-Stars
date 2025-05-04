@@ -14,9 +14,25 @@ var current_question_id = -1
 var current_answers = []
 var buffer_text = ""
 
+var player: Node2D
+
+@onready var progress_bar: ProgressBar = $Panel/ProgressBar
+@onready var progress_tween: Tween
+
+func exit_question(is_answer_correct: bool = false) -> void:
+	if player:
+		player.block_controls = false
+		player.immunity_timer.start()
+	
+	queue_free()
+
 func _ready() -> void:
 	call_deferred("_start_connection")
 	set_process(true)
+	
+	progress_tween = create_tween()
+	progress_tween.tween_property(progress_bar, "value", 0, Const.QUESTION_ANSWER_TIME)
+	progress_tween.tween_callback(exit_question)
 
 func _start_connection() -> void:
 	var error = tcp.connect_to_host("127.0.0.1", 12345)
@@ -95,8 +111,10 @@ func handle_server_response(response_text: String) -> void:
 		if response.payload.has("correct"):
 			if response.payload.correct:
 				print("Correct answer!")
+				exit_question(true)
 			else:
 				print("Wrong answer! The correct answer is %s" % response.payload.correct_answer.to_upper())
+				exit_question(false)
 
 	else:
 		push_error("Unexpected response: %s" % response_text)

@@ -7,6 +7,7 @@ var Projectile = preload("res://scenes/projectile.tscn")
 @onready var regen_cooldown: Timer = $RegenCooldown
 @onready var shoot_cooldown: Timer = $ShootCooldown
 @onready var shoot_animation: Timer = $ShootAnimation
+@onready var immunity_timer: Timer = $ImmunityTimer
 
 @onready var healthbar_fill: ColorRect = $Healthbar/ColorRect
 @onready var healthbar_label: Label = $Healthbar/LabelParent/Label
@@ -57,6 +58,7 @@ var character_id: Characters.ID = Characters.ID.PABLO
 var block_controls: bool = true
 var is_main_player: bool = false
 var is_dead: bool = false
+var is_immune: bool = false
 
 func setup_ai() -> void:
 	var AI = preload("res://scenes/player_ai.tscn")
@@ -241,3 +243,10 @@ func _on_regen_cooldown_timeout() -> void:
 	
 	if health < max_health:
 		regen_cooldown.start(1)
+
+func _on_immunity_timer_timeout() -> void:
+	is_immune = false
+	
+	for node in get_children():
+		if node.is_in_group("shield_fx"):
+			node.queue_free()

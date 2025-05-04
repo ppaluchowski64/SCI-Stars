@@ -804,4 +804,6 @@ libraries = {
 }
 autoplay = "countdown"
 
+[node name="QuestionInterface" type="CanvasLayer" parent="." groups=["question_interface"]]
+
 [connection signal="button_down" from="EndScreen/ButtonParent/OffsetNode/ButtonProceed" to="." method="_on_button_proceed_button_down"]
