@@ -49,9 +49,9 @@ func _ready() -> void:
 	tokens_label.text = "PLUGS: " + str(int(PlayerData.tokens))
 	
 	if PlayerData.tokens >= 100:
-		loot_box_label.theme.set_color("font_color", "Label", Color("#8DEB8D"))
+		loot_box_label.theme.set_color("font_color", "Label", Color("#75EB75"))
 	else:
-		loot_box_label.theme.set_color("font_color", "Label", Color("#EB8D8B"))
+		loot_box_label.theme.set_color("font_color", "Label", Color("#EB7775"))
 
 func _on_button_play_button_down() -> void:
 	get_tree().call_deferred("change_scene_to_file", "res://scenes/battle.tscn")

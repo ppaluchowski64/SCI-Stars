@@ -94,6 +94,16 @@ func double_to_single_dir(x: int, y: int) -> int:
 func update_ui() -> void:
 	healthbar_fill.size.x = lerp(healthbar_fill.size.x, health / max_health * 56, Const.STATUS_BAR_SMOOTHNESS)
 	ammobar_fill.size.x = lerp(ammobar_fill.size.x, ammo / 3 * 56, Const.STATUS_BAR_SMOOTHNESS)
+	
+	if is_main_player:
+		update_hp_bar()
+
+func update_hp_bar() -> void:
+	var health_ratio = float(health) / max_health
+	var hue_value = lerp(0.0, 120.0, health_ratio)
+	
+	var new_color = Color.from_hsv(hue_value / 360.0, 0.60, 0.90)  
+	healthbar_fill.color = new_color
 
 func take_damage(damage: int, hitter: Node = null) -> void:
 	health -= damage

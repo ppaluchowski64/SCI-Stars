@@ -215,7 +215,7 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -112.0
-offset_right = 112.0
+offset_right = 280.0
 grow_vertical = 0
 
 [node name="CharacterContainer" type="VBoxContainer" parent="UserInterface"]

@@ -21,7 +21,7 @@ func _ready() -> void:
 	tokens_label.text = "PLUGS: " + str(int(PlayerData.tokens))
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("ui_click") and not block_click:
+	if Input.is_action_just_pressed("ui_click") or Input.is_action_just_pressed("ui_accept") and not block_click:
 		if drop_n == 0:
 			animation.play("open")
 			drop_resource(randi_range(80, 120))
