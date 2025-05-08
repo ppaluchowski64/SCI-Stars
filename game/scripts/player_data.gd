@@ -1,6 +1,6 @@
 extends Node
 
-var money: float = 2000.0
+var money: float = 300.0
 var tokens: float = 100.0
 
 class Stat:

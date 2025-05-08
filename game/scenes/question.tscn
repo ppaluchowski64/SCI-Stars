@@ -1,6 +1,151 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4s6yjde2g4p3"]
+[gd_scene load_steps=28 format=3 uid="uid://b4s6yjde2g4p3"]
 
 [ext_resource type="Script" uid="uid://dmv6vmksmlr35" path="res://scripts/question.gd" id="1_lk18j"]
+[ext_resource type="FontFile" uid="uid://dufv5fk7ox4x8" path="res://fonts/lanapixel_everything/LanaPixel.ttf" id="2_uyt6k"]
+[ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="3_xasbo"]
+
+[sub_resource type="Theme" id="Theme_nr8i1"]
+default_font = ExtResource("2_uyt6k")
+default_font_size = 30
+
+[sub_resource type="Theme" id="Theme_pvsvl"]
+default_font = ExtResource("2_uyt6k")
+default_font_size = 28
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ov6d"]
+bg_color = Color(0.333333, 0.8, 0.866667, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xasbo"]
+bg_color = Color(0.305882, 0.721569, 0.776471, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nr8i1"]
+bg_color = Color(0.254902, 0.6, 0.658824, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pvsvl"]
+bg_color = Color(0.333333, 0.8, 0.866667, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_3ruto"]
+default_font = ExtResource("2_uyt6k")
+default_font_size = 28
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ym27h"]
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ruto"]
+bg_color = Color(0.498039, 0.498039, 0.498039, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_km7xl"]
+bg_color = Color(0.4, 0.4, 0.4, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cgnpd"]
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_km7xl"]
+default_font = ExtResource("2_uyt6k")
+default_font_size = 28
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n3g2p"]
+bg_color = Color(0.333333, 0.8, 0.866667, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jwaa5"]
+bg_color = Color(0.305882, 0.721569, 0.776471, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2w7nc"]
+bg_color = Color(0.254902, 0.6, 0.658824, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wevg8"]
+bg_color = Color(0.333333, 0.8, 0.866667, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_cgnpd"]
+default_font = ExtResource("2_uyt6k")
+default_font_size = 28
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iy7wb"]
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ce02v"]
+bg_color = Color(0.498039, 0.498039, 0.498039, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_syim4"]
+bg_color = Color(0.4, 0.4, 0.4, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iu1hx"]
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_xasbo"]
+default_font = ExtResource("3_xasbo")
+default_font_size = 22
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s8mkl"]
+bg_color = Color(0.333333, 0.8, 0.866667, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_jwaa5"]
+default_font = ExtResource("3_xasbo")
+default_font_size = 20
 
 [node name="Question" type="Control"]
 layout_mode = 3
@@ -22,35 +167,93 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.9, 0.9)
 
-[node name="Label" type="Label" parent="Panel"]
+[node name="Content" type="Label" parent="Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 20.0
+offset_right = -30.0
+offset_bottom = -600.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1, 0.999999)
+theme = SubResource("Theme_nr8i1")
+theme_override_constants/outline_size = 18
+horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="Answers" type="VBoxContainer" parent="Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 83.0
+offset_left = 30.0
+offset_top = 140.0
+offset_right = -30.0
+offset_bottom = -80.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1, 1.00044)
+theme_override_constants/separation = 15
 
-[node name="ButtonA" type="Button" parent="Panel/VBoxContainer"]
+[node name="ButtonA" type="Button" parent="Panel/Answers"]
 layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 0
+theme = SubResource("Theme_pvsvl")
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_styles/disabled = SubResource("StyleBoxFlat_0ov6d")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xasbo")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nr8i1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_pvsvl")
 
-[node name="ButtonB" type="Button" parent="Panel/VBoxContainer"]
+[node name="ButtonB" type="Button" parent="Panel/Answers"]
 layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 0
+theme = SubResource("Theme_3ruto")
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ym27h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3ruto")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_km7xl")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cgnpd")
 
-[node name="ButtonC" type="Button" parent="Panel/VBoxContainer"]
+[node name="ButtonC" type="Button" parent="Panel/Answers"]
 layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 0
+theme = SubResource("Theme_km7xl")
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_styles/disabled = SubResource("StyleBoxFlat_n3g2p")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jwaa5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2w7nc")
+theme_override_styles/normal = SubResource("StyleBoxFlat_wevg8")
 
-[node name="ButtonD" type="Button" parent="Panel/VBoxContainer"]
+[node name="ButtonD" type="Button" parent="Panel/Answers"]
 layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 0
+theme = SubResource("Theme_cgnpd")
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_styles/disabled = SubResource("StyleBoxFlat_iy7wb")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ce02v")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_syim4")
+theme_override_styles/normal = SubResource("StyleBoxFlat_iu1hx")
 
 [node name="ProgressBar" type="ProgressBar" parent="Panel"]
 layout_mode = 1
@@ -58,12 +261,24 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -27.0
+offset_top = -60.0
 grow_horizontal = 2
 grow_vertical = 0
+theme = SubResource("Theme_xasbo")
+theme_override_styles/background = SubResource("StyleBoxFlat_s8mkl")
 value = 100.0
 
-[connection signal="pressed" from="Panel/VBoxContainer/ButtonA" to="." method="_on_button_a_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/ButtonB" to="." method="_on_button_b_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/ButtonC" to="." method="_on_button_c_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/ButtonD" to="." method="_on_button_d_pressed"]
+[node name="Correctness" type="Label" parent="Panel"]
+layout_mode = 0
+offset_top = 660.0
+offset_right = 1280.0
+offset_bottom = 720.0
+theme = SubResource("Theme_jwaa5")
+text = "Correct Answer!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Panel/Answers/ButtonA" to="." method="_on_button_a_pressed"]
+[connection signal="pressed" from="Panel/Answers/ButtonB" to="." method="_on_button_b_pressed"]
+[connection signal="pressed" from="Panel/Answers/ButtonC" to="." method="_on_button_c_pressed"]
+[connection signal="pressed" from="Panel/Answers/ButtonD" to="." method="_on_button_d_pressed"]
