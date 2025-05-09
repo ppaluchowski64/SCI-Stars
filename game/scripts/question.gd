@@ -25,6 +25,17 @@ func exit_question(is_answer_correct: bool = false) -> void:
 	if player:
 		player.block_controls = false
 		player.immunity_timer.start()
+		
+		if is_answer_correct:
+			player.max_health += 600
+			player.regen_cooldown.start(1)
+			player.damage_multiplier += 0.3
+		else:
+			for other in player.get_parent().get_children():
+				if other.is_in_group("player") and other != player:
+					other.max_health += 600
+					other.regen_cooldown.start(1)
+					other.damage_multiplier += 0.3
 	
 	queue_free()
 
@@ -122,7 +133,7 @@ func handle_server_response(response_text: String) -> void:
 		if response.payload.has("correct"):
 			display_check_result(answer, response.payload.correct_answer)
 			await get_tree().create_timer(3.0).timeout
-			exit_question()
+			exit_question(answer == response.payload.correct_answer)
 	
 	else:
 		push_error("Unexpected response: %s" % response_text)

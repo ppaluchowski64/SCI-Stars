@@ -60,6 +60,8 @@ var is_main_player: bool = false
 var is_dead: bool = false
 var is_immune: bool = false
 
+var damage_multiplier: float = 1.0
+
 func setup_ai() -> void:
 	var AI = preload("res://scenes/player_ai.tscn")
 	
@@ -132,7 +134,8 @@ func spawn_projectile(angle: float = get_angle_to(get_global_mouse_position()), 
 	projectile.global_rotation = angle
 	projectile.parent = self
 	
-	projectile.damage = PlayerData.character_stats[character_id][0].value
+	var base_damage = PlayerData.character_stats[character_id][0].value
+	projectile.damage = base_damage * damage_multiplier
 	
 	get_tree().get_root().call_deferred("add_child", projectile)
 
