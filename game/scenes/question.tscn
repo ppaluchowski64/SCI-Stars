@@ -269,6 +269,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_s8mkl")
 value = 100.0
 
 [node name="Correctness" type="Label" parent="Panel"]
+visible = false
 layout_mode = 0
 offset_top = 660.0
 offset_right = 1280.0

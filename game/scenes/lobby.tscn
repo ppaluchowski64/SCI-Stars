@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://r73t4uwivu0e"]
+[gd_scene load_steps=31 format=3 uid="uid://r73t4uwivu0e"]
 
 [ext_resource type="Script" uid="uid://dedbthjrkqd2o" path="res://scripts/lobby.gd" id="1_nn68e"]
 [ext_resource type="Texture2D" uid="uid://f1v34lrprxwu" path="res://graphics/backgrounds/lobby/backlayer.png" id="2_4hsao"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://byalpowexrkof" path="res://graphics/characters/jackflower/player.png" id="11_m1sns"]
 [ext_resource type="Texture2D" uid="uid://cm26og86ytcnc" path="res://graphics/UI/icons/money.png" id="11_uejoe"]
 [ext_resource type="Texture2D" uid="uid://dptmt2ajlx2jf" path="res://graphics/UI/icons/connector.png" id="14_q6qq2"]
+[ext_resource type="Script" uid="uid://crrwjrpe44fqc" path="res://scripts/volume.gd" id="16_0gjkf"]
 [ext_resource type="Script" uid="uid://ckbd6d7geipes" path="res://scripts/credits.gd" id="16_lqo1b"]
 
 [sub_resource type="Theme" id="Theme_6pyji"]
@@ -37,6 +38,33 @@ default_font_size = 5
 [sub_resource type="Theme" id="Theme_ut2vl"]
 default_font = ExtResource("4_358r0")
 default_font_size = 20
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lqo1b"]
+shader = ExtResource("7_1urcf")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/is_visible = true
+
+[sub_resource type="Theme" id="Theme_0gjkf"]
+default_font = ExtResource("4_358r0")
+default_font_size = 5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o2i1r"]
+shader = ExtResource("7_1urcf")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/is_visible = true
+
+[sub_resource type="Theme" id="Theme_iulku"]
+default_font = ExtResource("4_358r0")
+default_font_size = 5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dfnwm"]
+shader = ExtResource("7_1urcf")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/is_visible = true
+
+[sub_resource type="Theme" id="Theme_0jb4q"]
+default_font = ExtResource("4_358r0")
+default_font_size = 5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rgcd7"]
 shader = ExtResource("7_1urcf")
@@ -885,6 +913,67 @@ grow_vertical = 2
 theme = SubResource("Theme_6pyji")
 text = "CREDITS"
 
+[node name="VolumeContainer" type="Control" parent="SettingsInterface"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 120.0
+offset_top = 120.0
+offset_right = 1032.0
+offset_bottom = 528.0
+script = ExtResource("16_0gjkf")
+
+[node name="VolumeInfoContainer" type="Node2D" parent="SettingsInterface/VolumeContainer"]
+scale = Vector2(5, 5)
+
+[node name="VolumeLabel" type="Label" parent="SettingsInterface/VolumeContainer/VolumeInfoContainer"]
+material = SubResource("ShaderMaterial_lqo1b")
+offset_top = 25.0
+offset_right = 182.0
+offset_bottom = 31.0
+theme = SubResource("Theme_0gjkf")
+text = "- VOLUME -"
+horizontal_alignment = 1
+
+[node name="VolumeSliderContainer" type="Node2D" parent="SettingsInterface/VolumeContainer"]
+scale = Vector2(2, 2)
+
+[node name="VolumeSlider" type="HSlider" parent="SettingsInterface/VolumeContainer/VolumeSliderContainer"]
+offset_left = 148.0
+offset_top = 90.0
+offset_right = 308.0
+offset_bottom = 106.0
+value = 1.0
+
+[node name="VolumeValueContainer" type="Node2D" parent="SettingsInterface/VolumeContainer"]
+scale = Vector2(4, 4)
+
+[node name="VolumeValue" type="Label" parent="SettingsInterface/VolumeContainer/VolumeValueContainer"]
+material = SubResource("ShaderMaterial_o2i1r")
+offset_top = 60.0
+offset_right = 228.0
+offset_bottom = 66.0
+theme = SubResource("Theme_iulku")
+text = "20%"
+horizontal_alignment = 1
+
+[node name="LanguageContainer" type="Node2D" parent="SettingsInterface"]
+visible = false
+position = Vector2(120, 120)
+scale = Vector2(5, 5)
+
+[node name="LanguageInfo" type="Label" parent="SettingsInterface/LanguageContainer"]
+material = SubResource("ShaderMaterial_dfnwm")
+offset_left = 20.0
+offset_top = 1.0
+offset_right = 164.0
+offset_bottom = 81.0
+theme = SubResource("Theme_0jb4q")
+text = "The game is available only in English with Polish questions. We plan to support other languages ​​in the future."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
 [node name="CreditsContainer" type="MarginContainer" parent="SettingsInterface"]
 visible = false
 anchors_preset = 15
@@ -920,14 +1009,19 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_lqo1b")
 text = "- CREDITS -
-Main programmer: Lelek
+
+Programmer: Lelek and Pablo
 Art: Lelek
-Art templates: AxulArt
 Networking: Pablo
+
+Art templates: AxulArt
+Font: Chequered Ink and Eishiya
+
 Project mentor: Jackflower
 Game engine: Godot 4.4.1
 
 - SPECIAL THANKS -
+
 Thanks to Supercell for making the game Brawl Stars which inspired the whole project
 
 Made for SCI++ contest"
@@ -945,5 +1039,8 @@ metadata/_edit_use_anchors_ = true
 [connection signal="button_down" from="CharacterSelectInterface/Characters/CharacterContainer2/ButtonSelect" to="." method="_on_button_select_button_down_jack"]
 [connection signal="button_down" from="CharacterSelectInterface/MarginContainer/ButtonExitCharacterSelect" to="." method="_on_button_exit_character_select_button_down"]
 [connection signal="button_down" from="SettingsInterface/MarginContainer/ButtonExitSettings" to="." method="_on_button_exit_settings_button_down"]
+[connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonVolume" to="." method="_on_button_volume_button_down"]
+[connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonLanguage" to="." method="_on_button_language_button_down"]
 [connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonCredits" to="." method="_on_button_credits_button_down"]
 [connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonCredits" to="SettingsInterface/CreditsContainer/Control/Node2D" method="_on_button_credits_button_down"]
+[connection signal="value_changed" from="SettingsInterface/VolumeContainer/VolumeSliderContainer/VolumeSlider" to="SettingsInterface/VolumeContainer" method="_on_volume_slider_value_changed"]

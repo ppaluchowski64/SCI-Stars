@@ -15,6 +15,8 @@ extends Node2D
 @onready var loot_box_label: Label = $UserInterface/MarginContainer/LootBox/Label
 
 @onready var settings_buttons: VFlowContainer = $SettingsInterface/ButtonsContainer
+@onready var volume: Control = $SettingsInterface/VolumeContainer
+@onready var language: Node2D = $SettingsInterface/LanguageContainer
 @onready var credits: MarginContainer = $SettingsInterface/CreditsContainer
 
 func update_upgrades() -> void:
@@ -91,8 +93,18 @@ func _on_button_settings_button_down() -> void:
 
 func _on_button_exit_settings_button_down() -> void:
 	settings_interface.visible = false
+	volume.visible = false
+	language.visible = false
 	credits.visible = false
 	settings_buttons.visible = true
+
+func _on_button_volume_button_down() -> void:
+	settings_buttons.visible = false
+	volume.visible = true
+
+func _on_button_language_button_down() -> void:
+	settings_buttons.visible = false
+	language.visible = true
 
 func _on_button_credits_button_down() -> void:
 	settings_buttons.visible = false

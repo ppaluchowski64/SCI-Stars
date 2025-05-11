@@ -11,10 +11,11 @@ config_version=5
 [application]
 
 config/name="SCI Stars"
-config/description="Cross-platform multiplayer Battle Royale game with knowledge-based gameplay that captivatingly depicts life at SCI Technical Secondary School."
+config/description="Cross-platform multiplayer Battle Royale game with knowledge-based gameplay that captivatingly depicts life at Technikum Informatyczne SCI."
+config/version="0.1.0-preview"
 run/main_scene="uid://r73t4uwivu0e"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://d1tqm8c4667ws"
 
 [autoload]
 
@@ -22,6 +23,10 @@ Const="*res://scripts/consts.gd"
 PlayerData="*res://scripts/player_data.gd"
 Autoload="res://scripts/autoload.gd"
 AStarAI="*res://scripts/player_ai_astar.gd"
+
+[display]
+
+window/size/resizable=false
 
 [dotnet]
 
