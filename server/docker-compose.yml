@@ -1,0 +1,10 @@
+services:
+  sci-stars:
+    container_name: sci-stars
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "12345:12345"
+    tty: true
+    restart: "on-failure"

@@ -1010,7 +1010,7 @@ grow_vertical = 2
 theme = SubResource("Theme_lqo1b")
 text = "- CREDITS -
 
-Programmer: Lelek and Pablo
+Programmers: Lelek and Pablo
 Art: Lelek
 Networking: Pablo
 
