@@ -4,12 +4,14 @@ extends Node2D
 @onready var move_timer: Timer = $MoveTimer
 @onready var shoot_timer: Timer = $ShootTimer
 
-var astar = AStarGrid2D.new()
+var astar: AStarGrid2D
 var current_path: PackedVector2Array
 var path_index: int = 0
 
 var moving: bool = false
 var ignore_enemy_frames: float = 600
+
+var font = SystemFont.new()
 
 func update(delta: float) -> void:
 	global_position = Vector2.ZERO
@@ -34,7 +36,7 @@ func update(delta: float) -> void:
 			
 			if player.shoot_animation.time_left == 0:
 				player.dir_x = 0
-				player.dir_y = 0
+				player.deir_y = 0
 			
 			if shoot_timer.is_stopped():
 				player.projectile_func.call(angle)
@@ -43,7 +45,7 @@ func update(delta: float) -> void:
 				player.dir_x = dir[0]
 				player.dir_y = dir[1]
 				
-				shoot_timer.start(1 + randf_range(-0.2, 0.2))
+				shoot_timer.start(randf_range(1.2, 1.5) * 0.75 / player.reload_speed)
 			
 			return
 		else:
@@ -56,7 +58,8 @@ func update(delta: float) -> void:
 		player.dir_y = 0
 		
 		if move_timer.is_stopped():
-			move_timer.start(1)
+			# funi formula
+			move_timer.start((randf_range(0, 1) ** 2) * 2 + 1)
 		
 		return
 	
@@ -91,21 +94,31 @@ func _ready() -> void:
 	global_position = Vector2.ZERO
 	astar = AStarAI.astar
 
-func _draw() -> void:
+"""func _draw() -> void:
 	if AStarAI.debug_draw:
-		"""for x in range(astar.region.position.x, astar.region.end.x):
-			for y in range(astar.region.position.y, astar.region.end.y):
-				var cell_pos = Vector2(x, y)
-				var world_pos = cell_pos * AStarAI.cell_size
-				var rect = Rect2(world_pos, AStarAI.cell_size)
-				var is_solid = astar.is_point_solid(cell_pos)
-				
-				if is_solid:
-					draw_rect(rect, Color.RED, false)"""
+		if player.id == 0:
+			for x in range(astar.region.position.x, astar.region.end.x):
+				for y in range(astar.region.position.y, astar.region.end.y):
+					var cell_pos = Vector2(x, y)
+					var world_pos = cell_pos * AStarAI.cell_size
+					var rect = Rect2(world_pos, AStarAI.cell_size)
+					var is_solid = astar.is_point_solid(cell_pos)
+					
+					if is_solid:
+						draw_rect(rect, Color.RED, false)
+						draw_string(font, world_pos, str(cell_pos.x), 0, -1, 8)
+						draw_string(font, world_pos + Vector2(0, 10), str(cell_pos.y), 0, -1, 8)
+					else:
+						draw_rect(rect, Color.YELLOW, false)
 	
 		for point in current_path:
-			draw_circle(point, 3, Color.GREEN)
+			draw_circle(point, 3, Color.GREEN)"""
 
 func _on_move_timer_timeout() -> void:
-	set_target(Vector2i(randi_range(-40, 39), randi_range(-40, 39)))
-	queue_redraw()
+	var target: Vector2i
+	
+	while not target or AStarAI.astar.is_point_solid(target):
+		target = Vector2i(randi_range(-40, 39), randi_range(-40, 39))
+	
+	set_target(target)
+	#queue_redraw()

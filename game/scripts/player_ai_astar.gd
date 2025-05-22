@@ -7,7 +7,7 @@ var grid_size: int = 40
 
 var astar: AStarGrid2D = AStarGrid2D.new()
 
-var debug_draw: bool = false
+#var debug_draw: bool = true
 
 func generate_astar(new_astar: AStarGrid2D, tilemap: TileMapLayer) -> void:
 	for x in range(-grid_size / 2, grid_size / 2):
@@ -17,6 +17,9 @@ func generate_astar(new_astar: AStarGrid2D, tilemap: TileMapLayer) -> void:
 					for oy in range(-2, 4):
 						if not ox in [-2, 3] or not oy in [-2, 3]:
 							new_astar.set_point_solid(Vector2i(x * 2 + ox, y * 2 + oy))
+	
+	for pos in Const.DISABLED_TILES:
+		new_astar.set_point_solid(Vector2i(pos[0], pos[1]))
 
 func setup() -> void:
 	obstacles = get_tree().get_first_node_in_group("obstacle")

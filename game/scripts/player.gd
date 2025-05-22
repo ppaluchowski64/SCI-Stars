@@ -234,7 +234,6 @@ func _process(delta: float) -> void:
 		move()
 		shoot(delta)
 		
-		"""
 		# DEBUG PURPOSES
 		if Input.is_action_just_pressed("debug_1"):
 			take_damage(9999, get_parent().get_children().pick_random())
@@ -242,10 +241,10 @@ func _process(delta: float) -> void:
 			for player in get_parent().get_children():
 				if player != self:
 					player.take_damage(9999)
-		"""
 	else:
 		if not block_controls and ai:
 			ai.update(delta)
+			pass
 	
 	animate(delta)
 	update_ui()
