@@ -20,9 +20,9 @@ func update_resolution() -> void:
 	var scale_x: int = floor(DisplayServer.screen_get_size().x / ratio_x)
 	var scale_y: int = floor(DisplayServer.screen_get_size().y / ratio_y)
 	
-	var scale = min(scale_x, scale_y)
+	var scale_value = min(scale_x, scale_y)
 	
-	window_size = Vector2i(ratio_x * scale, ratio_y * scale)
+	window_size = Vector2i(ratio_x * scale_value, ratio_y * scale_value)
 	get_window().content_scale_size = window_size / window_scale
 
 func _on_check_box_toggled(toggled_on: bool) -> void:

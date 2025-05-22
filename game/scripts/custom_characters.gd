@@ -5,10 +5,17 @@ static var Player = preload("res://scenes/player.tscn")
 
 static var character_names: Array = ["pablomajster", "jackflower"]
 static var display_names: Array = ["Pablo Majster", "Jack Flower"]
+static var character_descriptions: Array = [
+	"Pablo description placeholder. Lorem ipsum dolor sit amet.",
+	"Jack description placeholder. Pellentesque ornare dolor eu justo lacinia sagittis."
+]
+
 static var spritesheets: Array
 static var textures: Array
 
 enum ID {PABLO, JACK}
+
+const CHARACTER_COUNT = 2
 
 static func setup() -> void:
 	for n in character_names:

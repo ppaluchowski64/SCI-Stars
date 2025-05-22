@@ -46,6 +46,8 @@ func update(delta: float) -> void:
 				player.dir_y = dir[1]
 				
 				shoot_timer.start(randf_range(1.2, 1.5) * 0.75 / player.reload_speed)
+				
+				player.regen_cooldown.start(3)
 			
 			return
 		else:

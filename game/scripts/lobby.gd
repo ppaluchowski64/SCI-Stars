@@ -67,22 +67,13 @@ func _on_button_exit_upgrade_button_down() -> void:
 
 func _on_button_character_select_button_down() -> void:
 	character_select_interface.visible = true
+	character_select_interface.selected_character = PlayerData.selected_character
+	character_select_interface.change_value = PlayerData.selected_character
+	
+	character_select_interface.update_labels()
 
 func _on_button_exit_character_select_button_down() -> void:
 	character_select_interface.visible = false
-
-# You are about to witness what you won't unsee
-func _on_button_select_button_down_pablo() -> void:
-	PlayerData.selected_character = Characters.ID.PABLO
-	character_select_interface.visible = false
-	update_selected_character()
-	update_upgrades()
-
-func _on_button_select_button_down_jack() -> void:
-	PlayerData.selected_character = Characters.ID.JACK
-	character_select_interface.visible = false
-	update_selected_character()
-	update_upgrades()
 
 func _on_button_loot_box_button_down() -> void:
 	if PlayerData.tokens >= 100:
@@ -115,3 +106,6 @@ func _on_button_credits_button_down() -> void:
 func _on_button_resolution_button_down() -> void:
 	settings_buttons.visible = false
 	resolution_container.visible = true
+
+func _on_button_select_button_down() -> void:
+	character_select_interface.visible = false
