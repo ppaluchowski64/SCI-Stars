@@ -27,6 +27,8 @@ AStarAI="*res://scripts/player_ai_astar.gd"
 [display]
 
 window/size/resizable=false
+window/stretch/mode="viewport"
+window/stretch/scale_mode="integer"
 
 [dotnet]
 

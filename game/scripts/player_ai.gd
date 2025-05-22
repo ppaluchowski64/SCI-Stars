@@ -36,7 +36,7 @@ func update(delta: float) -> void:
 			
 			if player.shoot_animation.time_left == 0:
 				player.dir_x = 0
-				player.deir_y = 0
+				player.dir_y = 0
 			
 			if shoot_timer.is_stopped():
 				player.projectile_func.call(angle)

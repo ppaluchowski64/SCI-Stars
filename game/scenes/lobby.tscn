@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://r73t4uwivu0e"]
+[gd_scene load_steps=32 format=3 uid="uid://r73t4uwivu0e"]
 
 [ext_resource type="Script" uid="uid://dedbthjrkqd2o" path="res://scripts/lobby.gd" id="1_nn68e"]
 [ext_resource type="Texture2D" uid="uid://f1v34lrprxwu" path="res://graphics/backgrounds/lobby/backlayer.png" id="2_4hsao"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://dptmt2ajlx2jf" path="res://graphics/UI/icons/connector.png" id="14_q6qq2"]
 [ext_resource type="Script" uid="uid://crrwjrpe44fqc" path="res://scripts/volume.gd" id="16_0gjkf"]
 [ext_resource type="Script" uid="uid://ckbd6d7geipes" path="res://scripts/credits.gd" id="16_lqo1b"]
+[ext_resource type="Script" uid="uid://ctsosyerera0k" path="res://scripts/resolution.gd" id="18_o2i1r"]
 
 [sub_resource type="Theme" id="Theme_6pyji"]
 default_font = ExtResource("4_358r0")
@@ -833,19 +834,44 @@ scale = Vector2(4, 4)
 texture = ExtResource("8_472nk")
 
 [node name="ButtonsContainer" type="VFlowContainer" parent="SettingsInterface"]
-anchors_preset = 13
+anchors_preset = -1
 anchor_left = 0.5
+anchor_top = 0.235
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -104.0
-offset_top = 112.0
-offset_right = 96.0
-offset_bottom = -112.0
+anchor_bottom = 0.765
+offset_left = -220.0
+offset_top = -0.280014
+offset_right = 220.0
+offset_bottom = 0.279968
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_constants/h_separation = 40
 theme_override_constants/v_separation = 20
 alignment = 1
+
+[node name="ButtonResolution" type="TextureButton" parent="SettingsInterface/ButtonsContainer"]
+custom_minimum_size = Vector2(200, 88)
+layout_mode = 2
+texture_normal = ExtResource("3_xb4sn")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="SettingsInterface/ButtonsContainer/ButtonResolution"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_6pyji")
+text = "RESOLUTION"
 
 [node name="ButtonVolume" type="TextureButton" parent="SettingsInterface/ButtonsContainer"]
 custom_minimum_size = Vector2(200, 88)
@@ -991,12 +1017,12 @@ theme_override_constants/margin_bottom = 120
 clip_contents = true
 layout_mode = 2
 
-[node name="Node2D" type="Node2D" parent="SettingsInterface/CreditsContainer/Control"]
+[node name="LabelParent" type="Node2D" parent="SettingsInterface/CreditsContainer/Control"]
 position = Vector2(-60, -60)
 scale = Vector2(4, 4)
 script = ExtResource("16_lqo1b")
 
-[node name="Label" type="Label" parent="SettingsInterface/CreditsContainer/Control/Node2D"]
+[node name="Label" type="Label" parent="SettingsInterface/CreditsContainer/Control/LabelParent"]
 material = SubResource("ShaderMaterial_rgcd7")
 anchors_preset = 8
 anchor_left = 0.5
@@ -1029,6 +1055,102 @@ horizontal_alignment = 1
 autowrap_mode = 3
 metadata/_edit_use_anchors_ = true
 
+[node name="ResolutionContainer" type="VBoxContainer" parent="SettingsInterface"]
+visible = false
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+script = ExtResource("18_o2i1r")
+
+[node name="FullscreenField" type="Control" parent="SettingsInterface/ResolutionContainer"]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="CheckBox" type="CheckBox" parent="SettingsInterface/ResolutionContainer/FullscreenField"]
+layout_mode = 0
+offset_left = 169.0
+offset_right = 193.0
+offset_bottom = 24.0
+
+[node name="LabelParent" type="Node2D" parent="SettingsInterface/ResolutionContainer/FullscreenField"]
+scale = Vector2(4, 4)
+
+[node name="Label" type="Label" parent="SettingsInterface/ResolutionContainer/FullscreenField/LabelParent"]
+material = SubResource("ShaderMaterial_rgcd7")
+offset_right = 40.0
+offset_bottom = 6.0
+theme = SubResource("Theme_lqo1b")
+text = "Fullscreen"
+
+[node name="RatioField" type="Control" parent="SettingsInterface/ResolutionContainer"]
+custom_minimum_size = Vector2(320, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="OptionButton" type="OptionButton" parent="SettingsInterface/ResolutionContainer/RatioField"]
+layout_mode = 2
+offset_left = 207.0
+offset_right = 312.0
+offset_bottom = 22.0
+selected = 0
+item_count = 5
+popup/item_0/text = "16:9"
+popup/item_0/id = 0
+popup/item_1/text = "8:5"
+popup/item_1/id = 1
+popup/item_2/text = "4:3"
+popup/item_2/id = 2
+popup/item_3/text = "3:2"
+popup/item_3/id = 3
+popup/item_4/text = "5:3"
+popup/item_4/id = 4
+
+[node name="LabelParent" type="Node2D" parent="SettingsInterface/ResolutionContainer/RatioField"]
+scale = Vector2(4, 4)
+
+[node name="Label" type="Label" parent="SettingsInterface/ResolutionContainer/RatioField/LabelParent"]
+material = SubResource("ShaderMaterial_rgcd7")
+offset_right = 40.0
+offset_bottom = 6.0
+theme = SubResource("Theme_lqo1b")
+text = "Aspect ratio"
+
+[node name="ScaleField" type="Control" parent="SettingsInterface/ResolutionContainer"]
+custom_minimum_size = Vector2(264, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HSlider" type="HSlider" parent="SettingsInterface/ResolutionContainer/ScaleField"]
+layout_mode = 0
+offset_left = 98.0
+offset_right = 253.0
+offset_bottom = 16.0
+min_value = 1.0
+max_value = 2.0
+step = 0.5
+value = 1.5
+tick_count = 3
+ticks_on_borders = true
+
+[node name="LabelParent" type="Node2D" parent="SettingsInterface/ResolutionContainer/ScaleField"]
+scale = Vector2(4, 4)
+
+[node name="Label" type="Label" parent="SettingsInterface/ResolutionContainer/ScaleField/LabelParent"]
+material = SubResource("ShaderMaterial_rgcd7")
+offset_right = 40.0
+offset_bottom = 6.0
+theme = SubResource("Theme_lqo1b")
+text = "Scale"
+
 [connection signal="button_down" from="UserInterface/MarginContainer/ButtonPlay" to="." method="_on_button_play_button_down"]
 [connection signal="button_down" from="UserInterface/MarginContainer/ButtonSettings" to="." method="_on_button_settings_button_down"]
 [connection signal="button_down" from="UserInterface/MarginContainer/LootBox/ButtonLootBox" to="." method="_on_button_loot_box_button_down"]
@@ -1039,8 +1161,12 @@ metadata/_edit_use_anchors_ = true
 [connection signal="button_down" from="CharacterSelectInterface/Characters/CharacterContainer2/ButtonSelect" to="." method="_on_button_select_button_down_jack"]
 [connection signal="button_down" from="CharacterSelectInterface/MarginContainer/ButtonExitCharacterSelect" to="." method="_on_button_exit_character_select_button_down"]
 [connection signal="button_down" from="SettingsInterface/MarginContainer/ButtonExitSettings" to="." method="_on_button_exit_settings_button_down"]
+[connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonResolution" to="." method="_on_button_resolution_button_down"]
 [connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonVolume" to="." method="_on_button_volume_button_down"]
 [connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonLanguage" to="." method="_on_button_language_button_down"]
 [connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonCredits" to="." method="_on_button_credits_button_down"]
-[connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonCredits" to="SettingsInterface/CreditsContainer/Control/Node2D" method="_on_button_credits_button_down"]
+[connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonCredits" to="SettingsInterface/CreditsContainer/Control/LabelParent" method="_on_button_credits_button_down"]
 [connection signal="value_changed" from="SettingsInterface/VolumeContainer/VolumeSliderContainer/VolumeSlider" to="SettingsInterface/VolumeContainer" method="_on_volume_slider_value_changed"]
+[connection signal="toggled" from="SettingsInterface/ResolutionContainer/FullscreenField/CheckBox" to="SettingsInterface/ResolutionContainer" method="_on_check_box_toggled"]
+[connection signal="item_selected" from="SettingsInterface/ResolutionContainer/RatioField/OptionButton" to="SettingsInterface/ResolutionContainer" method="_on_option_button_item_selected"]
+[connection signal="drag_ended" from="SettingsInterface/ResolutionContainer/ScaleField/HSlider" to="SettingsInterface/ResolutionContainer" method="_on_h_slider_drag_ended"]

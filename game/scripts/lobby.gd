@@ -18,6 +18,7 @@ extends Node2D
 @onready var volume: Control = $SettingsInterface/VolumeContainer
 @onready var language: Node2D = $SettingsInterface/LanguageContainer
 @onready var credits: MarginContainer = $SettingsInterface/CreditsContainer
+@onready var resolution_container: VBoxContainer = $SettingsInterface/ResolutionContainer
 
 func update_upgrades() -> void:
 	for upgrade in upgrade_parent.get_children():
@@ -96,6 +97,7 @@ func _on_button_exit_settings_button_down() -> void:
 	volume.visible = false
 	language.visible = false
 	credits.visible = false
+	resolution_container.visible = false
 	settings_buttons.visible = true
 
 func _on_button_volume_button_down() -> void:
@@ -109,3 +111,7 @@ func _on_button_language_button_down() -> void:
 func _on_button_credits_button_down() -> void:
 	settings_buttons.visible = false
 	credits.visible = true
+
+func _on_button_resolution_button_down() -> void:
+	settings_buttons.visible = false
+	resolution_container.visible = true
