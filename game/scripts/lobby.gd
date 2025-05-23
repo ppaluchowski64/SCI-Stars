@@ -43,7 +43,15 @@ func update_upgrades() -> void:
 func update_selected_character() -> void:
 	character_sprite.texture = Characters.textures[PlayerData.selected_character]
 	character_label.text = "CHARACTER: " + Characters.display_names[PlayerData.selected_character]
-
+	
+	# Sincerely, thanks for this, Duda
+	if PlayerData.selected_character == Characters.ID.KATE:
+		character_sprite.region_rect.position.x = 82
+		character_sprite.region_rect.size.x = 15
+	else:
+		character_sprite.region_rect.position.x = 65
+		character_sprite.region_rect.size.x = 14
+		
 func _ready() -> void:
 	update_upgrades()
 	update_selected_character()

@@ -8,5 +8,6 @@ static var textures: Array = [preload("res://graphics/UI/icons/damage.png"), pre
 # We don't talk about this
 static var upgrade_data: Array = [
 	[[names[0], desc[0], textures[0]], [names[1], desc[1], textures[1]]],
-	[[names[0], desc[0], textures[0]], [names[1], desc[1], textures[1]], [names[2], desc[2], textures[0]]]
+	[[names[0], desc[0], textures[0]], [names[1], desc[1], textures[1]], [names[2], desc[2], textures[0]]],
+	[[names[0], desc[0], textures[0]], [names[1], desc[1], textures[1]]]
 ]

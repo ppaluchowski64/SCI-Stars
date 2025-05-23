@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 @onready var lobby: Node2D = $".."
-@onready var characters: HBoxContainer = $LeftContainer/Characters
+@onready var characters: ReferenceRect = $LeftContainer/Characters/ReferenceRect
 @onready var character_name_label: Label = $LeftContainer/CharacterName/LabelParent/Label
 @onready var character_description_label: Label = $RightContainer/Description/LabelParent/Label
 
@@ -30,12 +30,16 @@ func _process(_delta: float) -> void:
 	for child in characters.get_children():
 		child.global_position.x = 324 + 204 * (i - change_value)
 		
-		var scale_value = 1 + (1 - max(abs(i - change_value), 0)) * 0.25
+		var scale_value = 8 + (1 - max(abs(i - change_value), 0)) * 2
 		
 		child.scale.x = scale_value
 		child.scale.y = scale_value
 		
+		child.global_position.y = get_window().content_scale_size.y / 2
+		
 		i += 1
+	
+	characters.size.y = get_window().content_scale_size.y - 240
 
 func _on_button_left_button_down() -> void:
 	if selected_character > 0:

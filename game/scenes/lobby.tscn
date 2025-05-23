@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://r73t4uwivu0e"]
+[gd_scene load_steps=34 format=3 uid="uid://r73t4uwivu0e"]
 
 [ext_resource type="Script" uid="uid://dedbthjrkqd2o" path="res://scripts/lobby.gd" id="1_nn68e"]
 [ext_resource type="Texture2D" uid="uid://f1v34lrprxwu" path="res://graphics/backgrounds/lobby/backlayer.png" id="2_4hsao"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://d350a1sf6i51e" path="res://scripts/character_select.gd" id="15_iulku"]
 [ext_resource type="Script" uid="uid://crrwjrpe44fqc" path="res://scripts/volume.gd" id="16_0gjkf"]
 [ext_resource type="Script" uid="uid://ckbd6d7geipes" path="res://scripts/credits.gd" id="16_lqo1b"]
+[ext_resource type="Texture2D" uid="uid://dndsomadsvt8o" path="res://graphics/characters/kate/player.png" id="17_dfnwm"]
 [ext_resource type="Script" uid="uid://ctsosyerera0k" path="res://scripts/resolution.gd" id="18_o2i1r"]
 
 [sub_resource type="Theme" id="Theme_6pyji"]
@@ -615,33 +616,37 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Characters" type="HBoxContainer" parent="CharacterSelectInterface/LeftContainer"]
+[node name="Characters" type="Node2D" parent="CharacterSelectInterface/LeftContainer"]
+
+[node name="ReferenceRect" type="ReferenceRect" parent="CharacterSelectInterface/LeftContainer/Characters"]
 clip_contents = true
-layout_mode = 2
+offset_left = 120.0
+offset_top = 120.0
+offset_right = 526.0
+offset_bottom = 528.0
+border_color = Color(1, 0, 0, 0)
+editor_only = false
 
-[node name="CharacterSprite1" type="Control" parent="CharacterSelectInterface/LeftContainer/Characters"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="Sprite2D" type="Sprite2D" parent="CharacterSelectInterface/LeftContainer/Characters/CharacterSprite1"]
+[node name="CharacterSprite1" type="Sprite2D" parent="CharacterSelectInterface/LeftContainer/Characters/ReferenceRect"]
+position = Vector2(0, 204)
 scale = Vector2(8, 8)
 texture = ExtResource("7_65pnu")
 region_enabled = true
 region_rect = Rect2(65, 53, 13, 17)
 
-[node name="CharacterSprite2" type="Control" parent="CharacterSelectInterface/LeftContainer/Characters"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="Sprite2D" type="Sprite2D" parent="CharacterSelectInterface/LeftContainer/Characters/CharacterSprite2"]
+[node name="CharacterSprite2" type="Sprite2D" parent="CharacterSelectInterface/LeftContainer/Characters/ReferenceRect"]
+position = Vector2(204, 204)
 scale = Vector2(8, 8)
 texture = ExtResource("11_m1sns")
 region_enabled = true
 region_rect = Rect2(65, 53, 13, 17)
+
+[node name="CharacterSprite3" type="Sprite2D" parent="CharacterSelectInterface/LeftContainer/Characters/ReferenceRect"]
+position = Vector2(408, 204)
+scale = Vector2(8, 8)
+texture = ExtResource("17_dfnwm")
+region_enabled = true
+region_rect = Rect2(82, 53, 15, 17)
 
 [node name="ButtonLeft" type="TextureButton" parent="CharacterSelectInterface/LeftContainer"]
 custom_minimum_size = Vector2(88, 88)
@@ -724,7 +729,7 @@ offset_bottom = 90.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_i38xw")
-text = "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet."
+text = "Description lol"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
@@ -1180,11 +1185,9 @@ offset_left = 98.0
 offset_right = 253.0
 offset_bottom = 16.0
 min_value = 1.0
-max_value = 2.0
-step = 0.5
+max_value = 1.75
+step = 0.01
 value = 1.5
-tick_count = 3
-ticks_on_borders = true
 
 [node name="LabelParent" type="Node2D" parent="SettingsInterface/ResolutionContainer/ScaleField"]
 scale = Vector2(4, 4)

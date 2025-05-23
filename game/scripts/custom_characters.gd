@@ -3,19 +3,20 @@ class_name Characters
 
 static var Player = preload("res://scenes/player.tscn")
 
-static var character_names: Array = ["pablomajster", "jackflower"]
-static var display_names: Array = ["Pablo Majster", "Jack Flower"]
+static var character_names: Array = ["pablomajster", "jackflower", "kate"]
+static var display_names: Array = ["Pablo Majster", "Jack Flower", "Kate"]
 static var character_descriptions: Array = [
-	"Pablo description placeholder. Lorem ipsum dolor sit amet.",
-	"Jack description placeholder. Pellentesque ornare dolor eu justo lacinia sagittis."
+	"Student of SCI, a tech geek who knows everything about networking and Linux. He fires a small data bolt straight ahead. His super is a fork bomb that splits into 4 smaller packets.",
+	"Principal of SCI, he prefers old tools and uses Godot like it’s still the 90s. He shoots five floppy disks in a wide spread. His super does something.",
+	"Teacher of SCI, a strict Polish educator with a heavy hammer. Hits hard with a close-range swing. Super spins, throws the hammer, and leaves a damaging book behind."
 ]
 
 static var spritesheets: Array
 static var textures: Array
 
-enum ID {PABLO, JACK}
+enum ID {PABLO, JACK, KATE}
 
-const CHARACTER_COUNT = 2
+const CHARACTER_COUNT = 3
 
 static func setup() -> void:
 	for n in character_names:

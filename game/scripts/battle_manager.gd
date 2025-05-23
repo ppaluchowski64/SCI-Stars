@@ -63,7 +63,7 @@ func start_game() -> void:
 		Vector2(680, -680), Vector2(680, 680), Vector2(-680, 680), Vector2(-680, -680)
 	]
 	
-	var main_player_id: int = 4#randi_range(0, 7)
+	var main_player_id: int = randi_range(0, 7)
 	var i: int = 0
 	
 	for pos in player_spawn_pos:

@@ -1,7 +1,26 @@
-[gd_scene load_steps=10 format=3 uid="uid://ven1e6xfokq5"]
+[gd_scene load_steps=12 format=3 uid="uid://ven1e6xfokq5"]
 
 [ext_resource type="Texture2D" uid="uid://cytxhd0eromeh" path="res://graphics/FX/basic_explosion.png" id="1_kfmb1"]
 [ext_resource type="Script" uid="uid://bmdo5x8eaoklg" path="res://scripts/FX/simple_fx.gd" id="2_o7eu3"]
+
+[sub_resource type="Shader" id="Shader_cgl8k"]
+code = "shader_type canvas_item;
+
+uniform bool is_visible = false;
+
+void fragment()
+{
+	if (is_visible)
+	{
+		vec4 tex_color = texture(TEXTURE, UV);
+        COLOR = vec4(tex_color.g, tex_color.r, tex_color.b, tex_color.a);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_85s43"]
+resource_local_to_scene = true
+shader = SubResource("Shader_cgl8k")
+shader_parameter/is_visible = false
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qw43j"]
 atlas = ExtResource("1_kfmb1")
@@ -55,6 +74,7 @@ animations = [{
 }]
 
 [node name="ExplosionFX" type="AnimatedSprite2D"]
+material = SubResource("ShaderMaterial_85s43")
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_e4jxa")
 autoplay = "default"
