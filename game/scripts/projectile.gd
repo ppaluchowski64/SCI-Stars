@@ -90,7 +90,7 @@ func _ready() -> void:
 			tween.set_trans(Tween.TRANS_CIRC)
 		
 		if parent.character_id == Characters.ID.KATE:
-			spin_time = PlayerData.character_stats[PlayerData.selected_character][2].value
+			spin_time = PlayerData.character_stats[parent.character_id][2].value
 		
 		tween.tween_property(self, "global_rotation", global_rotation + spin_end, spin_time)
 		tween.tween_callback(destroy)

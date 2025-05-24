@@ -247,7 +247,7 @@ func _ready() -> void:
 	nickname_label.text = "Player" + str(id)
 	
 	if character_id == Characters.ID.KATE:
-		shoot_cooldown.wait_time = PlayerData.character_stats[PlayerData.selected_character][2].value
+		shoot_cooldown.wait_time = PlayerData.character_stats[character_id][2].value
 
 func _process(delta: float) -> void:
 	if is_main_player:
@@ -282,7 +282,7 @@ func _on_immunity_timer_timeout() -> void:
 	is_immune = false
 	
 	for node in get_children():
-		if node.is_in_group("GODOT_fx"):
+		if node.is_in_group("shield_fx"):
 			node.queue_free()
 
 func _on_status_timer_timeout() -> void:
