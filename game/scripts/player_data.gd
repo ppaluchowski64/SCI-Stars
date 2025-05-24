@@ -18,8 +18,8 @@ class Stat:
 
 var character_stats: Array = [
 	[Stat.new(200.0, 750.0, 150.0), Stat.new(200.0, 3000.0, 300.0)],
-	[Stat.new(200.0, 250.0, 30.0), Stat.new(200.0, 3600.0, 300.0), Stat.new(200.0, 2600.0, 300.0)],
-	[Stat.new(200.0, 750.0, 150.0), Stat.new(200.0, 3000.0, 300.0)]
+	[Stat.new(200.0, 250.0, 30.0), Stat.new(200.0, 3600.0, 300.0), Stat.new(500.0, 2, 1)],
+	[Stat.new(200.0, 1200.0, 240.0), Stat.new(200.0, 4200.0, 300.0), Stat.new(500.0, 0.4, -0.01)]
 ]
 
 var selected_character = Characters.ID.PABLO

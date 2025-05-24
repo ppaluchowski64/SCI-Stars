@@ -73,8 +73,12 @@ one_shot = true
 wait_time = 3.0
 one_shot = true
 
+[node name="StatusTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
 [node name="Healthbar" type="Node2D" parent="."]
-z_index = 1
+z_index = 3
 position = Vector2(0, -52)
 
 [node name="ColorRect" type="ColorRect" parent="Healthbar"]
@@ -106,7 +110,7 @@ vertical_alignment = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Ammobar" type="Node2D" parent="."]
-z_index = 1
+z_index = 3
 position = Vector2(0, 52)
 
 [node name="ColorRect" type="ColorRect" parent="Ammobar"]
@@ -122,6 +126,7 @@ scale = Vector2(4, 4)
 texture = ExtResource("5_ptbdj")
 
 [node name="NicknameLabel" type="Node2D" parent="."]
+z_index = 3
 scale = Vector2(4, 4)
 
 [node name="Label" type="Label" parent="NicknameLabel"]
@@ -153,3 +158,4 @@ texture = ExtResource("7_fjrip")
 
 [connection signal="timeout" from="RegenCooldown" to="." method="_on_regen_cooldown_timeout"]
 [connection signal="timeout" from="ImmunityTimer" to="." method="_on_immunity_timer_timeout"]
+[connection signal="timeout" from="StatusTimer" to="." method="_on_status_timer_timeout"]

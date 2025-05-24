@@ -11,6 +11,8 @@ var path_index: int = 0
 var moving: bool = false
 var ignore_enemy_frames: float = 600
 
+var attack_range: float = 300.0
+
 var font = SystemFont.new()
 
 func update(delta: float) -> void:
@@ -27,7 +29,7 @@ func update(delta: float) -> void:
 				closest_enemy_dist = dist
 				closest_enemy = enemy
 	
-	if closest_enemy_dist <= 300:
+	if closest_enemy_dist <= attack_range:
 		if ignore_enemy_frames <= 0:
 			var angle: float = player.get_angle_to(closest_enemy.global_position)
 			var dir: Array = player.rad_to_double_dir(angle)
@@ -95,6 +97,9 @@ func set_target(target: Vector2i) -> void:
 func _ready() -> void:
 	global_position = Vector2.ZERO
 	astar = AStarAI.astar
+	
+	if player.ai_type == player.MELEE:
+		attack_range = 180.0
 
 """func _draw() -> void:
 	if AStarAI.debug_draw:

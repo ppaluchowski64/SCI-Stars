@@ -22,10 +22,12 @@ resource_local_to_scene = true
 shader = SubResource("Shader_q3m7n")
 shader_parameter/is_visible = false
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_2umy2"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_q3m7n"]
+resource_local_to_scene = true
 radius = 4.36606
 
 [node name="Projectile" type="CharacterBody2D"]
+z_index = -1
 scale = Vector2(4, 4)
 collision_layer = 2
 collision_mask = 2
@@ -41,6 +43,10 @@ region_rect = Rect2(1, 1, 7, 5)
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-shape = SubResource("CircleShape2D_2umy2")
+shape = SubResource("CircleShape2D_q3m7n")
+
+[node name="DamageTimer" type="Timer" parent="."]
+wait_time = 0.4
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]

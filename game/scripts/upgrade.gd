@@ -64,7 +64,15 @@ func update_values() -> void:
 	
 	level_label.text = "LVL " + str(stat.level)
 	
-	description_label.text = "%s %s\n%s\n%s -> %s" % [stat_name, stat.level, description, int(stat.value), int(stat.value + stat.delta_value)]
+	var display_value_1 = stat.value
+	var display_value_2 = stat.value + stat.delta_value
+	
+	# wth lol
+	if (display_value_1 + display_value_2) == int(display_value_1 + display_value_2):
+		display_value_1 = int(display_value_1)
+		display_value_2 = int(display_value_2)
+	
+	description_label.text = "%s %s\n%s\n%s -> %s" % [stat_name, stat.level, description, display_value_1, display_value_2]
 
 func _ready() -> void:
 	stat = PlayerData.character_stats[PlayerData.selected_character][stat_id]

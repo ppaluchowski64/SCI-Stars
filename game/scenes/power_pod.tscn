@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cduynep6nsjgj"]
+[gd_scene load_steps=14 format=3 uid="uid://cduynep6nsjgj"]
 
 [ext_resource type="Texture2D" uid="uid://b3n3hyu011a3q" path="res://graphics/environment/powerpod-base.png" id="1_8ffhp"]
 [ext_resource type="Script" uid="uid://bqgdqadlglwdp" path="res://scripts/power_pod.gd" id="1_cj14a"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://stk5wbf0mce7" path="res://graphics/UI/status_bars/healthbar.png" id="3_84xkc"]
 [ext_resource type="Shader" uid="uid://dvotcn36qw0jj" path="res://shaders/outline.gdshader" id="4_cj14a"]
 [ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="5_6ts4v"]
+[ext_resource type="Texture2D" uid="uid://obn3lprv716v" path="res://graphics/misc/box_shadow.png" id="7_6ts4v"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8ffhp"]
 radius = 24.0
@@ -156,3 +157,10 @@ libraries = {
 &"": SubResource("AnimationLibrary_cj14a")
 }
 autoplay = "hologram"
+
+[node name="Shadow" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.3)
+z_index = -1
+position = Vector2(0, 28)
+scale = Vector2(4, 4)
+texture = ExtResource("7_6ts4v")

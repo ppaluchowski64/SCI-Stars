@@ -74,6 +74,7 @@ animations = [{
 }]
 
 [node name="ExplosionFX" type="AnimatedSprite2D"]
+z_index = 2
 material = SubResource("ShaderMaterial_85s43")
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_e4jxa")

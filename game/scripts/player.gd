@@ -8,6 +8,7 @@ var Projectile = preload("res://scenes/projectile.tscn")
 @onready var shoot_cooldown: Timer = $ShootCooldown
 @onready var shoot_animation: Timer = $ShootAnimation
 @onready var immunity_timer: Timer = $ImmunityTimer
+@onready var status_timer: Timer = $StatusTimer
 
 @onready var healthbar_fill: ColorRect = $Healthbar/ColorRect
 @onready var healthbar_label: Label = $Healthbar/LabelParent/Label
@@ -47,6 +48,8 @@ var super_charge: float = 0.0
 var kills: int = 0
 
 var ai: Node
+var ai_type: int = RANGE
+enum {RANGE, MELEE}
 
 var projectile_id: Projectiles.ID = Projectiles.ID.DEFAULT
 var projectile_func: Callable = spawn_projectile
@@ -60,7 +63,8 @@ var is_main_player: bool = false
 var is_dead: bool = false
 var is_immune: bool = false
 
-var damage_multiplier: float = 1.0
+var damage_deal_multiplier: float = 1.0
+var damage_take_multiplier: float = 1.0
 
 func setup_ai() -> void:
 	var AI = preload("res://scenes/player_ai.tscn")
@@ -108,7 +112,7 @@ func update_hp_bar() -> void:
 	healthbar_fill.color = new_color
 
 func take_damage(damage: int, hitter: Node = null) -> void:
-	health -= damage
+	health -= damage * damage_take_multiplier
 	
 	if health <= 0 and not is_dead:
 		is_dead = true
@@ -126,7 +130,7 @@ func take_damage(damage: int, hitter: Node = null) -> void:
 	
 	regen_cooldown.start(3)
 
-func spawn_projectile(angle: float = get_angle_to(get_global_mouse_position()), _projectile_id = projectile_id) -> void:
+func spawn_projectile(angle: float = get_angle_to(get_global_mouse_position()), _projectile_id = projectile_id) -> CharacterBody2D:
 	var projectile = Projectiles.custom_projectile(_projectile_id)
 	
 	projectile.player_id = id
@@ -134,12 +138,19 @@ func spawn_projectile(angle: float = get_angle_to(get_global_mouse_position()), 
 	projectile.global_rotation = angle
 	projectile.parent = self
 	
-	var base_damage = PlayerData.character_stats[character_id][0].value
-	projectile.damage = base_damage * damage_multiplier
+	if not _projectile_id in [Projectiles.ID.BOOK_THROW, Projectiles.ID.BOOK_FIELD, Projectiles.ID.GODOT]:
+		var base_damage = PlayerData.character_stats[character_id][0].value
+		projectile.damage = base_damage * damage_deal_multiplier
 	
 	get_tree().get_root().call_deferred("add_child", projectile)
+	
+	return projectile
 
-func spawn_projectile_spreadshot(angle: float = get_angle_to(get_global_mouse_position()), count: int = 5) -> void:
+func spawn_projectile_spreadshot(angle: float = get_angle_to(get_global_mouse_position()), count: int = 3, _projectile_id = projectile_id) -> void:
+	for i in range(count):
+		spawn_projectile(angle + deg_to_rad(360 / count) * i, _projectile_id)
+
+func spawn_projectile_spreadshot_await(angle: float = get_angle_to(get_global_mouse_position()), count: int = 5) -> void:
 	var data: Array = [
 		[0,   0],
 		[20,  0.05],
@@ -194,7 +205,13 @@ func shoot(delta: float) -> void:
 			dir_x = angle[0]
 			dir_y = angle[1]
 			
-			spawn_projectile(get_angle_to(get_global_mouse_position()), Projectiles.ID.BIG_PROJECTILE)
+			# crude ahh fix
+			if projectile_super_id == Projectiles.ID.GODOT:
+				spawn_projectile_spreadshot(get_angle_to(get_global_mouse_position()), PlayerData.character_stats[PlayerData.selected_character][2].value, projectile_super_id)
+				damage_take_multiplier = 0.75
+				status_timer.start()
+			else:
+				spawn_projectile(get_angle_to(get_global_mouse_position()), projectile_super_id)
 			
 			super_charge = 0
 			
@@ -228,6 +245,9 @@ func _ready() -> void:
 	sprite.frame = 1
 	
 	nickname_label.text = "Player" + str(id)
+	
+	if character_id == Characters.ID.KATE:
+		shoot_cooldown.wait_time = PlayerData.character_stats[PlayerData.selected_character][2].value
 
 func _process(delta: float) -> void:
 	if is_main_player:
@@ -262,5 +282,8 @@ func _on_immunity_timer_timeout() -> void:
 	is_immune = false
 	
 	for node in get_children():
-		if node.is_in_group("shield_fx"):
+		if node.is_in_group("GODOT_fx"):
 			node.queue_free()
+
+func _on_status_timer_timeout() -> void:
+	damage_take_multiplier = 1.0

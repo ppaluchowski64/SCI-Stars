@@ -1,0 +1,96 @@
+[gd_scene load_steps=7 format=3 uid="uid://dyv8pjhxdpgw3"]
+
+[ext_resource type="Texture2D" uid="uid://csdmtwhoy0ffc" path="res://graphics/FX/damage_field.png" id="1_tj5hj"]
+
+[sub_resource type="Shader" id="Shader_tj5hj"]
+code = "shader_type canvas_item;
+
+uniform bool is_visible = false;
+
+void fragment()
+{
+	if (is_visible)
+	{
+		vec4 tex_color = texture(TEXTURE, UV);
+        COLOR = vec4(tex_color.g, tex_color.r, tex_color.b, tex_color.a);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ll5t2"]
+resource_local_to_scene = true
+shader = SubResource("Shader_tj5hj")
+shader_parameter/is_visible = false
+
+[sub_resource type="Animation" id="Animation_ll5t2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4, 4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_tj5hj"]
+resource_name = "idle"
+length = 3.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6, 2, 2.4, 2.8, 3.2),
+"transitions": PackedFloat32Array(0.1, -2, -2, -2, -2, -2, -2, 8, 8),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(4, 4), Vector2(3.8, 3.8), Vector2(4, 4), Vector2(3.8, 3.8), Vector2(4, 4), Vector2(3.8, 3.8), Vector2(4, 4), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 3.14159]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_13ajg"]
+_data = {
+&"RESET": SubResource("Animation_ll5t2"),
+&"idle": SubResource("Animation_tj5hj")
+}
+
+[node name="DamageFieldFX" type="Sprite2D"]
+z_index = -2
+material = SubResource("ShaderMaterial_ll5t2")
+scale = Vector2(4, 4)
+texture = ExtResource("1_tj5hj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_13ajg")
+}
+autoplay = "idle"
