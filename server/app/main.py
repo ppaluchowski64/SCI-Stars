@@ -3,6 +3,7 @@
 import asyncio
 
 from server_instance import ServerInstance
+from input_forwarder import InputForwarder
 from question_server import QuestionServer
 
 
@@ -52,7 +53,7 @@ async def listen_for_players(servers):
                 f"from instance {loading_server.instance_id}"
             )
 
-    server = await asyncio.start_server(handle_client, '0.0.0.0', 7000)
+    server = await asyncio.start_server(handle_client, "0.0.0.0", 7000)
     print("Listening for player connections on port 7000")
     async with server:
         await server.serve_forever()
@@ -78,6 +79,11 @@ def update_server_ids(servers):
     print("Updated instance IDs")
 
 
+async def run_input_forwarder(servers):
+    input_forwarder = InputForwarder(servers)
+    await input_forwarder.start()
+
+
 async def run_question_server():
     question_server = QuestionServer()
     await question_server.start()
@@ -89,6 +95,7 @@ async def main():
     await asyncio.gather(
         listen_for_players(servers),
         manage_server_instances(servers),
+        run_input_forwarder(servers),
         run_question_server(),
     )
 
