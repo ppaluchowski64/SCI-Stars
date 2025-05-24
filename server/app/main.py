@@ -14,28 +14,48 @@ async def create_server(servers):
     server = ServerInstance(len(servers))
     servers.append(server)
 
-    asyncio.create_task(server.run())
     await server.ready.wait()
 
     print(f"Server instance {server.instance_id} is ready")
     return server
 
 
-async def add_players_to_servers(servers, num_players):
-    players_added = 0
-    loading_server = None
+async def listen_for_players(servers):
+    async def handle_client(reader, writer):
+        loading_server = None
 
-    while players_added < num_players:
-        await asyncio.sleep(1)
-
-        if loading_server is None or loading_server.mode != "loading":
+        for server in servers:
+            if server.mode == "loading":
+                loading_server = server
+                break
+        
+        if loading_server is None:
             loading_server = await create_server(servers)
 
-        if len(loading_server.players) < loading_server.required_players:
-            player_id = len(loading_server.players)
-            loading_server.add_player(player_id)
+        player_id = len(loading_server.players)
+        loading_server.add_player(player_id, writer)
 
-            players_added += 1
+        try:
+            while True:
+                if loading_server.mode == "ended":
+                    break
+                
+                data = await reader.read(100)
+                if not data:
+                    break
+        finally:
+            loading_server.remove_player(player_id)
+            writer.close()
+            await writer.wait_closed()
+            print(
+                f"Player {player_id} disconnected "
+                f"from instance {loading_server.instance_id}"
+            )
+
+    server = await asyncio.start_server(handle_client, '0.0.0.0', 7000)
+    print("Listening for player connections on port 7000")
+    async with server:
+        await server.serve_forever()
 
 
 async def manage_server_instances(servers):
@@ -67,7 +87,7 @@ async def main():
     servers = initialize_servers()
 
     await asyncio.gather(
-        add_players_to_servers(servers, 30),
+        listen_for_players(servers),
         manage_server_instances(servers),
         run_question_server(),
     )
