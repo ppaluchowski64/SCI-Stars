@@ -89,6 +89,9 @@ func start_game() -> void:
 func end_game() -> void:
 	main_player.block_controls = true
 	
+	ui.move_joystick.set_process_input(false)
+	ui.attack_joystick.set_process_input(false)
+	
 	var rank = player_count + 1 if main_player.is_dead else 1
 	var kills = main_player.kills
 	var bonus = 1.2 if rank <= 3 else 1.0

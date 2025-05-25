@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=4 uid="uid://db56006rlw6nc"]
+[gd_scene load_steps=43 format=4 uid="uid://db56006rlw6nc"]
 
 [ext_resource type="Script" uid="uid://cv6524wyxtia0" path="res://scripts/battle_manager.gd" id="1_f75g0"]
 [ext_resource type="Texture2D" uid="uid://cbrr264nsjo3k" path="res://graphics/environment/wall.png" id="2_uqhyb"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://prenyjcoslt7" path="res://graphics/UI/status_bars/superbar.png" id="7_ujvli"]
 [ext_resource type="Texture2D" uid="uid://c73jppjwm04hn" path="res://graphics/UI/buttons/normal.png" id="10_5ilfr"]
 [ext_resource type="Texture2D" uid="uid://7n748d12rng5" path="res://graphics/UI/status_bars/superbar_icon.png" id="10_66ngm"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="13_djc8l"]
 [ext_resource type="AudioStream" uid="uid://7amen2sunkva" path="res://audio/loops/battle.wav" id="14_6ni85"]
 [ext_resource type="AudioStream" uid="uid://d3gxa0xsasbc2" path="res://audio/SFX/countdown.wav" id="14_vceff"]
 [ext_resource type="AudioStream" uid="uid://dixps22ag0d3m" path="res://audio/SFX/go.wav" id="15_ekamt"]
@@ -188,7 +189,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-48, 48)]
+"values": [Vector2(256, 48)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -200,7 +201,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(64, 144)]
+"values": [Vector2(-256, 144)]
 }
 
 [sub_resource type="Animation" id="Animation_yy2ah"]
@@ -670,6 +671,24 @@ libraries = {
 &"": SubResource("AnimationLibrary_6ni85")
 }
 
+[node name="MoveJoystick" parent="UserInterface" instance=ExtResource("13_djc8l")]
+modulate = Color(1, 1, 1, 0.5)
+action_left = "left"
+action_right = "right"
+action_up = "up"
+action_down = "down"
+
+[node name="AttackJoystick" parent="UserInterface" groups=["attack_joystick"] instance=ExtResource("13_djc8l")]
+modulate = Color(1, 1, 1, 0.5)
+anchors_preset = 3
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_top = -300.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+
 [node name="EndScreen" type="CanvasLayer" parent="."]
 visible = false
 
@@ -683,7 +702,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 
 [node name="OffsetNode" type="Node2D" parent="EndScreen/ButtonParent"]
-position = Vector2(-48, 48)
+position = Vector2(256, 48)
 
 [node name="ButtonProceed" type="TextureButton" parent="EndScreen/ButtonParent/OffsetNode" groups=["button"]]
 custom_minimum_size = Vector2(192, 88)
@@ -720,9 +739,9 @@ custom_minimum_size = Vector2(240, 360)
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 64.0
+offset_left = -256.0
 offset_top = -180.0
-offset_right = 323.0
+offset_right = 3.0
 offset_bottom = 180.0
 grow_vertical = 2
 size_flags_horizontal = 0

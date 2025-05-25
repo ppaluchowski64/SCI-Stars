@@ -22,6 +22,10 @@ var Projectile = preload("res://scenes/projectile.tscn")
 
 @onready var attack_audio: AudioStreamPlayer2D = $AttackAudio
 
+@onready var attack_joystick: VirtualJoystick = get_tree().get_first_node_in_group("attack_joystick")
+var last_attack_joystick_pressed: bool = false
+var attack_joystick_output: Vector2
+
 @export var id: int
 
 # I should probably disable this warning globally... later
@@ -132,7 +136,7 @@ func take_damage(damage: int, hitter: Node = null) -> void:
 	
 	regen_cooldown.start(3)
 
-func spawn_projectile(angle: float = get_angle_to(get_global_mouse_position()), _projectile_id = projectile_id) -> CharacterBody2D:
+func spawn_projectile(angle: float = attack_joystick_output.angle() if PlayerData.is_joystick_enabled else get_angle_to(get_global_mouse_position()), _projectile_id = projectile_id) -> CharacterBody2D:
 	var projectile = Projectiles.custom_projectile(_projectile_id)
 	
 	projectile.player_id = id
@@ -148,11 +152,11 @@ func spawn_projectile(angle: float = get_angle_to(get_global_mouse_position()), 
 	
 	return projectile
 
-func spawn_projectile_spreadshot(angle: float = get_angle_to(get_global_mouse_position()), count: int = 3, _projectile_id = projectile_id) -> void:
+func spawn_projectile_spreadshot(angle: float = attack_joystick_output.angle() if PlayerData.is_joystick_enabled else get_angle_to(get_global_mouse_position()), count: int = 3, _projectile_id = projectile_id) -> void:
 	for i in range(count):
 		spawn_projectile(angle + deg_to_rad(360 / count) * i, _projectile_id)
 
-func spawn_projectile_spreadshot_await(angle: float = get_angle_to(get_global_mouse_position()), count: int = 5) -> void:
+func spawn_projectile_spreadshot_await(angle: float = attack_joystick_output.angle() if PlayerData.is_joystick_enabled else get_angle_to(get_global_mouse_position()), count: int = 5) -> void:
 	var data: Array = [
 		[0,   0],
 		[20,  0.05],
@@ -165,9 +169,39 @@ func spawn_projectile_spreadshot_await(angle: float = get_angle_to(get_global_mo
 		await get_tree().create_timer(data[i][1]).timeout
 		spawn_projectile(angle + deg_to_rad(data[i][0]))
 
+func get_joystick_input() -> Vector2:
+	var x := Input.get_action_strength("right") - Input.get_action_strength("left")
+	var y := Input.get_action_strength("down") - Input.get_action_strength("up")
+	var raw_input := Vector2(x, y)
+
+	if raw_input.length() < 0.3:
+		return Vector2.ZERO  # deadzone
+
+	var sx := 0.0
+	var sy := 0.0
+
+	if raw_input.x > 0.3:
+		sx = 1.0
+	elif raw_input.x < -0.3:
+		sx = -1.0
+
+	if raw_input.y > 0.3:
+		sy = 1.0
+	elif raw_input.y < -0.3:
+		sy = -1.0
+
+	var _snapped := Vector2(sx, sy)
+	if _snapped.length() > 1.0:
+		_snapped = _snapped.normalized()
+
+	return _snapped
+
 func move() -> void:
 	if not block_controls:
-		dir_vec = Input.get_vector("left", "right", "up", "down")
+		if PlayerData.is_joystick_enabled:
+			dir_vec = get_joystick_input()
+		else:
+			dir_vec = Input.get_vector("left", "right", "up", "down")
 	else:
 		dir_vec = Vector2.ZERO
 	
@@ -182,11 +216,25 @@ func move() -> void:
 # This has to use delta FIX IT
 func shoot(delta: float) -> void:
 	if shoot_cooldown.time_left == 0:
-		if Input.is_action_just_pressed("attack") and ammo >= 1 and not block_controls:
+		var joystick_shoot: bool = false
+		
+		if PlayerData.is_joystick_enabled:
+			if last_attack_joystick_pressed and not attack_joystick.is_pressed:
+				joystick_shoot = true
+			else:
+				attack_joystick_output = attack_joystick.output
+			
+			last_attack_joystick_pressed = attack_joystick.is_pressed
+		
+		if (Input.is_action_just_pressed("attack") and not PlayerData.is_joystick_enabled or joystick_shoot) and ammo >= 1 and not block_controls:
 			shoot_cooldown.start()
 			shoot_animation.start()
 			
 			var angle = rad_to_double_dir(get_angle_to(get_global_mouse_position()))
+			
+			if PlayerData.is_joystick_enabled:
+				angle = rad_to_double_dir(attack_joystick_output.angle())
+			
 			dir_x = angle[0]
 			dir_y = angle[1]
 			
@@ -257,13 +305,20 @@ func _process(delta: float) -> void:
 		shoot(delta)
 		
 		# DEBUG PURPOSES
+		
 		if Input.is_action_just_pressed("debug_1"):
 			take_damage(9999, get_parent().get_children().pick_random())
-		elif Input.is_action_just_pressed("debug_2"):
+			
+		if Input.is_action_just_pressed("debug_2"):
 			for player in get_parent().get_children():
 				if player != self:
 					player.take_damage(9999)
+		
+		
 	else:
+		if Input.is_action_just_pressed("debug_4"):
+			block_controls = not block_controls
+		
 		if not block_controls and ai:
 			ai.update(delta)
 			pass

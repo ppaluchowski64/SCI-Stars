@@ -3,6 +3,8 @@ extends Node
 var money: float = 500.0
 var tokens: float = 100.0
 
+var is_joystick_enabled: bool = false
+
 class Stat:
 	var base_cost: float
 	var delta_value: float

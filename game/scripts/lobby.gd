@@ -16,9 +16,10 @@ extends Node2D
 
 @onready var settings_buttons: VFlowContainer = $SettingsInterface/ButtonsContainer
 @onready var volume: Control = $SettingsInterface/VolumeContainer
-@onready var language: Node2D = $SettingsInterface/LanguageContainer
+@onready var language: Control = $SettingsInterface/LanguageContainer
 @onready var credits: MarginContainer = $SettingsInterface/CreditsContainer
 @onready var resolution_container: VBoxContainer = $SettingsInterface/ResolutionContainer
+@onready var controls_container: Control = $SettingsInterface/ControlsContainer
 
 func update_upgrades() -> void:
 	for upgrade in upgrade_parent.get_children():
@@ -97,6 +98,7 @@ func _on_button_exit_settings_button_down() -> void:
 	language.visible = false
 	credits.visible = false
 	resolution_container.visible = false
+	controls_container.visible = false
 	settings_buttons.visible = true
 
 func _on_button_volume_button_down() -> void:
@@ -117,3 +119,10 @@ func _on_button_resolution_button_down() -> void:
 
 func _on_button_select_button_down() -> void:
 	character_select_interface.visible = false
+
+func _on_button_controls_button_down() -> void:
+	settings_buttons.visible = false
+	controls_container.visible = true
+
+func _on_check_box_toggled(toggled_on: bool) -> void:
+	PlayerData.is_joystick_enabled = toggled_on

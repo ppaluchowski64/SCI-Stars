@@ -13,7 +13,9 @@ func _ready() -> void:
 		button.connect("button_down", _on_button_down)
 	
 	var character_button: TextureButton = get_tree().get_first_node_in_group("character_button")
-	character_button.connect("button_down", _on_character_button_down)
+	
+	if character_button:
+		character_button.connect("button_down", _on_character_button_down)
 
 func _on_button_down() -> void:
 	GlobalAudio.stream = preload("res://audio/SFX/UI/button.wav")

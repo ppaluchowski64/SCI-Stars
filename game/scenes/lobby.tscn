@@ -923,6 +923,28 @@ grow_vertical = 2
 theme = SubResource("Theme_6pyji")
 text = "RESOLUTION"
 
+[node name="ButtonControls" type="TextureButton" parent="SettingsInterface/ButtonsContainer" groups=["button"]]
+custom_minimum_size = Vector2(200, 88)
+layout_mode = 2
+texture_normal = ExtResource("3_xb4sn")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="SettingsInterface/ButtonsContainer/ButtonControls"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_6pyji")
+text = "CONTROLS"
+
 [node name="ButtonVolume" type="TextureButton" parent="SettingsInterface/ButtonsContainer" groups=["button"]]
 custom_minimum_size = Vector2(200, 88)
 layout_mode = 2
@@ -991,12 +1013,15 @@ text = "CREDITS"
 
 [node name="VolumeContainer" type="Control" parent="SettingsInterface"]
 visible = false
+custom_minimum_size = Vector2(933, 427)
 layout_mode = 3
-anchors_preset = 0
-offset_left = 120.0
-offset_top = 120.0
-offset_right = 1032.0
-offset_bottom = 528.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("16_0gjkf")
 
 [node name="VolumeInfoContainer" type="Node2D" parent="SettingsInterface/VolumeContainer"]
@@ -1005,7 +1030,7 @@ scale = Vector2(5, 5)
 [node name="VolumeLabel" type="Label" parent="SettingsInterface/VolumeContainer/VolumeInfoContainer"]
 material = SubResource("ShaderMaterial_lqo1b")
 offset_top = 25.0
-offset_right = 182.0
+offset_right = 186.0
 offset_bottom = 31.0
 theme = SubResource("Theme_0gjkf")
 text = "- VOLUME -"
@@ -1027,23 +1052,40 @@ scale = Vector2(4, 4)
 [node name="VolumeValue" type="Label" parent="SettingsInterface/VolumeContainer/VolumeValueContainer"]
 material = SubResource("ShaderMaterial_o2i1r")
 offset_top = 60.0
-offset_right = 228.0
+offset_right = 232.0
 offset_bottom = 66.0
 theme = SubResource("Theme_iulku")
 text = "20%"
 horizontal_alignment = 1
 
-[node name="LanguageContainer" type="Node2D" parent="SettingsInterface"]
+[node name="LanguageContainer" type="Control" parent="SettingsInterface"]
 visible = false
-position = Vector2(120, 120)
-scale = Vector2(5, 5)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="LanguageInfo" type="Label" parent="SettingsInterface/LanguageContainer"]
+[node name="LabelParent" type="Node2D" parent="SettingsInterface/LanguageContainer"]
+scale = Vector2(4, 4)
+
+[node name="LanguageInfo" type="Label" parent="SettingsInterface/LanguageContainer/LabelParent"]
 material = SubResource("ShaderMaterial_dfnwm")
-offset_left = 20.0
-offset_top = 1.0
-offset_right = 164.0
-offset_bottom = 81.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -40.0
+offset_right = 72.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
 theme = SubResource("Theme_0jb4q")
 text = "The game is available only in English with Polish questions. We plan to support other languages ​​in the future."
 horizontal_alignment = 1
@@ -1201,6 +1243,50 @@ offset_bottom = 6.0
 theme = SubResource("Theme_lqo1b")
 text = "Scale"
 
+[node name="ControlsContainer" type="Control" parent="SettingsInterface"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="FullscreenField" type="Control" parent="SettingsInterface/ControlsContainer"]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -30.0
+offset_right = 100.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="CheckBox" type="CheckBox" parent="SettingsInterface/ControlsContainer/FullscreenField" groups=["button"]]
+layout_mode = 0
+offset_left = 204.0
+offset_right = 228.0
+offset_bottom = 24.0
+
+[node name="LabelParent" type="Node2D" parent="SettingsInterface/ControlsContainer/FullscreenField"]
+scale = Vector2(4, 4)
+
+[node name="Label" type="Label" parent="SettingsInterface/ControlsContainer/FullscreenField/LabelParent"]
+material = SubResource("ShaderMaterial_rgcd7")
+offset_left = -15.0
+offset_right = 49.0
+offset_bottom = 6.0
+theme = SubResource("Theme_lqo1b")
+text = "Enable joysticks"
+
 [connection signal="button_down" from="UserInterface/MarginContainer/ButtonPlay" to="." method="_on_button_play_button_down"]
 [connection signal="button_down" from="UserInterface/MarginContainer/ButtonSettings" to="." method="_on_button_settings_button_down"]
 [connection signal="button_down" from="UserInterface/MarginContainer/LootBox/ButtonLootBox" to="." method="_on_button_loot_box_button_down"]
@@ -1214,6 +1300,7 @@ text = "Scale"
 [connection signal="button_down" from="CharacterSelectInterface/MarginContainer/ButtonExitCharacterSelect" to="." method="_on_button_exit_character_select_button_down"]
 [connection signal="button_down" from="SettingsInterface/MarginContainer/ButtonExitSettings" to="." method="_on_button_exit_settings_button_down"]
 [connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonResolution" to="." method="_on_button_resolution_button_down"]
+[connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonControls" to="." method="_on_button_controls_button_down"]
 [connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonVolume" to="." method="_on_button_volume_button_down"]
 [connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonLanguage" to="." method="_on_button_language_button_down"]
 [connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonCredits" to="." method="_on_button_credits_button_down"]
@@ -1222,3 +1309,4 @@ text = "Scale"
 [connection signal="toggled" from="SettingsInterface/ResolutionContainer/FullscreenField/CheckBox" to="SettingsInterface/ResolutionContainer" method="_on_check_box_toggled"]
 [connection signal="item_selected" from="SettingsInterface/ResolutionContainer/RatioField/OptionButton" to="SettingsInterface/ResolutionContainer" method="_on_option_button_item_selected"]
 [connection signal="drag_ended" from="SettingsInterface/ResolutionContainer/ScaleField/HSlider" to="SettingsInterface/ResolutionContainer" method="_on_h_slider_drag_ended"]
+[connection signal="toggled" from="SettingsInterface/ControlsContainer/FullscreenField/CheckBox" to="." method="_on_check_box_toggled"]

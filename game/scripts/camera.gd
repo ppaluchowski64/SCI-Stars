@@ -33,6 +33,8 @@ func _process(_delta: float) -> void:
 		global_position = lerp(global_position, target_pos, 0.05)
 		audio_listener.global_position = target.global_position
 	
+	# DEBUG PURPOSES
+	
 	if Input.is_action_just_pressed("debug_3"):
 		is_following = not is_following
 	
