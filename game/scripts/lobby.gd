@@ -54,6 +54,8 @@ func update_selected_character() -> void:
 		character_sprite.region_rect.size.x = 14
 		
 func _ready() -> void:
+	SoundManager.load_buttons()
+	
 	update_upgrades()
 	update_selected_character()
 	

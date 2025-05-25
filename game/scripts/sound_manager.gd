@@ -7,6 +7,9 @@ func _ready() -> void:
 	for i in range(attack_sfx_count + 1):
 		attack_sfx.append(load("res://audio/SFX/characters/attack" + str(i) + ".wav"))
 	
+	load_buttons()
+
+func load_buttons() -> void:
 	var buttons: Array = get_tree().get_nodes_in_group("button")
 	
 	for button in buttons:

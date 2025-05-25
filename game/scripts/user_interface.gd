@@ -26,6 +26,9 @@ func _ready() -> void:
 	if PlayerData.is_joystick_enabled:
 		superbar_container.add_theme_constant_override("margin_bottom", 332)
 	else:
+		move_joystick.set_process_input(false)
+		attack_joystick.set_process_input(false)
+	
 		move_joystick.visible = false
 		attack_joystick.visible = false
 

@@ -109,6 +109,7 @@ func end_game() -> void:
 	end_screen_animation.play("enter")
 
 func _ready() -> void:
+	SoundManager.load_buttons()
 	call_deferred("start_game")
 
 func _on_button_proceed_button_down() -> void:
