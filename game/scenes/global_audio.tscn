@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ompj8kx4qyxi"]
+
+[ext_resource type="AudioStream" uid="uid://bu57qa8dbogdk" path="res://audio/SFX/UI/button.wav" id="1_tbad1"]
+
+[node name="GlobalAudio" type="AudioStreamPlayer"]
+stream = ExtResource("1_tbad1")

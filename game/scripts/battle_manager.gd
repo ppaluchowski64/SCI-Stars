@@ -14,6 +14,8 @@ var Player = preload("res://scenes/player.tscn")
 @onready var end_screen_bonus_label = $EndScreen/ColorRect/Bonus/Label
 @onready var end_screen_tokens_label = $EndScreen/ColorRect/Tokens/Label
 
+@onready var audio_listener: AudioListener2D = $Camera2D/AudioListener2D
+
 var main_player: Node
 var player_count: int = 8
 var next_free_player_id = 0

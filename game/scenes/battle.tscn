@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://db56006rlw6nc"]
+[gd_scene load_steps=42 format=4 uid="uid://db56006rlw6nc"]
 
 [ext_resource type="Script" uid="uid://cv6524wyxtia0" path="res://scripts/battle_manager.gd" id="1_f75g0"]
 [ext_resource type="Texture2D" uid="uid://cbrr264nsjo3k" path="res://graphics/environment/wall.png" id="2_uqhyb"]
@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://c73jppjwm04hn" path="res://graphics/UI/buttons/normal.png" id="10_5ilfr"]
 [ext_resource type="Texture2D" uid="uid://7n748d12rng5" path="res://graphics/UI/status_bars/superbar_icon.png" id="10_66ngm"]
 [ext_resource type="AudioStream" uid="uid://7amen2sunkva" path="res://audio/loops/battle.wav" id="14_6ni85"]
+[ext_resource type="AudioStream" uid="uid://d3gxa0xsasbc2" path="res://audio/SFX/countdown.wav" id="14_vceff"]
+[ext_resource type="AudioStream" uid="uid://dixps22ag0d3m" path="res://audio/SFX/go.wav" id="15_ekamt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qfrj4"]
 texture = ExtResource("4_1ls1x")
@@ -481,6 +483,41 @@ tracks/10/keys = {
 "method": &"play"
 }]
 }
+tracks/11/type = "audio"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("AudioStreamPlayer")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("14_vceff")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("14_vceff")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("14_vceff")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("14_vceff")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("14_vceff")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("15_ekamt")
+}],
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 5)
+}
+tracks/11/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_03edq"]
 _data = {
@@ -494,6 +531,9 @@ script = ExtResource("1_f75g0")
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("players") groups=["camera"]]
 script = ExtResource("3_m8bpv")
 players = NodePath("../Players")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="Camera2D"]
+current = true
 
 [node name="Environment" type="Node2D" parent="."]
 
@@ -645,7 +685,7 @@ size_flags_vertical = 0
 [node name="OffsetNode" type="Node2D" parent="EndScreen/ButtonParent"]
 position = Vector2(-48, 48)
 
-[node name="ButtonProceed" type="TextureButton" parent="EndScreen/ButtonParent/OffsetNode"]
+[node name="ButtonProceed" type="TextureButton" parent="EndScreen/ButtonParent/OffsetNode" groups=["button"]]
 custom_minimum_size = Vector2(192, 88)
 anchors_preset = 1
 anchor_left = 1.0
@@ -820,6 +860,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_03edq")
 }
 autoplay = "countdown"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StartScreen"]
+volume_db = -4.0
 
 [node name="QuestionInterface" type="CanvasLayer" parent="." groups=["question_interface"]]
 

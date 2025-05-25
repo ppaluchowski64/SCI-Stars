@@ -154,7 +154,7 @@ theme_override_constants/margin_top = 48
 theme_override_constants/margin_right = 48
 theme_override_constants/margin_bottom = 48
 
-[node name="ButtonPlay" type="TextureButton" parent="UserInterface/MarginContainer"]
+[node name="ButtonPlay" type="TextureButton" parent="UserInterface/MarginContainer" groups=["button"]]
 custom_minimum_size = Vector2(200, 88)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -178,7 +178,7 @@ grow_vertical = 2
 theme = SubResource("Theme_6pyji")
 text = "PLAY"
 
-[node name="ButtonSettings" type="TextureButton" parent="UserInterface/MarginContainer"]
+[node name="ButtonSettings" type="TextureButton" parent="UserInterface/MarginContainer" groups=["button"]]
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -303,7 +303,7 @@ layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ButtonCharacterSelect" type="TextureButton" parent="UserInterface/CharacterContainer/ButtonContainer"]
+[node name="ButtonCharacterSelect" type="TextureButton" parent="UserInterface/CharacterContainer/ButtonContainer" groups=["button"]]
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -325,7 +325,7 @@ grow_vertical = 2
 scale = Vector2(4, 4)
 texture = ExtResource("8_472nk")
 
-[node name="ButtonUpgrade" type="TextureButton" parent="UserInterface/CharacterContainer/ButtonContainer"]
+[node name="ButtonUpgrade" type="TextureButton" parent="UserInterface/CharacterContainer/ButtonContainer" groups=["button"]]
 custom_minimum_size = Vector2(200, 88)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -435,7 +435,7 @@ theme_override_constants/margin_top = 60
 theme_override_constants/margin_right = 60
 theme_override_constants/margin_bottom = 60
 
-[node name="ButtonExitUpgrade" type="TextureButton" parent="UpgradeInterface/MarginContainer"]
+[node name="ButtonExitUpgrade" type="TextureButton" parent="UpgradeInterface/MarginContainer" groups=["button"]]
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -648,7 +648,7 @@ texture = ExtResource("17_dfnwm")
 region_enabled = true
 region_rect = Rect2(82, 53, 15, 17)
 
-[node name="ButtonLeft" type="TextureButton" parent="CharacterSelectInterface/LeftContainer"]
+[node name="ButtonLeft" type="TextureButton" parent="CharacterSelectInterface/LeftContainer" groups=["button"]]
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -671,7 +671,7 @@ rotation = 1.5708
 scale = Vector2(4, 4)
 texture = ExtResource("8_472nk")
 
-[node name="ButtonRight" type="TextureButton" parent="CharacterSelectInterface/LeftContainer"]
+[node name="ButtonRight" type="TextureButton" parent="CharacterSelectInterface/LeftContainer" groups=["button"]]
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -735,7 +735,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="ButtonSelect" type="TextureButton" parent="CharacterSelectInterface/RightContainer"]
+[node name="ButtonSelect" type="TextureButton" parent="CharacterSelectInterface/RightContainer" groups=["character_button"]]
 custom_minimum_size = Vector2(200, 88)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -771,7 +771,7 @@ theme_override_constants/margin_top = 60
 theme_override_constants/margin_right = 60
 theme_override_constants/margin_bottom = 60
 
-[node name="ButtonExitCharacterSelect" type="TextureButton" parent="CharacterSelectInterface/MarginContainer"]
+[node name="ButtonExitCharacterSelect" type="TextureButton" parent="CharacterSelectInterface/MarginContainer" groups=["button"]]
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -861,7 +861,7 @@ theme_override_constants/margin_top = 60
 theme_override_constants/margin_right = 60
 theme_override_constants/margin_bottom = 60
 
-[node name="ButtonExitSettings" type="TextureButton" parent="SettingsInterface/MarginContainer"]
+[node name="ButtonExitSettings" type="TextureButton" parent="SettingsInterface/MarginContainer" groups=["button"]]
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -901,7 +901,7 @@ theme_override_constants/h_separation = 40
 theme_override_constants/v_separation = 20
 alignment = 1
 
-[node name="ButtonResolution" type="TextureButton" parent="SettingsInterface/ButtonsContainer"]
+[node name="ButtonResolution" type="TextureButton" parent="SettingsInterface/ButtonsContainer" groups=["button"]]
 custom_minimum_size = Vector2(200, 88)
 layout_mode = 2
 texture_normal = ExtResource("3_xb4sn")
@@ -923,7 +923,7 @@ grow_vertical = 2
 theme = SubResource("Theme_6pyji")
 text = "RESOLUTION"
 
-[node name="ButtonVolume" type="TextureButton" parent="SettingsInterface/ButtonsContainer"]
+[node name="ButtonVolume" type="TextureButton" parent="SettingsInterface/ButtonsContainer" groups=["button"]]
 custom_minimum_size = Vector2(200, 88)
 layout_mode = 2
 texture_normal = ExtResource("3_xb4sn")
@@ -945,7 +945,7 @@ grow_vertical = 2
 theme = SubResource("Theme_6pyji")
 text = "VOLUME"
 
-[node name="ButtonLanguage" type="TextureButton" parent="SettingsInterface/ButtonsContainer"]
+[node name="ButtonLanguage" type="TextureButton" parent="SettingsInterface/ButtonsContainer" groups=["button"]]
 custom_minimum_size = Vector2(200, 88)
 layout_mode = 2
 texture_normal = ExtResource("3_xb4sn")
@@ -967,7 +967,7 @@ grow_vertical = 2
 theme = SubResource("Theme_6pyji")
 text = "LANGUAGE"
 
-[node name="ButtonCredits" type="TextureButton" parent="SettingsInterface/ButtonsContainer"]
+[node name="ButtonCredits" type="TextureButton" parent="SettingsInterface/ButtonsContainer" groups=["button"]]
 custom_minimum_size = Vector2(200, 88)
 layout_mode = 2
 texture_normal = ExtResource("3_xb4sn")
@@ -1093,6 +1093,8 @@ Networking: Pablo
 Art templates: AxulArt
 Font: Chequered Ink and Eishiya
 
+SFX software: Bfxr
+
 Project mentor: Jackflower
 Game engine: Godot 4.4.1
 
@@ -1123,7 +1125,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="CheckBox" type="CheckBox" parent="SettingsInterface/ResolutionContainer/FullscreenField"]
+[node name="CheckBox" type="CheckBox" parent="SettingsInterface/ResolutionContainer/FullscreenField" groups=["button"]]
 layout_mode = 0
 offset_left = 169.0
 offset_right = 193.0
@@ -1145,7 +1147,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="OptionButton" type="OptionButton" parent="SettingsInterface/ResolutionContainer/RatioField"]
+[node name="OptionButton" type="OptionButton" parent="SettingsInterface/ResolutionContainer/RatioField" groups=["button"]]
 layout_mode = 2
 offset_left = 207.0
 offset_right = 312.0

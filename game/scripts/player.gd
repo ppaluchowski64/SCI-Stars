@@ -20,6 +20,8 @@ var Projectile = preload("res://scenes/projectile.tscn")
 
 @onready var walk_particles: CPUParticles2D = $WalkParticles
 
+@onready var attack_audio: AudioStreamPlayer2D = $AttackAudio
+
 @export var id: int
 
 # I should probably disable this warning globally... later

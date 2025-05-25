@@ -59,6 +59,8 @@ static func custom_projectile(id: ID) -> Node:
 			p.get_node("Sprite2D").region_rect = Rect2i(15, 1, 14, 9)
 			p.get_node("Hitbox/CollisionShape2D").shape = preload("res://data/kate_attack_shape.tres")
 			
+			p.sfx = 1
+			
 			return p
 		
 		ID.BOOK_THROW:

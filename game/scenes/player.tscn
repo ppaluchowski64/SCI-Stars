@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bk3jqor1r48rj"]
+[gd_scene load_steps=14 format=3 uid="uid://bk3jqor1r48rj"]
 
 [ext_resource type="Script" uid="uid://6mc3jt4aqv5r" path="res://scripts/player.gd" id="1_270mw"]
 [ext_resource type="SpriteFrames" uid="uid://bkq4gysbuwr1y" path="res://data/jackflower.tres" id="2_tuyoq"]
@@ -7,6 +7,7 @@
 [ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="4_q82ve"]
 [ext_resource type="Texture2D" uid="uid://b2vdaem8n0gto" path="res://graphics/UI/status_bars/ammobar.png" id="5_ptbdj"]
 [ext_resource type="Texture2D" uid="uid://td18x41778tk" path="res://graphics/misc/character_shadow.png" id="7_fjrip"]
+[ext_resource type="AudioStream" uid="uid://c2virah8vxqoe" path="res://audio/SFX/characters/attack0.wav" id="8_smehm"]
 
 [sub_resource type="Curve" id="Curve_edcub"]
 _limits = [0.0, 360.0, 0.0, 1.0]
@@ -155,6 +156,11 @@ z_index = -1
 position = Vector2(0, 32)
 scale = Vector2(4, 4)
 texture = ExtResource("7_fjrip")
+
+[node name="AttackAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_smehm")
+max_distance = 500.0
+attenuation = 0.2
 
 [connection signal="timeout" from="RegenCooldown" to="." method="_on_regen_cooldown_timeout"]
 [connection signal="timeout" from="ImmunityTimer" to="." method="_on_immunity_timer_timeout"]

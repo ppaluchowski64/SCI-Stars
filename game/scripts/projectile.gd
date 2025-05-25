@@ -34,6 +34,8 @@ var spin_end: float = deg_to_rad(-150)
 var spin_time: float = 0.4
 var spin_ease: bool = true
 
+var sfx: int = 0
+
 # Properties
 var travelled: float = 0
 var player_id: int
@@ -109,6 +111,10 @@ func _ready() -> void:
 	
 	if spawn_immunity > 0:
 		collision.disabled = true
+	
+	parent.attack_audio.stream = SoundManager.attack_sfx[sfx]
+	parent.attack_audio.pitch_scale = randf_range(0.8, 1.2)
+	parent.attack_audio.play()
 
 func destroy() -> void:
 	if on_death:

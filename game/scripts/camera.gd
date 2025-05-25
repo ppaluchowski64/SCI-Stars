@@ -1,5 +1,7 @@
 extends Camera2D
 
+@onready var audio_listener: AudioListener2D = $AudioListener2D
+
 @export var players: Node2D
 @export var is_following: bool
 
@@ -29,6 +31,10 @@ func _process(_delta: float) -> void:
 		target_pos.y = clamp(target_pos.y, h - 1024 - Const.CAMERA_BORDER_MARGIN, 1024 - h + Const.CAMERA_BORDER_MARGIN)
 		
 		global_position = lerp(global_position, target_pos, 0.05)
+		audio_listener.global_position = target.global_position
+	
+	if Input.is_action_just_pressed("debug_3"):
+		is_following = not is_following
 	
 	#global_position = Vector2.ZERO
 	#zoom = Vector2(0.5, 0.5)
