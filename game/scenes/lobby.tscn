@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://r73t4uwivu0e"]
+[gd_scene load_steps=35 format=3 uid="uid://r73t4uwivu0e"]
 
 [ext_resource type="Script" uid="uid://dedbthjrkqd2o" path="res://scripts/lobby.gd" id="1_nn68e"]
 [ext_resource type="Texture2D" uid="uid://f1v34lrprxwu" path="res://graphics/backgrounds/lobby/backlayer.png" id="2_4hsao"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c73jppjwm04hn" path="res://graphics/UI/buttons/normal.png" id="3_xb4sn"]
 [ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="4_358r0"]
 [ext_resource type="Texture2D" uid="uid://dq3rfvk8pejil" path="res://graphics/misc/lootbox.png" id="6_dyhay"]
+[ext_resource type="Texture2D" uid="uid://cy3msiv2tp44e" path="res://graphics/UI/icons/person.png" id="7_0jb4q"]
 [ext_resource type="Shader" uid="uid://dvotcn36qw0jj" path="res://shaders/outline.gdshader" id="7_1urcf"]
 [ext_resource type="Texture2D" uid="uid://cex3nshoqpwms" path="res://graphics/characters/pablomajster/player.png" id="7_65pnu"]
 [ext_resource type="Texture2D" uid="uid://cmc1rb0x2pxx7" path="res://graphics/UI/buttons/small.png" id="7_ebt3n"]
@@ -21,14 +22,6 @@
 [ext_resource type="Texture2D" uid="uid://dndsomadsvt8o" path="res://graphics/characters/kate/player.png" id="17_dfnwm"]
 [ext_resource type="Script" uid="uid://ctsosyerera0k" path="res://scripts/resolution.gd" id="18_o2i1r"]
 
-[sub_resource type="Theme" id="Theme_6pyji"]
-default_font = ExtResource("4_358r0")
-default_font_size = 20
-
-[sub_resource type="Theme" id="Theme_q6qq2"]
-default_font = ExtResource("4_358r0")
-default_font_size = 20
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sr4bl"]
 shader = ExtResource("7_1urcf")
 shader_parameter/outline_color = Color(0, 0, 0, 1)
@@ -37,6 +30,14 @@ shader_parameter/is_visible = true
 [sub_resource type="Theme" id="Theme_i38xw"]
 default_font = ExtResource("4_358r0")
 default_font_size = 5
+
+[sub_resource type="Theme" id="Theme_6pyji"]
+default_font = ExtResource("4_358r0")
+default_font_size = 20
+
+[sub_resource type="Theme" id="Theme_q6qq2"]
+default_font = ExtResource("4_358r0")
+default_font_size = 20
 
 [sub_resource type="Theme" id="Theme_ut2vl"]
 default_font = ExtResource("4_358r0")
@@ -154,15 +155,82 @@ theme_override_constants/margin_top = 48
 theme_override_constants/margin_right = 48
 theme_override_constants/margin_bottom = 48
 
-[node name="ButtonPlay" type="TextureButton" parent="UserInterface/MarginContainer" groups=["button"]]
-custom_minimum_size = Vector2(200, 88)
+[node name="PlayContainer" type="Control" parent="UserInterface/MarginContainer"]
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="LabelParent" type="Node2D" parent="UserInterface/MarginContainer/PlayContainer"]
+scale = Vector2(4, 4)
+
+[node name="Label" type="Label" parent="UserInterface/MarginContainer/PlayContainer/LabelParent"]
+material = SubResource("ShaderMaterial_sr4bl")
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -73.0
+offset_top = -30.5
+offset_right = 23.0
+offset_bottom = -24.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_i38xw")
+text = "MODE: ONLINE"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="ButtonChangeMode" type="TextureButton" parent="UserInterface/MarginContainer/PlayContainer" groups=["button"]]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -316.0
+offset_top = -88.0
+offset_right = -228.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture_normal = ExtResource("7_ebt3n")
+stretch_mode = 4
+
+[node name="SpriteParent" type="Control" parent="UserInterface/MarginContainer/PlayContainer/ButtonChangeMode"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="UserInterface/MarginContainer/PlayContainer/ButtonChangeMode/SpriteParent"]
+scale = Vector2(4, 4)
+texture = ExtResource("7_0jb4q")
+
+[node name="ButtonPlay" type="TextureButton" parent="UserInterface/MarginContainer/PlayContainer" groups=["button"]]
+custom_minimum_size = Vector2(200, 88)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -88.0
+grow_horizontal = 0
+grow_vertical = 0
 size_flags_horizontal = 8
 size_flags_vertical = 8
 texture_normal = ExtResource("3_xb4sn")
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="UserInterface/MarginContainer/ButtonPlay"]
+[node name="Label" type="Label" parent="UserInterface/MarginContainer/PlayContainer/ButtonPlay"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -943,7 +1011,7 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_6pyji")
-text = "CONTROLS"
+text = "NICKNAME"
 
 [node name="ButtonVolume" type="TextureButton" parent="SettingsInterface/ButtonsContainer" groups=["button"]]
 custom_minimum_size = Vector2(200, 88)
@@ -1243,7 +1311,7 @@ offset_bottom = 6.0
 theme = SubResource("Theme_lqo1b")
 text = "Scale"
 
-[node name="ControlsContainer" type="Control" parent="SettingsInterface"]
+[node name="NicknameContainer" type="Control" parent="SettingsInterface"]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -1253,7 +1321,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="FullscreenField" type="Control" parent="SettingsInterface/ControlsContainer"]
+[node name="NicknameField" type="Control" parent="SettingsInterface/NicknameContainer"]
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 1
 anchors_preset = 8
@@ -1270,24 +1338,29 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="CheckBox" type="CheckBox" parent="SettingsInterface/ControlsContainer/FullscreenField" groups=["button"]]
-layout_mode = 0
-offset_left = 204.0
-offset_right = 228.0
-offset_bottom = 24.0
-
-[node name="LabelParent" type="Node2D" parent="SettingsInterface/ControlsContainer/FullscreenField"]
+[node name="LabelParent" type="Node2D" parent="SettingsInterface/NicknameContainer/NicknameField"]
 scale = Vector2(4, 4)
 
-[node name="Label" type="Label" parent="SettingsInterface/ControlsContainer/FullscreenField/LabelParent"]
+[node name="Label" type="Label" parent="SettingsInterface/NicknameContainer/NicknameField/LabelParent"]
 material = SubResource("ShaderMaterial_rgcd7")
-offset_left = -15.0
-offset_right = 49.0
-offset_bottom = 6.0
+offset_left = -37.0
+offset_top = 0.75
+offset_right = 35.0
+offset_bottom = 6.75
 theme = SubResource("Theme_lqo1b")
-text = "Enable joysticks"
+text = "Displayed nickname"
 
-[connection signal="button_down" from="UserInterface/MarginContainer/ButtonPlay" to="." method="_on_button_play_button_down"]
+[node name="LineEdit" type="LineEdit" parent="SettingsInterface/NicknameContainer/NicknameField"]
+layout_mode = 0
+offset_left = 152.0
+offset_top = -3.0
+offset_right = 326.0
+offset_bottom = 34.0
+text = "Player"
+max_length = 10
+
+[connection signal="button_down" from="UserInterface/MarginContainer/PlayContainer/ButtonChangeMode" to="." method="_on_button_change_mode_button_down"]
+[connection signal="button_down" from="UserInterface/MarginContainer/PlayContainer/ButtonPlay" to="." method="_on_button_play_button_down"]
 [connection signal="button_down" from="UserInterface/MarginContainer/ButtonSettings" to="." method="_on_button_settings_button_down"]
 [connection signal="button_down" from="UserInterface/MarginContainer/LootBox/ButtonLootBox" to="." method="_on_button_loot_box_button_down"]
 [connection signal="button_down" from="UserInterface/CharacterContainer/ButtonContainer/ButtonCharacterSelect" to="." method="_on_button_character_select_button_down"]
@@ -1309,4 +1382,4 @@ text = "Enable joysticks"
 [connection signal="toggled" from="SettingsInterface/ResolutionContainer/FullscreenField/CheckBox" to="SettingsInterface/ResolutionContainer" method="_on_check_box_toggled"]
 [connection signal="item_selected" from="SettingsInterface/ResolutionContainer/RatioField/OptionButton" to="SettingsInterface/ResolutionContainer" method="_on_option_button_item_selected"]
 [connection signal="drag_ended" from="SettingsInterface/ResolutionContainer/ScaleField/HSlider" to="SettingsInterface/ResolutionContainer" method="_on_h_slider_drag_ended"]
-[connection signal="toggled" from="SettingsInterface/ControlsContainer/FullscreenField/CheckBox" to="." method="_on_check_box_toggled"]
+[connection signal="text_changed" from="SettingsInterface/NicknameContainer/NicknameField/LineEdit" to="." method="_on_line_edit_text_changed"]

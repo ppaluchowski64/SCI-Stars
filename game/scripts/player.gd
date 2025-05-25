@@ -63,6 +63,8 @@ var projectile_super_id: Projectiles.ID = Projectiles.ID.BIG_PROJECTILE
 
 var character_id: Characters.ID = Characters.ID.PABLO
 
+var stats: Array
+
 # Other
 var block_controls: bool = true
 var is_main_player: bool = false
@@ -71,6 +73,16 @@ var is_immune: bool = false
 
 var damage_deal_multiplier: float = 1.0
 var damage_take_multiplier: float = 1.0
+
+func setup_stats() -> void:
+	stats = PlayerData.character_stats if is_main_player else PlayerData.bot_stats
+	
+	max_health = stats[character_id][1].value
+	health = max_health
+	healthbar_label.text = str(int(health))
+	
+	if character_id == Characters.ID.KATE:
+		shoot_cooldown.wait_time = stats[character_id][2].value
 
 func setup_ai() -> void:
 	var AI = preload("res://scenes/player_ai.tscn")
@@ -145,7 +157,7 @@ func spawn_projectile(angle: float = attack_joystick_output.angle() if PlayerDat
 	projectile.parent = self
 	
 	if not _projectile_id in [Projectiles.ID.BOOK_THROW, Projectiles.ID.BOOK_FIELD, Projectiles.ID.GODOT]:
-		var base_damage = PlayerData.character_stats[character_id][0].value
+		var base_damage = stats[character_id][0].value
 		projectile.damage = base_damage * damage_deal_multiplier
 	
 	get_tree().get_root().call_deferred("add_child", projectile)
@@ -295,9 +307,6 @@ func _ready() -> void:
 	sprite.frame = 1
 	
 	nickname_label.text = "Player" + str(id)
-	
-	if character_id == Characters.ID.KATE:
-		shoot_cooldown.wait_time = PlayerData.character_stats[character_id][2].value
 
 func _process(delta: float) -> void:
 	if is_main_player:

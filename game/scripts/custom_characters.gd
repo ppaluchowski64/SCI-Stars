@@ -26,7 +26,6 @@ static func setup() -> void:
 static func custom_character(id: ID) -> Node:
 	var p = Player.instantiate()
 	
-	p.max_health = PlayerData.character_stats[id][1].value
 	p.get_node("AnimatedSprite2D").frames = spritesheets[id]
 	
 	p.character_id = id

@@ -22,15 +22,14 @@ var last_player_super_charge: float = 0.0
 func update_player_count(count: int) -> void:
 	player_count.text = "Players left: %s" % count
 
-func _ready() -> void:
+func setup_joysticks() -> void:
+	PlayerData.is_joystick_enabled = move_joystick.visible
+	
 	if PlayerData.is_joystick_enabled:
 		superbar_container.add_theme_constant_override("margin_bottom", 332)
 	else:
 		move_joystick.set_process_input(false)
 		attack_joystick.set_process_input(false)
-	
-		move_joystick.visible = false
-		attack_joystick.visible = false
 
 func _process(_delta: float) -> void:
 	if main_player:

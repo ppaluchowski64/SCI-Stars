@@ -19,7 +19,14 @@ extends Node2D
 @onready var language: Control = $SettingsInterface/LanguageContainer
 @onready var credits: MarginContainer = $SettingsInterface/CreditsContainer
 @onready var resolution_container: VBoxContainer = $SettingsInterface/ResolutionContainer
-@onready var controls_container: Control = $SettingsInterface/ControlsContainer
+@onready var nickname_container: Control = $SettingsInterface/NicknameContainer
+
+@onready var nickname_linedit: LineEdit = $SettingsInterface/NicknameContainer/NicknameField/LineEdit
+
+@onready var mode_label: Label = $UserInterface/MarginContainer/PlayContainer/LabelParent/Label
+@onready var mode_icon: Sprite2D = $UserInterface/MarginContainer/PlayContainer/ButtonChangeMode/SpriteParent/Sprite2D
+
+var online_mode: bool = true
 
 func update_upgrades() -> void:
 	for upgrade in upgrade_parent.get_children():
@@ -56,6 +63,8 @@ func update_selected_character() -> void:
 func _ready() -> void:
 	SoundManager.load_buttons()
 	
+	nickname_linedit.text = PlayerData.nickname
+	
 	update_upgrades()
 	update_selected_character()
 	
@@ -68,7 +77,7 @@ func _ready() -> void:
 		loot_box_label.theme.set_color("font_color", "Label", Color("#EB7775"))
 
 func _on_button_play_button_down() -> void:
-	get_tree().call_deferred("change_scene_to_file", "res://scenes/battle.tscn")
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/queue.tscn")
 
 func _on_button_upgrade_button_down() -> void:
 	upgrade_interface.visible = true
@@ -100,7 +109,7 @@ func _on_button_exit_settings_button_down() -> void:
 	language.visible = false
 	credits.visible = false
 	resolution_container.visible = false
-	controls_container.visible = false
+	nickname_container.visible = false
 	settings_buttons.visible = true
 
 func _on_button_volume_button_down() -> void:
@@ -124,7 +133,20 @@ func _on_button_select_button_down() -> void:
 
 func _on_button_controls_button_down() -> void:
 	settings_buttons.visible = false
-	controls_container.visible = true
+	nickname_container.visible = true
 
 func _on_check_box_toggled(toggled_on: bool) -> void:
 	PlayerData.is_joystick_enabled = toggled_on
+
+func _on_button_change_mode_button_down() -> void:
+	online_mode = not online_mode
+	
+	if online_mode:
+		mode_label.text = "MODE: ONLINE"
+		mode_icon.texture = preload("res://graphics/UI/icons/person.png")
+	else:
+		mode_label.text = "MODE: AI"
+		mode_icon.texture = preload("res://graphics/UI/icons/computer.png")
+
+func _on_line_edit_text_changed(new_text: String) -> void:
+	PlayerData.nickname = new_text

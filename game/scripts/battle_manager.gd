@@ -71,9 +71,13 @@ func start_game() -> void:
 	for pos in player_spawn_pos:
 		if i == main_player_id:
 			main_player = spawn_player(pos.x, pos.y, PlayerData.selected_character, i)
+			main_player.is_main_player = true
+			main_player.setup_stats()
 		else:
 			var p = spawn_player(pos.x, pos.y, Characters.ID.values().pick_random(), i)
+			p.setup_stats()
 			p.setup_ai()
+			
 			p.ammobar.visible = false
 			p.nickname_label.visible = true
 		
@@ -82,7 +86,6 @@ func start_game() -> void:
 	# If you are reading this Pablo, use this if you can't get main_player anyhow else
 	# camera.setup_target()
 	
-	main_player.is_main_player = true
 	camera.target = main_player
 	ui.main_player = main_player
 
