@@ -5,6 +5,7 @@ import asyncio
 from server_instance import ServerInstance
 from input_forwarder import InputForwarder
 from question_server import QuestionServer
+from message_handler import MessageHandler
 
 
 def initialize_servers():
@@ -35,6 +36,20 @@ async def listen_for_players(servers):
 
         player_id = len(loading_server.players)
         loading_server.add_player(player_id, writer)
+
+        async def notify_game_start():
+            while loading_server.mode == "loading":
+                await asyncio.sleep(0.5)
+            
+            msg = MessageHandler.create_message(
+                "response", "start_gameplay",
+                {"instance_id": loading_server.instance_id, "player_id": player_id}
+            )
+            
+            writer.write(msg.encode())
+            await writer.drain()
+
+        asyncio.create_task(notify_game_start())
 
         try:
             while True:
@@ -76,6 +91,14 @@ def update_server_ids(servers):
     for i, server in enumerate(servers):
         server.instance_id = i
 
+        if server.mode == "gameplay":
+            for pid, writer in server.players.items():
+                msg = MessageHandler.create_message(
+                    "response", "instance_id_update",
+                    {"instance_id": i, "player_id": pid}
+                )
+                writer.write(msg.encode())
+    
     print("Updated instance IDs")
 
 
