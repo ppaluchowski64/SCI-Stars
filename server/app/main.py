@@ -24,29 +24,59 @@ async def create_server(servers):
 
 async def listen_for_players(servers):
     async def handle_client(reader, writer):
+        data = await reader.read(2048)
+        if not data:
+            writer.close()
+            await writer.wait_closed()
+            return
+        
+        try:
+            message = MessageHandler.parse_message(data.decode())
+        except Exception:
+            writer.close()
+            await writer.wait_closed()
+            return
+
+        if message["type"] == "request" and message["command"] == "player_stats":
+            player_stats = message["payload"]
+        else:
+            player_stats = {}
+
         loading_server = None
 
         for server in servers:
             if server.mode == "loading":
                 loading_server = server
                 break
-        
+
         if loading_server is None:
             loading_server = await create_server(servers)
 
         player_id = len(loading_server.players)
         loading_server.add_player(player_id, writer)
 
+        if not hasattr(loading_server, "player_stats"):
+            loading_server.player_stats = {}
+        loading_server.player_stats[player_id] = player_stats
+
         async def notify_game_start():
             while loading_server.mode == "loading":
                 await asyncio.sleep(0.5)
-            
-            msg = MessageHandler.create_message(
+
+            stats_msg = MessageHandler.create_message(
+                "response",
+                "players_stats",
+                loading_server.player_stats
+            )
+            for pid, w in loading_server.players.items():
+                w.write(stats_msg.encode())
+                await w.drain()
+
+            start_msg = MessageHandler.create_message(
                 "response", "start_gameplay",
                 {"instance_id": loading_server.instance_id, "player_id": player_id}
             )
-            
-            writer.write(msg.encode())
+            writer.write(start_msg.encode())
             await writer.drain()
 
         asyncio.create_task(notify_game_start())
@@ -55,7 +85,7 @@ async def listen_for_players(servers):
             while True:
                 if loading_server.mode == "ended":
                     break
-                
+
                 data = await reader.read(100)
                 if not data:
                     break

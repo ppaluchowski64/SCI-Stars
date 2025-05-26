@@ -1,12 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://bjsc0vdn2vwj2"]
 
-[ext_resource type="Script" uid="uid://dtk7i2s2tsc1h" path="res://scripts/player_join.gd" id="1_errlg"]
 [ext_resource type="Script" uid="uid://dhotgdmq2gri7" path="res://scripts/remote_input_handler.gd" id="2_bl13t"]
+[ext_resource type="Script" uid="uid://d3n11h78e1f65" path="res://scripts/player_join_new.gd" id="2_iyx0m"]
 
 [node name="Test" type="Node"]
 
 [node name="PlayerJoin" type="Node" parent="."]
-script = ExtResource("1_errlg")
+
+[node name="PlayerJoinNew" type="Node" parent="."]
+script = ExtResource("2_iyx0m")
 
 [node name="RemoteInputHandler" type="Node2D" parent="."]
 script = ExtResource("2_bl13t")
