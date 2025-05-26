@@ -8,7 +8,10 @@ static var Projectile = preload("res://scenes/projectile.tscn")
 enum ID {DEFAULT, BIG_PROJECTILE, FLOPPY, HAMMER, BOOK_THROW, BOOK_FIELD, GODOT}
 
 static func book_death(parent: Node):
-	var book = parent.parent.spawn_projectile(parent.global_rotation, ID.BOOK_FIELD)
+	if parent.is_in_group("player"):
+		parent.shoot_angle = parent.global_rotation
+	
+	var book = parent.parent.spawn_projectile(ID.BOOK_FIELD)
 	
 	book.global_position = parent.global_position
 

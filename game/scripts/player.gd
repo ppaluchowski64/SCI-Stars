@@ -62,6 +62,11 @@ var projectile_id: Projectiles.ID = Projectiles.ID.DEFAULT
 var projectile_func: Callable = spawn_projectile
 var projectile_super_id: Projectiles.ID = Projectiles.ID.BIG_PROJECTILE
 
+var shoot_angle: float
+
+func set_shoot_angle() -> void:
+	shoot_angle = attack_joystick_output.angle() if PlayerData.is_joystick_enabled else get_angle_to(get_global_mouse_position())
+
 var character_id: Characters.ID = Characters.ID.PABLO
 
 var stats: Array
@@ -74,6 +79,47 @@ var is_immune: bool = false
 
 var damage_deal_multiplier: float = 1.0
 var damage_take_multiplier: float = 1.0
+
+func regular_attack(preserve_angle: bool = false) -> void:
+	shoot_cooldown.start()
+	shoot_animation.start()
+	
+	if not preserve_angle:
+		set_shoot_angle()
+	
+	var shoot_vector: Array = rad_to_double_dir(shoot_angle)
+	
+	dir_x = shoot_vector[0]
+	dir_y = shoot_vector[1]
+	
+	projectile_func.call()
+	
+	ammo -= 1
+	
+	if health < max_health:
+		regen_cooldown.start(3)
+
+func super_attack(preserve_angle: bool = false) -> void:
+	shoot_cooldown.start()
+	shoot_animation.start()
+	
+	if not preserve_angle:
+		set_shoot_angle()
+	
+	var shoot_vector: Array = rad_to_double_dir(shoot_angle)
+	
+	dir_x = shoot_vector[0]
+	dir_y = shoot_vector[1]
+	
+	# crude ahh fix
+	if projectile_super_id == Projectiles.ID.GODOT:
+		spawn_projectile_spreadshot(PlayerData.character_stats[PlayerData.selected_character][2].value, projectile_super_id)
+		damage_take_multiplier = 0.75
+		status_timer.start()
+	else:
+		spawn_projectile(projectile_super_id)
+	
+	super_charge = 0
 
 func setup_stats() -> void:
 	stats = PlayerData.character_stats if is_main_player else PlayerData.bot_stats
@@ -151,12 +197,12 @@ func take_damage(damage: int, hitter: Node = null) -> void:
 	
 	hit_audio.play()
 
-func spawn_projectile(angle: float = attack_joystick_output.angle() if PlayerData.is_joystick_enabled else get_angle_to(get_global_mouse_position()), _projectile_id = projectile_id) -> CharacterBody2D:
+func spawn_projectile(_projectile_id = projectile_id) -> CharacterBody2D:
 	var projectile = Projectiles.custom_projectile(_projectile_id)
 	
 	projectile.player_id = id
 	projectile.global_position = get_global_position()
-	projectile.global_rotation = angle
+	projectile.global_rotation = shoot_angle
 	projectile.parent = self
 	
 	if not _projectile_id in [Projectiles.ID.BOOK_THROW, Projectiles.ID.BOOK_FIELD, Projectiles.ID.GODOT]:
@@ -167,11 +213,12 @@ func spawn_projectile(angle: float = attack_joystick_output.angle() if PlayerDat
 	
 	return projectile
 
-func spawn_projectile_spreadshot(angle: float = attack_joystick_output.angle() if PlayerData.is_joystick_enabled else get_angle_to(get_global_mouse_position()), count: int = 3, _projectile_id = projectile_id) -> void:
+func spawn_projectile_spreadshot(count: int = 3, _projectile_id = projectile_id) -> void:
 	for i in range(count):
-		spawn_projectile(angle + deg_to_rad(360 / count) * i, _projectile_id)
+		shoot_angle += deg_to_rad(360 / count) * i
+		spawn_projectile(_projectile_id)
 
-func spawn_projectile_spreadshot_await(angle: float = attack_joystick_output.angle() if PlayerData.is_joystick_enabled else get_angle_to(get_global_mouse_position()), count: int = 5) -> void:
+func spawn_projectile_spreadshot_await(count: int = 5) -> void:
 	var data: Array = [
 		[0,   0],
 		[20,  0.05],
@@ -182,7 +229,8 @@ func spawn_projectile_spreadshot_await(angle: float = attack_joystick_output.ang
 	
 	for i in range(count):
 		await get_tree().create_timer(data[i][1]).timeout
-		spawn_projectile(angle + deg_to_rad(data[i][0]))
+		shoot_angle += deg_to_rad(data[i][0])
+		spawn_projectile()
 
 func get_joystick_input() -> Vector2:
 	var x := Input.get_action_strength("right") - Input.get_action_strength("left")
@@ -212,12 +260,15 @@ func get_joystick_input() -> Vector2:
 	return _snapped
 
 func move() -> void:
-	if not block_controls:
+	if not is_main_player:
+		pass
+	else:
 		if PlayerData.is_joystick_enabled:
 			dir_vec = get_joystick_input()
 		else:
 			dir_vec = Input.get_vector("left", "right", "up", "down")
-	else:
+	
+	if block_controls:
 		dir_vec = Vector2.ZERO
 	
 	velocity = dir_vec * speed
@@ -227,6 +278,8 @@ func move() -> void:
 		dir_y = sign(dir_vec.y)
 	
 	move_and_slide()
+	
+	dir_vec = Vector2.ZERO
 
 # This has to use delta FIX IT
 func shoot(delta: float) -> void:
@@ -242,44 +295,13 @@ func shoot(delta: float) -> void:
 			last_attack_joystick_pressed = attack_joystick.is_pressed
 		
 		if (Input.is_action_just_pressed("attack") and not PlayerData.is_joystick_enabled or joystick_shoot) and ammo >= 1 and not block_controls:
-			shoot_cooldown.start()
-			shoot_animation.start()
-			
-			var angle = rad_to_double_dir(get_angle_to(get_global_mouse_position()))
-			
-			if PlayerData.is_joystick_enabled:
-				angle = rad_to_double_dir(attack_joystick_output.angle())
-			
-			dir_x = angle[0]
-			dir_y = angle[1]
-			
-			projectile_func.call()
-			
-			ammo -= 1
-			
-			if health < max_health:
-				regen_cooldown.start(3)
+			regular_attack()
 		
 		# It's >= instead of == just in case you broke the game and got it above 1
 		# It's pretty much impossible but who knows 
 		elif Input.is_action_just_pressed("super_attack") and super_charge >= 1 and not block_controls:
-			shoot_cooldown.start()
-			shoot_animation.start()
-			
-			var angle = rad_to_double_dir(get_angle_to(get_global_mouse_position()))
-			dir_x = angle[0]
-			dir_y = angle[1]
-			
-			# crude ahh fix
-			if projectile_super_id == Projectiles.ID.GODOT:
-				spawn_projectile_spreadshot(get_angle_to(get_global_mouse_position()), PlayerData.character_stats[PlayerData.selected_character][2].value, projectile_super_id)
-				damage_take_multiplier = 0.75
-				status_timer.start()
-			else:
-				spawn_projectile(get_angle_to(get_global_mouse_position()), projectile_super_id)
-			
-			super_charge = 0
-			
+			super_attack()
+		
 		elif ammo < 3:
 			ammo += reload_speed * delta
 			ammo = min(ammo, 3)
@@ -326,14 +348,17 @@ func _process(delta: float) -> void:
 				if player != self:
 					player.take_damage(9999)
 		
-		
 	else:
-		if Input.is_action_just_pressed("debug_4"):
-			block_controls = not block_controls
+		if PlayerData.is_multiplayer_enabled:
+			move()
 		
-		if not block_controls and ai:
-			ai.update(delta)
-			pass
+		else:
+			if Input.is_action_just_pressed("debug_4"):
+				block_controls = not block_controls
+			
+			if not block_controls and ai:
+				ai.update(delta)
+				pass
 	
 	animate(delta)
 	update_ui()

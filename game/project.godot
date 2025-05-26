@@ -30,6 +30,8 @@ AStarAI="*res://scripts/player_ai_astar.gd"
 SoundManager="*res://scripts/sound_manager.gd"
 GlobalAudio="*res://scenes/global_audio.tscn"
 SaveManager="*res://scripts/save_manager.gd"
+PlayerJoin="*res://scripts/player_join.gd"
+RemoteInputHandler="*res://scripts/remote_input_handler.gd"
 
 [display]
 

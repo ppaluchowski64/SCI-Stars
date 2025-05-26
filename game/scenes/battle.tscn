@@ -614,7 +614,7 @@ position = Vector2(-384, 398)
 [node name="PowerPod4" parent="Environment/PowerPods" instance=ExtResource("6_22uqi")]
 position = Vector2(-384, -398)
 
-[node name="Players" type="Node2D" parent="."]
+[node name="Players" type="Node2D" parent="." groups=["players"]]
 
 [node name="FX" type="Node2D" parent="."]
 

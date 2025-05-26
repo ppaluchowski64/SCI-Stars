@@ -6,11 +6,10 @@ extends Node
 var is_connected: bool = false
 var buffer_text: String = ""
 
-func _ready():
-	call_deferred("_start_connection")
-	set_process(true)
+var connected_players: int = 1
+var is_instance_starting: bool = false
 
-func _start_connection():
+func start_connection():
 	var err = tcp.connect_to_host("127.0.0.1", 7000)
 	if err != OK:
 		push_error("Connection error: %d" % err)
@@ -53,6 +52,15 @@ func _handle_message(message: Dictionary) -> void:
 	match message.command:
 		"start_gameplay":
 			print("Gameplay has started! Instance ID: ", int(message.payload.instance_id), ", Player ID: ", int(message.payload.player_id))
+			
+			PlayerData.instance_id = int(message.payload.instance_id)
+			PlayerData.player_id = int(message.payload.player_id)
+			
+			RemoteInputHandler.instance_id = int(message.payload.instance_id)
+			RemoteInputHandler.player_id = int(message.payload.player_id)
+			
+			is_instance_starting = true
+			
 		"instance_id_update":
 			print("Update! Instance ID: ", int(message.payload.instance_id), ", Player ID: ", int(message.payload.player_id))
 		_:

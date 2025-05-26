@@ -61,6 +61,8 @@ func update_selected_character() -> void:
 		character_sprite.region_rect.size.x = 14
 		
 func _ready() -> void:
+	Engine.max_fps = 0
+	
 	SoundManager.load_buttons()
 	
 	nickname_linedit.text = PlayerData.nickname
@@ -140,6 +142,7 @@ func _on_check_box_toggled(toggled_on: bool) -> void:
 
 func _on_button_change_mode_button_down() -> void:
 	online_mode = not online_mode
+	PlayerData.is_multiplayer_enabled = online_mode
 	
 	if online_mode:
 		mode_label.text = "MODE: ONLINE"

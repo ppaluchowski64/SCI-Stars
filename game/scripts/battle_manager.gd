@@ -28,7 +28,8 @@ func block_player_controls(value: bool):
 func spawn_player(x: float, y: float, character_id: Characters.ID, player_id: int = get_exclusive_player_id()) -> Node:
 	print("Spawning a player...")
 	
-	var player = Characters.custom_character(character_id)
+	#var player = Characters.custom_character(character_id)
+	var player = Characters.custom_character(Characters.ID.PABLO)
 	
 	player.global_position = Vector2(x, y)
 	player.id = player_id
@@ -56,7 +57,10 @@ func get_exclusive_player_id() -> int:
 	return next_free_player_id - 1
 
 func start_game() -> void:
-	#Engine.max_fps = 60
+	if PlayerData.is_multiplayer_enabled:
+		Engine.max_fps = 60
+	else:
+		Engine.max_fps = 0
 	
 	AStarAI.setup()
 	
@@ -65,7 +69,7 @@ func start_game() -> void:
 		Vector2(680, -680), Vector2(680, 680), Vector2(-680, 680), Vector2(-680, -680)
 	]
 	
-	var main_player_id: int = randi_range(0, 7)
+	var main_player_id: int = PlayerData.player_id
 	var i: int = 0
 	
 	for pos in player_spawn_pos:
@@ -88,6 +92,10 @@ func start_game() -> void:
 	
 	camera.target = main_player
 	ui.main_player = main_player
+	
+	if PlayerData.is_multiplayer_enabled:
+		RemoteInputHandler.main_player = main_player
+		RemoteInputHandler.start_connection()
 
 func end_game() -> void:
 	main_player.block_controls = true
@@ -116,4 +124,6 @@ func _ready() -> void:
 	call_deferred("start_game")
 
 func _on_button_proceed_button_down() -> void:
+	PlayerJoin.tcp.disconnect_from_host()
+	RemoteInputHandler.connected = false
 	get_tree().call_deferred("change_scene_to_file", "res://scenes/lobby.tscn")
