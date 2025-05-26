@@ -165,7 +165,7 @@ attenuation = 0.2
 
 [node name="HitAudio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9_ur7pv")
-max_distance = 1500.0
+max_distance = 380.0
 attenuation = 0.2
 
 [connection signal="timeout" from="RegenCooldown" to="." method="_on_regen_cooldown_timeout"]
