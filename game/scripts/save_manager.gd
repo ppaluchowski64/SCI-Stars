@@ -8,13 +8,33 @@ func _input(event: InputEvent) -> void:
 		save_on_exit = false
 		
 		print("Ereased saved data")
+	
+	if event.is_action_pressed("exit"):
+		confirm_exit()
 
 func _ready() -> void:
+	get_tree().set_auto_accept_quit(false)
 	load_data()
 
 func _notification(what) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST and save_on_exit:
 		save_data()
+		confirm_exit()
+
+func _on_dialogue_confirm() -> void:
+	get_tree().quit()
+
+func confirm_exit() -> void:
+	var dialog = ConfirmationDialog.new() 
+	
+	dialog.title = "Exit" 
+	dialog.dialog_text = "Are you sure you want to exit the game?"
+	dialog.confirmed.connect(_on_dialogue_confirm)
+	
+	add_child(dialog)
+	
+	dialog.popup_centered()
+	dialog.show()
 
 func save_stats() -> void:
 	var save_file = FileAccess.open("user://statsdata.save", FileAccess.WRITE)
