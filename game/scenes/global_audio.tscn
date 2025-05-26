@@ -4,3 +4,4 @@
 
 [node name="GlobalAudio" type="AudioStreamPlayer"]
 stream = ExtResource("1_tbad1")
+bus = &"SFX"

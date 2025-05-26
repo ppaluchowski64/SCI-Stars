@@ -1,20 +1,26 @@
 extends Control
 
-@onready var slider = $VolumeSliderContainer/VolumeSlider
-@onready var label = $VolumeValueContainer/VolumeValue
+@onready var music_slider = $MusicSlider/VolumeSliderM
+@onready var music_label = $MusicValue/VolumeValue
 
-var MASTER_BUS := AudioServer.get_bus_index("Master")
+@onready var sfx_slider = $SFXSlider/VolumeSliderS
+@onready var sfx_label = $SFXValue/VolumeValue
+
+var music_bus = AudioServer.get_bus_index("Music")
+var sfx_bus = AudioServer.get_bus_index("SFX")
 
 func _ready() -> void:
-	var linear = db_to_linear(AudioServer.get_bus_volume_db(MASTER_BUS))
-	update_ui(linear)
+	music_slider.value = 100
+	sfx_slider.value = 100
 
-func _on_volume_slider_value_changed(value: float) -> void:
-	update_ui(value / 100.0)
+func _on_volume_slider_m_value_changed(value: float) -> void:
+	var clamped = clamp(value / 100.0, 0, 1)
+	AudioServer.set_bus_volume_db(music_bus, linear_to_db(clamped))
+	
+	music_label.text = "%d%%" % round(clamped * 100)
 
-func update_ui(linear_value: float) -> void:
-	var clamped = clamp(linear_value, 0, 1)
-	AudioServer.set_bus_volume_db(MASTER_BUS, linear_to_db(clamped))
-
-	slider.value = clamped * 100
-	label.text = "%d%%" % round(clamped * 100)
+func _on_volume_slider_s_value_changed(value: float) -> void:
+	var clamped = clamp(value / 100.0, 0, 1)
+	AudioServer.set_bus_volume_db(sfx_bus, linear_to_db(clamped))
+	
+	sfx_label.text = "%d%%" % round(clamped * 100)

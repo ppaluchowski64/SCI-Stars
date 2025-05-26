@@ -1094,35 +1094,82 @@ grow_vertical = 2
 script = ExtResource("16_0gjkf")
 
 [node name="VolumeInfoContainer" type="Node2D" parent="SettingsInterface/VolumeContainer"]
-scale = Vector2(5, 5)
+scale = Vector2(4, 4)
 
 [node name="VolumeLabel" type="Label" parent="SettingsInterface/VolumeContainer/VolumeInfoContainer"]
 material = SubResource("ShaderMaterial_lqo1b")
-offset_top = 25.0
-offset_right = 186.0
-offset_bottom = 31.0
+offset_left = 0.125
+offset_top = 7.375
+offset_right = 232.125
+offset_bottom = 13.375
 theme = SubResource("Theme_0gjkf")
 text = "- VOLUME -"
 horizontal_alignment = 1
 
-[node name="VolumeSliderContainer" type="Node2D" parent="SettingsInterface/VolumeContainer"]
+[node name="MusicLabel" type="Label" parent="SettingsInterface/VolumeContainer/VolumeInfoContainer"]
+material = SubResource("ShaderMaterial_lqo1b")
+offset_left = 0.25
+offset_top = 28.875
+offset_right = 232.25
+offset_bottom = 34.875
+theme = SubResource("Theme_0gjkf")
+text = "Music"
+horizontal_alignment = 1
+
+[node name="SFXLabel" type="Label" parent="SettingsInterface/VolumeContainer/VolumeInfoContainer"]
+material = SubResource("ShaderMaterial_lqo1b")
+offset_left = 0.625
+offset_top = 70.375
+offset_right = 232.625
+offset_bottom = 76.375
+theme = SubResource("Theme_0gjkf")
+text = "SFX"
+horizontal_alignment = 1
+
+[node name="MusicSlider" type="Node2D" parent="SettingsInterface/VolumeContainer"]
 scale = Vector2(2, 2)
 
-[node name="VolumeSlider" type="HSlider" parent="SettingsInterface/VolumeContainer/VolumeSliderContainer"]
+[node name="VolumeSliderM" type="HSlider" parent="SettingsInterface/VolumeContainer/MusicSlider"]
+offset_left = 148.25
+offset_top = 73.0
+offset_right = 308.25
+offset_bottom = 89.0
+value = 1.0
+
+[node name="MusicValue" type="Node2D" parent="SettingsInterface/VolumeContainer"]
+scale = Vector2(4, 4)
+
+[node name="VolumeValue" type="Label" parent="SettingsInterface/VolumeContainer/MusicValue"]
+material = SubResource("ShaderMaterial_o2i1r")
+offset_left = 0.625
+offset_top = 46.625
+offset_right = 232.625
+offset_bottom = 52.625
+theme = SubResource("Theme_iulku")
+text = "20%"
+horizontal_alignment = 1
+
+[node name="SFXSlider" type="Node2D" parent="SettingsInterface/VolumeContainer"]
+position = Vector2(0, 130)
+scale = Vector2(2, 2)
+
+[node name="VolumeSliderS" type="HSlider" parent="SettingsInterface/VolumeContainer/SFXSlider"]
 offset_left = 148.0
 offset_top = 90.0
 offset_right = 308.0
 offset_bottom = 106.0
 value = 1.0
 
-[node name="VolumeValueContainer" type="Node2D" parent="SettingsInterface/VolumeContainer"]
+[node name="SFXValue" type="Node2D" parent="SettingsInterface/VolumeContainer"]
+position = Vector2(0, 130)
 scale = Vector2(4, 4)
 
-[node name="VolumeValue" type="Label" parent="SettingsInterface/VolumeContainer/VolumeValueContainer"]
+[node name="VolumeValue" type="Label" parent="SettingsInterface/VolumeContainer/SFXValue"]
 material = SubResource("ShaderMaterial_o2i1r")
-offset_top = 60.0
-offset_right = 232.0
-offset_bottom = 66.0
+offset_left = 0.625
+offset_top = 55.875
+offset_right = 232.625
+offset_bottom = 61.875
 theme = SubResource("Theme_iulku")
 text = "20%"
 horizontal_alignment = 1
@@ -1363,6 +1410,7 @@ max_length = 10
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("22_vwf6o")
 autoplay = true
+bus = &"Music"
 
 [connection signal="button_down" from="UserInterface/MarginContainer/PlayContainer/ButtonChangeMode" to="." method="_on_button_change_mode_button_down"]
 [connection signal="button_down" from="UserInterface/MarginContainer/PlayContainer/ButtonPlay" to="." method="_on_button_play_button_down"]
@@ -1383,7 +1431,8 @@ autoplay = true
 [connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonLanguage" to="." method="_on_button_language_button_down"]
 [connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonCredits" to="." method="_on_button_credits_button_down"]
 [connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonCredits" to="SettingsInterface/CreditsContainer/Control/LabelParent" method="_on_button_credits_button_down"]
-[connection signal="value_changed" from="SettingsInterface/VolumeContainer/VolumeSliderContainer/VolumeSlider" to="SettingsInterface/VolumeContainer" method="_on_volume_slider_value_changed"]
+[connection signal="value_changed" from="SettingsInterface/VolumeContainer/MusicSlider/VolumeSliderM" to="SettingsInterface/VolumeContainer" method="_on_volume_slider_m_value_changed"]
+[connection signal="value_changed" from="SettingsInterface/VolumeContainer/SFXSlider/VolumeSliderS" to="SettingsInterface/VolumeContainer" method="_on_volume_slider_s_value_changed"]
 [connection signal="toggled" from="SettingsInterface/ResolutionContainer/FullscreenField/CheckBox" to="SettingsInterface/ResolutionContainer" method="_on_check_box_toggled"]
 [connection signal="item_selected" from="SettingsInterface/ResolutionContainer/RatioField/OptionButton" to="SettingsInterface/ResolutionContainer" method="_on_option_button_item_selected"]
 [connection signal="drag_ended" from="SettingsInterface/ResolutionContainer/ScaleField/HSlider" to="SettingsInterface/ResolutionContainer" method="_on_h_slider_drag_ended"]

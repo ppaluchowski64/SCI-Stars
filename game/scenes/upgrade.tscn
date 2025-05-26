@@ -201,6 +201,7 @@ texture = ExtResource("6_jnjjj")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_i5kin")
+bus = &"SFX"
 
 [connection signal="button_down" from="TextureButton" to="." method="_on_texture_button_button_down"]
 [connection signal="button_down" from="Panel/ButtonAccept" to="." method="_on_button_accept_button_down"]

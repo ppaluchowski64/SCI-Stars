@@ -940,5 +940,6 @@ volume_db = -4.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("14_6ni85")
+bus = &"Music"
 
 [connection signal="button_down" from="EndScreen/ButtonParent/OffsetNode/ButtonProceed" to="." method="_on_button_proceed_button_down"]
