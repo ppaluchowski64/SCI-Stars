@@ -29,6 +29,8 @@ var texture: Texture
 @onready var scale_tween: Tween
 var scale_factor: float = 1.0
 
+@onready var audio: AudioStreamPlayer = $AudioStreamPlayer
+
 func enter_panel() -> void:
 	corner_sprites.visible = true
 	rect.visible = true
@@ -108,6 +110,9 @@ func _process(_delta: float) -> void:
 
 func _on_texture_button_button_down() -> void:
 	enter_panel()
+	
+	audio.stream = preload("res://audio/SFX/UI/button.wav")
+	audio.play()
 
 func _on_button_accept_button_down() -> void:
 	var cost: float = int(stat.base_cost * (1.15 ** (stat.level - 1)))
@@ -120,6 +125,12 @@ func _on_button_accept_button_down() -> void:
 		update_values()
 		lobby.money_label.text = "COINS: " + str(int(PlayerData.money))
 		
+		audio.stream = preload("res://audio/SFX/UI/upgrade.wav")
+		
 		print("stat upgraded")
 	else:
+		audio.stream = preload("res://audio/SFX/UI/insufficient_resources.wav")
+		
 		print("not enough resources")
+	
+	audio.play()

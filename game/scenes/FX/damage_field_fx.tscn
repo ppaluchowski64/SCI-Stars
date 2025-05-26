@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dyv8pjhxdpgw3"]
+[gd_scene load_steps=8 format=3 uid="uid://dyv8pjhxdpgw3"]
 
 [ext_resource type="Texture2D" uid="uid://csdmtwhoy0ffc" path="res://graphics/FX/damage_field.png" id="1_tj5hj"]
+[ext_resource type="AudioStream" uid="uid://du2osldxqtqp" path="res://audio/SFX/damage_field.wav" id="2_ll5t2"]
 
 [sub_resource type="Shader" id="Shader_tj5hj"]
 code = "shader_type canvas_item;
@@ -76,6 +77,33 @@ tracks/1/keys = {
 "update": 0,
 "values": [0.0, 3.14159]
 }
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_ll5t2")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_ll5t2")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_ll5t2")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_ll5t2")
+}],
+"times": PackedFloat32Array(0.4, 1.2, 2, 2.8)
+}
+tracks/2/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_13ajg"]
 _data = {
@@ -94,3 +122,5 @@ libraries = {
 &"": SubResource("AnimationLibrary_13ajg")
 }
 autoplay = "idle"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

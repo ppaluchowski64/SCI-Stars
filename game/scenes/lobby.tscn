@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://r73t4uwivu0e"]
+[gd_scene load_steps=36 format=3 uid="uid://r73t4uwivu0e"]
 
 [ext_resource type="Script" uid="uid://dedbthjrkqd2o" path="res://scripts/lobby.gd" id="1_nn68e"]
 [ext_resource type="Texture2D" uid="uid://f1v34lrprxwu" path="res://graphics/backgrounds/lobby/backlayer.png" id="2_4hsao"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://ckbd6d7geipes" path="res://scripts/credits.gd" id="16_lqo1b"]
 [ext_resource type="Texture2D" uid="uid://dndsomadsvt8o" path="res://graphics/characters/kate/player.png" id="17_dfnwm"]
 [ext_resource type="Script" uid="uid://ctsosyerera0k" path="res://scripts/resolution.gd" id="18_o2i1r"]
+[ext_resource type="AudioStream" uid="uid://buy64psbbdlhn" path="res://audio/loops/lobby.wav" id="22_vwf6o"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sr4bl"]
 shader = ExtResource("7_1urcf")
@@ -1358,6 +1359,10 @@ offset_right = 326.0
 offset_bottom = 34.0
 text = "Player"
 max_length = 10
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("22_vwf6o")
+autoplay = true
 
 [connection signal="button_down" from="UserInterface/MarginContainer/PlayContainer/ButtonChangeMode" to="." method="_on_button_change_mode_button_down"]
 [connection signal="button_down" from="UserInterface/MarginContainer/PlayContainer/ButtonPlay" to="." method="_on_button_play_button_down"]

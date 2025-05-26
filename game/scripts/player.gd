@@ -21,6 +21,7 @@ var Projectile = preload("res://scenes/projectile.tscn")
 @onready var walk_particles: CPUParticles2D = $WalkParticles
 
 @onready var attack_audio: AudioStreamPlayer2D = $AttackAudio
+@onready var hit_audio: AudioStreamPlayer2D = $HitAudio
 
 @onready var attack_joystick: VirtualJoystick = get_tree().get_first_node_in_group("attack_joystick")
 var last_attack_joystick_pressed: bool = false
@@ -147,6 +148,8 @@ func take_damage(damage: int, hitter: Node = null) -> void:
 	healthbar_label.text = str(int(health))
 	
 	regen_cooldown.start(3)
+	
+	hit_audio.play()
 
 func spawn_projectile(angle: float = attack_joystick_output.angle() if PlayerData.is_joystick_enabled else get_angle_to(get_global_mouse_position()), _projectile_id = projectile_id) -> CharacterBody2D:
 	var projectile = Projectiles.custom_projectile(_projectile_id)

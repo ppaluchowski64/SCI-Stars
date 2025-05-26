@@ -1,6 +1,6 @@
 extends Node
 
-var attack_sfx_count: int = 1
+var attack_sfx_count: int = 4
 var attack_sfx: Array
 
 func _ready() -> void:

@@ -71,6 +71,8 @@ static func custom_projectile(id: ID) -> Node:
 			p.get_node("Sprite2D").region_rect = Rect2i(30, 1, 9, 8)
 			p.get_node("Hitbox/CollisionShape2D").shape.radius = 7.0
 			
+			p.sfx = 4
+			
 			return p
 		
 		ID.BOOK_FIELD:
@@ -80,6 +82,8 @@ static func custom_projectile(id: ID) -> Node:
 			
 			p.get_node("Sprite2D").region_rect = Rect2i(40, 1, 10, 13)
 			p.get_node("Hitbox/CollisionShape2D").shape.radius = 31.0
+			
+			p.sfx = 3
 			
 			return p
 		
@@ -99,6 +103,8 @@ static func custom_projectile(id: ID) -> Node:
 			
 			p.get_node("Sprite2D").region_rect = Rect2i(51, 1, 10, 11)
 			p.get_node("Hitbox/CollisionShape2D").shape.radius = 7.3
+			
+			p.sfx = 2
 			
 			return p
 	
