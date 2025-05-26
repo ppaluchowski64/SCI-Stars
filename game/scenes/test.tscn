@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjsc0vdn2vwj2"]
+
+[ext_resource type="Script" uid="uid://dtk7i2s2tsc1h" path="res://scripts/player_join.gd" id="1_errlg"]
+
+[node name="Test" type="Node"]
+
+[node name="PlayerJoin" type="Node" parent="."]
+script = ExtResource("1_errlg")

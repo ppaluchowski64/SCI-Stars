@@ -56,7 +56,7 @@ func _start_connection() -> void:
 	if error != OK:
 		push_error("Connection error: %d" % error)
 	else:
-		print("Connection attempt sent")
+		print("Connection attempt sent...")
 
 func _process(_delta: float) -> void:
 	tcp.poll()
