@@ -53,10 +53,20 @@ func _process(_delta):
 					_handle_message(message)
 
 func _send_player_stats():
-	var player_stats = {
+	var upgrades: Array = []
+	var raw_upgrades: Array = PlayerData.character_stats[PlayerData.selected_character]
+
+	for stat in raw_upgrades:
+		if stat is PlayerData.Stat:
+			upgrades.append(stat.to_dict())
+		else:
+			push_error("Invalid stat object in upgrades")
+			return
+	
+	var player_stats: Dictionary = {
 		"nickname": PlayerData.nickname,
 		"character": PlayerData.selected_character,
-		"upgrades": PlayerData.character_stats[PlayerData.selected_character]
+		"upgrades": upgrades
 	}
 	
 	var msg = handler.create_message(

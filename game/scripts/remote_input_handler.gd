@@ -10,6 +10,7 @@ var instance_id := 0
 var player_id := 0
 
 var connected := false
+var game_just_started: bool = false
 
 var main_player: CharacterBody2D
 
@@ -18,8 +19,7 @@ func start_connection():
 	connected = true
 	print("UDP client ready, sending and listening to %s:%d" % [server_ip, server_port])
 	
-	var msg = handler.create_message("debug_input", "input")
-	udp.put_packet(msg.to_utf8_buffer())
+	game_just_started = true
 
 func _process(_delta):
 	if not connected:
@@ -31,7 +31,9 @@ func _process(_delta):
 	
 	var move_vec := Input.get_vector("left", "right", "up", "down")
 	
-	if move_vec.length() > 0 or Input.is_action_just_pressed("attack") or Input.is_action_just_pressed("super_attack"):
+	if move_vec.length() > 0 or Input.is_action_just_pressed("attack") or Input.is_action_just_pressed("super_attack") or game_just_started:
+		game_just_started = false
+		
 		var input_data := {}
 		
 		if move_vec.length() > 0:

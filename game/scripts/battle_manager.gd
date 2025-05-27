@@ -72,20 +72,37 @@ func start_game() -> void:
 	var i: int = 0
 	
 	for pos in player_spawn_pos:
+		var p: CharacterBody2D
+		
 		if i == main_player_id:
-			main_player = spawn_player(pos.x, pos.y, PlayerData.selected_character, i)
+			p = spawn_player(pos.x, pos.y, PlayerData.selected_character, i)
+			main_player = p
 			main_player.is_main_player = true
-			main_player.setup_stats()
 		else:
-			# Characters.ID.values().pick_random()
-			var p = spawn_player(pos.x, pos.y, PlayerData.online_player_stats[str(i)]["character"], i)
-			p.setup_stats()
-			p.setup_ai()
-			print(PlayerData.online_player_stats[str(i)]["nickname"])
-			p.nickname_label.text = PlayerData.online_player_stats[str(i)]["nickname"]
+			if PlayerData.is_multiplayer_enabled:
+				p = spawn_player(pos.x, pos.y, PlayerData.online_player_stats[str(i)]["character"], i)
+				
+				print(PlayerData.online_player_stats[str(i)]["nickname"])
+				p.nickname_label.text = PlayerData.online_player_stats[str(i)]["nickname"]
+			else:
+				p = spawn_player(pos.x, pos.y, Characters.ID.values().pick_random(), i)
 			
 			p.ammobar.visible = false
 			p.nickname_label.visible = true
+	
+		if PlayerData.is_multiplayer_enabled:
+			var upgrade_dicts: Array = PlayerData.online_player_stats[str(i)]["upgrades"]
+			var stats: Array = []
+
+			for stat_dict in upgrade_dicts:
+				if stat_dict is Dictionary:
+					stats.append(PlayerData.Stat.from_dict(stat_dict))
+				else:
+					push_error("Received invalid stat dictionary")
+			
+			p.stats = stats.duplicate(true)
+		
+		p.setup_stats()
 		
 		i += 1
 	
