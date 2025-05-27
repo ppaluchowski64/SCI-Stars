@@ -101,6 +101,8 @@ func start_game() -> void:
 					push_error("Received invalid stat dictionary")
 			
 			p.stats = stats.duplicate(true)
+		else:
+			p.setup_ai()
 		
 		p.setup_stats()
 		
