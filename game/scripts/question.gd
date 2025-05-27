@@ -51,7 +51,7 @@ func _ready() -> void:
 	progress_bar.show_percentage = true
 
 func _start_connection() -> void:
-	var error = tcp.connect_to_host("127.0.0.1", 12345)
+	var error = tcp.connect_to_host(Const.SERVER_IP, 12345)
 
 	if error != OK:
 		push_error("Connection error: %d" % error)

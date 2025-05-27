@@ -12,7 +12,7 @@ var is_instance_starting: bool = false
 func start_connection():
 	connected_players = 1
 	
-	var err = tcp.connect_to_host("127.0.0.1", 7000)
+	var err = tcp.connect_to_host(Const.SERVER_IP, 7000)
 	
 	if err != OK:
 		push_error("Connection error: %d" % err)

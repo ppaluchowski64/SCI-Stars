@@ -3,7 +3,7 @@ extends Node2D
 @onready var udp := PacketPeerUDP.new()
 @onready var handler = MessageHandler.new()
 
-var server_ip := "127.0.0.1"
+var server_ip := Const.SERVER_IP
 var server_port := 7001
 
 var instance_id := 0
@@ -16,6 +16,8 @@ var main_player: CharacterBody2D
 
 func start_connection():
 	udp.connect_to_host(server_ip, server_port)
+	udp.set_dest_address(server_ip, server_port)
+	
 	connected = true
 	print("UDP client ready, sending and listening to %s:%d" % [server_ip, server_port])
 	
