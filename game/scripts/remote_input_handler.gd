@@ -23,7 +23,7 @@ func start_connection():
 	
 	game_just_started = true
 
-func _process(_delta):
+func send_input(input_data: Dictionary):
 	if not connected:
 		return
 	
@@ -33,23 +33,11 @@ func _process(_delta):
 	
 	var move_vec := Input.get_vector("left", "right", "up", "down")
 	
-	if move_vec.length() > 0 or Input.is_action_just_pressed("attack") or Input.is_action_just_pressed("super_attack") or game_just_started:
-		game_just_started = false
-		
-		var input_data := {}
-		
-		if move_vec.length() > 0:
-			input_data["move_x"] = move_vec.x
-			input_data["move_y"] = move_vec.y
-		
-		if main_player.shoot_cooldown.time_left == 0:
-			if Input.is_action_just_pressed("attack") and main_player.ammo >= 1 and not main_player.block_controls:
-				main_player.set_shoot_angle()
-				input_data["attack_angle"] = main_player.shoot_angle
-			
-			if Input.is_action_just_pressed("super_attack") and main_player.super_charge >= 1 and not main_player.block_controls:
-				main_player.set_shoot_angle()
-				input_data["super_angle"] = main_player.shoot_angle
+	var send_input: bool = game_just_started or Vector2(input_data["move_x"], input_data["move_y"]).length() > 0 or input_data.has("attack_angle") or input_data.has("super_angle")
+	
+	if send_input:
+		if game_just_started:
+			game_just_started = false
 		
 		var msg = handler.create_message(
 			"request",
@@ -63,8 +51,6 @@ func _process(_delta):
 		
 		if msg != null:
 			udp.put_packet(msg.to_utf8_buffer())
-	
-	recieve_udp()
 
 func recieve_udp() -> void:
 	while udp.get_available_packet_count() > 0:

@@ -71,6 +71,8 @@ var character_id: Characters.ID = Characters.ID.PABLO
 
 var stats: Array
 
+var input_data: Dictionary
+
 # Other
 var block_controls: bool = true
 var is_main_player: bool = false
@@ -272,6 +274,9 @@ func move() -> void:
 	if block_controls:
 		dir_vec = Vector2.ZERO
 	
+	input_data["move_x"] = dir_vec.x
+	input_data["move_y"] = dir_vec.y
+	
 	velocity = dir_vec * speed
 	
 	if shoot_animation.time_left == 0:
@@ -296,12 +301,18 @@ func shoot(delta: float) -> void:
 			last_attack_joystick_pressed = attack_joystick.is_pressed
 		
 		if (Input.is_action_just_pressed("attack") and not PlayerData.is_joystick_enabled or joystick_shoot) and ammo >= 1 and not block_controls:
-			regular_attack()
+			if joystick_shoot and super_charge >= 1:
+				super_attack()
+				input_data["super_angle"] = shoot_angle
+			else:
+				regular_attack()
+				input_data["attack_angle"] = shoot_angle
 		
 		# It's >= instead of == just in case you broke the game and got it above 1
 		# It's pretty much impossible but who knows 
 		elif Input.is_action_just_pressed("super_attack") and super_charge >= 1 and not block_controls:
 			super_attack()
+			input_data["attack_angle"] = shoot_angle
 		
 		elif ammo < 3:
 			ammo += reload_speed * delta
@@ -335,6 +346,8 @@ func _ready() -> void:
 	nickname_label.text = "Player" + str(id)
 
 func _process(delta: float) -> void:
+	input_data.clear()
+	
 	if is_main_player:
 		move()
 		shoot(delta)
@@ -363,6 +376,10 @@ func _process(delta: float) -> void:
 	
 	animate(delta)
 	update_ui()
+	
+	if PlayerData.is_multiplayer_enabled and is_main_player:
+		RemoteInputHandler.send_input(input_data)
+		RemoteInputHandler.recieve_udp()
 
 func _on_regen_cooldown_timeout() -> void:
 	health += max_health * 15 / 100
