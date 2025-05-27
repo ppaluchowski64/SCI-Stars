@@ -6,11 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://c73jppjwm04hn" path="res://graphics/UI/buttons/normal.png" id="3_xb4sn"]
 [ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="4_358r0"]
 [ext_resource type="Texture2D" uid="uid://dq3rfvk8pejil" path="res://graphics/misc/lootbox.png" id="6_dyhay"]
-[ext_resource type="Texture2D" uid="uid://cy3msiv2tp44e" path="res://graphics/UI/icons/person.png" id="7_0jb4q"]
 [ext_resource type="Shader" uid="uid://dvotcn36qw0jj" path="res://shaders/outline.gdshader" id="7_1urcf"]
 [ext_resource type="Texture2D" uid="uid://cex3nshoqpwms" path="res://graphics/characters/pablomajster/player.png" id="7_65pnu"]
 [ext_resource type="Texture2D" uid="uid://cmc1rb0x2pxx7" path="res://graphics/UI/buttons/small.png" id="7_ebt3n"]
 [ext_resource type="Texture2D" uid="uid://peg1ue5f6nwj" path="res://graphics/UI/icons/gear.png" id="7_rgcd7"]
+[ext_resource type="Texture2D" uid="uid://bj8fp3vfsn527" path="res://graphics/UI/icons/computer.png" id="7_vwf6o"]
 [ext_resource type="Texture2D" uid="uid://cstfhxa161fhk" path="res://graphics/UI/icons/expand.png" id="8_472nk"]
 [ext_resource type="PackedScene" uid="uid://osklob3vwxx3" path="res://scenes/upgrade.tscn" id="10_say53"]
 [ext_resource type="Texture2D" uid="uid://byalpowexrkof" path="res://graphics/characters/jackflower/player.png" id="11_m1sns"]
@@ -177,7 +177,7 @@ offset_bottom = -24.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_i38xw")
-text = "MODE: ONLINE"
+text = "MODE: AI"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
@@ -212,7 +212,7 @@ grow_vertical = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="UserInterface/MarginContainer/PlayContainer/ButtonChangeMode/SpriteParent"]
 scale = Vector2(4, 4)
-texture = ExtResource("7_0jb4q")
+texture = ExtResource("7_vwf6o")
 
 [node name="ButtonPlay" type="TextureButton" parent="UserInterface/MarginContainer/PlayContainer" groups=["button"]]
 custom_minimum_size = Vector2(200, 88)

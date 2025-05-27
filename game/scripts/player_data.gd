@@ -9,7 +9,7 @@ var window_is_fullscreen: bool = false
 var window_ratio_mode: int = 0
 var window_scale: float = 1.5
 
-var is_multiplayer_enabled: bool = true
+var is_multiplayer_enabled: bool = false
 var is_joystick_enabled: bool = false
 
 var instance_id: int = 0

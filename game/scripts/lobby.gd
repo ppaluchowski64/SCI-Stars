@@ -65,6 +65,15 @@ func _ready() -> void:
 	
 	SoundManager.load_buttons()
 	
+	online_mode = PlayerData.is_multiplayer_enabled
+	
+	if online_mode:
+		mode_label.text = "MODE: ONLINE"
+		mode_icon.texture = preload("res://graphics/UI/icons/person.png")
+	else:
+		mode_label.text = "MODE: AI"
+		mode_icon.texture = preload("res://graphics/UI/icons/computer.png")
+	
 	nickname_linedit.text = PlayerData.nickname
 	
 	update_upgrades()
