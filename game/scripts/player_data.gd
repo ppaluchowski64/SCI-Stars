@@ -15,6 +15,8 @@ var is_joystick_enabled: bool = false
 var instance_id: int = 0
 var player_id: int = 0
 
+var online_player_stats: Dictionary
+
 class Stat:
 	var base_cost: float
 	var delta_value: float

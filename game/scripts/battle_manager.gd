@@ -28,8 +28,7 @@ func block_player_controls(value: bool):
 func spawn_player(x: float, y: float, character_id: Characters.ID, player_id: int = get_exclusive_player_id()) -> Node:
 	print("Spawning a player...")
 	
-	#var player = Characters.custom_character(character_id)
-	var player = Characters.custom_character(Characters.ID.PABLO)
+	var player = Characters.custom_character(character_id)
 	
 	player.global_position = Vector2(x, y)
 	player.id = player_id
@@ -78,9 +77,12 @@ func start_game() -> void:
 			main_player.is_main_player = true
 			main_player.setup_stats()
 		else:
-			var p = spawn_player(pos.x, pos.y, Characters.ID.values().pick_random(), i)
+			# Characters.ID.values().pick_random()
+			var p = spawn_player(pos.x, pos.y, PlayerData.online_player_stats[str(i)]["character"], i)
 			p.setup_stats()
 			p.setup_ai()
+			print(PlayerData.online_player_stats[str(i)]["nickname"])
+			p.nickname_label.text = PlayerData.online_player_stats[str(i)]["nickname"]
 			
 			p.ammobar.visible = false
 			p.nickname_label.visible = true
