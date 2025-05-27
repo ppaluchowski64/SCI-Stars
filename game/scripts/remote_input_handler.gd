@@ -17,6 +17,9 @@ func start_connection():
 	udp.connect_to_host(server_ip, server_port)
 	connected = true
 	print("UDP client ready, sending and listening to %s:%d" % [server_ip, server_port])
+	
+	var msg = handler.create_message("debug_input", "input")
+	udp.put_packet(msg.to_utf8_buffer())
 
 func _process(_delta):
 	if not connected:

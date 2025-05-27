@@ -10,18 +10,22 @@ var connected_players: int = 1
 var is_instance_starting: bool = false
 
 func start_connection():
+	connected_players = 1
+	
 	var err = tcp.connect_to_host("127.0.0.1", 7000)
+	
 	if err != OK:
 		push_error("Connection error: %d" % err)
 	else:
 		print("Connection attempt sent...")
 
-func _process(delta):
+func _process(_delta):
 	tcp.poll()
 
 	if not is_connected and tcp.get_status() == StreamPeerTCP.STATUS_CONNECTED:
 		is_connected = true
 		print("Connected to the server!")
+		_send_player_stats()
 
 	if is_connected:
 		var available = tcp.get_available_bytes()
@@ -48,6 +52,22 @@ func _process(delta):
 				if message:
 					_handle_message(message)
 
+func _send_player_stats():
+	var player_stats = {
+		"nickname": PlayerData.nickname,
+		"character": PlayerData.selected_character,
+		"upgrades": PlayerData.character_stats[PlayerData.selected_character]
+	}
+	
+	var msg = handler.create_message(
+		"request",
+		"player_stats",
+		player_stats
+	)
+	if msg != null:
+		tcp.put_data(msg.to_utf8_buffer())
+		print("Sent player stats to server")
+
 func _handle_message(message: Dictionary) -> void:
 	match message.command:
 		"start_gameplay":
@@ -60,9 +80,18 @@ func _handle_message(message: Dictionary) -> void:
 			RemoteInputHandler.player_id = int(message.payload.player_id)
 			
 			is_instance_starting = true
-			
+		
 		"instance_id_update":
 			print("Update! Instance ID: ", int(message.payload.instance_id), ", Player ID: ", int(message.payload.player_id))
+			
+		"players_stats":
+			print("Received players stats broadcast:")
+			
+			PlayerData.online_player_stats = message.payload.duplicate(true)
+			
+			for pid in message.payload.keys():
+				#print("Player ID: ", pid, ", Stats: ", message.payload[pid])
+				pass
 		_:
 			# other commands can be added here if needed
 			pass
