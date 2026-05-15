@@ -274,8 +274,8 @@ func move() -> void:
 	if block_controls:
 		dir_vec = Vector2.ZERO
 	
-	input_data["move_x"] = dir_vec.x
-	input_data["move_y"] = dir_vec.y
+	input_data["move_x"] = round(dir_vec.x * 100) / 100
+	input_data["move_y"] = round(dir_vec.y * 100) / 100
 	
 	velocity = dir_vec * speed
 	
