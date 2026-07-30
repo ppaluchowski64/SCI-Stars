@@ -12,8 +12,8 @@ extends CanvasLayer
 
 @onready var animation: AnimationPlayer = $AnimationPlayer
 
-@onready var move_joystick: VirtualJoystick = $MoveJoystick
-@onready var attack_joystick: VirtualJoystick = $AttackJoystick
+@onready var move_joystick: CustomVirtualJoystick = $MoveJoystick
+@onready var attack_joystick: CustomVirtualJoystick = $AttackJoystick
 
 var main_player: Node
 var superbar_icon_modulate: float = 0.3

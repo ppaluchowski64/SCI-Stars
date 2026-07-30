@@ -8,13 +8,17 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="SCI Stars"
 config/description="Cross-platform multiplayer Battle Royale game with knowledge-based gameplay that captivatingly depicts life at Technikum Informatyczne SCI."
 config/version="0.2.0"
 run/main_scene="uid://r73t4uwivu0e"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="uid://d1tqm8c4667ws"
 
 [audio]

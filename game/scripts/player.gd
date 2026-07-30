@@ -23,7 +23,7 @@ var Projectile = preload("res://scenes/projectile.tscn")
 @onready var attack_audio: AudioStreamPlayer2D = $AttackAudio
 @onready var hit_audio: AudioStreamPlayer2D = $HitAudio
 
-@onready var attack_joystick: VirtualJoystick = get_tree().get_first_node_in_group("attack_joystick")
+@onready var attack_joystick: CustomVirtualJoystick = get_tree().get_first_node_in_group("attack_joystick")
 var last_attack_joystick_pressed: bool = false
 var attack_joystick_output: Vector2
 
