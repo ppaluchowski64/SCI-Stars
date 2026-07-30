@@ -5,13 +5,15 @@ extends Node
 var cell_size = Vector2(24, 24)
 var grid_size: int = 40
 
-var astar: AStarGrid2D = AStarGrid2D.new()
+var astar := AStarGrid2D.new()
 
 #var debug_draw: bool = true
 
 func generate_astar(new_astar: AStarGrid2D, tilemap: TileMapLayer) -> void:
-	for x in range(-grid_size / 2, grid_size / 2):
-		for y in range(-grid_size / 2, grid_size / 2):
+	var half_size := int(grid_size / 2.0)
+	
+	for x in range(-half_size, half_size):
+		for y in range(-half_size, half_size):
 			if tilemap.get_cell_source_id(Vector2i(x, y)) == 0:
 				for ox in range(-2, 4):
 					for oy in range(-2, 4):

@@ -31,11 +31,12 @@ func send_input(input_data: Dictionary):
 		recieve_udp()
 		return
 	
-	var move_vec := Input.get_vector("left", "right", "up", "down")
-	
-	var send_input: bool = game_just_started or Vector2(input_data["move_x"], input_data["move_y"]).length() > 0 or input_data.has("attack_angle") or input_data.has("super_angle")
-	
-	if send_input:
+	if (
+		game_just_started or 
+		Vector2(input_data["move_x"], input_data["move_y"]).length() > 0 or 
+		input_data.has("attack_angle") or 
+		input_data.has("super_angle")
+	):
 		if game_just_started:
 			game_just_started = false
 		

@@ -3,7 +3,7 @@ extends Node
 @onready var tcp := StreamPeerTCP.new()
 @onready var handler = MessageHandler.new()
 
-var is_connected: bool = false
+var is_connected_to_server: bool = false
 var buffer_text: String = ""
 
 var connected_players: int = 1
@@ -22,12 +22,12 @@ func start_connection():
 func _process(_delta):
 	tcp.poll()
 
-	if not is_connected and tcp.get_status() == StreamPeerTCP.STATUS_CONNECTED:
-		is_connected = true
+	if not is_connected_to_server and tcp.get_status() == StreamPeerTCP.STATUS_CONNECTED:
+		is_connected_to_server = true
 		print("Connected to the server!")
 		_send_player_stats()
 
-	if is_connected:
+	if is_connected_to_server:
 		var available = tcp.get_available_bytes()
 		if available > 0:
 			var result = tcp.get_data(available)
@@ -36,7 +36,7 @@ func _process(_delta):
 
 			if err != OK:
 				push_error("Error receiving data")
-				is_connected = false
+				is_connected_to_server = false
 				tcp.disconnect_from_host()
 				return
 

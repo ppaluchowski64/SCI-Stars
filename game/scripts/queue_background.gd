@@ -16,7 +16,7 @@ func _draw():
 		for i in range(-rx, rx):
 			rng.set_seed(i * (oy + 1))
 			
-			var ox: int = sin(i + animation * 0.2) * 10
+			var ox := int(sin(i + animation * 0.2) * 10)
 			var osx: int = rng.randi_range(5, 10)
 			
 			var c: Color = Color.html("032f03")

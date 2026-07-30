@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://r73t4uwivu0e"]
+[gd_scene format=3 uid="uid://r73t4uwivu0e"]
 
 [ext_resource type="Script" uid="uid://dedbthjrkqd2o" path="res://scripts/lobby.gd" id="1_nn68e"]
 [ext_resource type="Texture2D" uid="uid://f1v34lrprxwu" path="res://graphics/backgrounds/lobby/backlayer.png" id="2_4hsao"]
@@ -80,12 +80,12 @@ shader_parameter/is_visible = true
 default_font = ExtResource("4_358r0")
 default_font_size = 5
 
-[node name="Lobby" type="Node2D"]
+[node name="Lobby" type="Node2D" unique_id=197225940]
 script = ExtResource("1_nn68e")
 
-[node name="Background" type="CanvasLayer" parent="."]
+[node name="Background" type="CanvasLayer" parent="." unique_id=2073453517]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Background"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Background" unique_id=1708190736]
 anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
@@ -93,59 +93,59 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="FrontLayerTop" type="Control" parent="Background/VBoxContainer"]
+[node name="FrontLayerTop" type="Control" parent="Background/VBoxContainer" unique_id=525716883]
 z_index = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 2
 
-[node name="Parallax2D" type="Parallax2D" parent="Background/VBoxContainer/FrontLayerTop"]
+[node name="Parallax2D" type="Parallax2D" parent="Background/VBoxContainer/FrontLayerTop" unique_id=1652026397]
 repeat_size = Vector2(800, 0)
 autoscroll = Vector2(32, 0)
 repeat_times = 8
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/VBoxContainer/FrontLayerTop/Parallax2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/VBoxContainer/FrontLayerTop/Parallax2D" unique_id=2006995001]
 scale = Vector2(8, 8)
 texture = ExtResource("3_rgei6")
 offset = Vector2(0, 20)
 region_enabled = true
 region_rect = Rect2(0, 0, 100, 50)
 
-[node name="BackLayer" type="Control" parent="Background/VBoxContainer"]
+[node name="BackLayer" type="Control" parent="Background/VBoxContainer" unique_id=1728168314]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 
-[node name="Parallax2D" type="Parallax2D" parent="Background/VBoxContainer/BackLayer"]
+[node name="Parallax2D" type="Parallax2D" parent="Background/VBoxContainer/BackLayer" unique_id=383518068]
 repeat_size = Vector2(800, 0)
 autoscroll = Vector2(16, 0)
 repeat_times = 8
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/VBoxContainer/BackLayer/Parallax2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/VBoxContainer/BackLayer/Parallax2D" unique_id=342082375]
 scale = Vector2(8, 8)
 texture = ExtResource("2_4hsao")
 
-[node name="FrontLayerBottom" type="Control" parent="Background/VBoxContainer"]
+[node name="FrontLayerBottom" type="Control" parent="Background/VBoxContainer" unique_id=2058846936]
 z_index = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
 
-[node name="Parallax2D" type="Parallax2D" parent="Background/VBoxContainer/FrontLayerBottom"]
+[node name="Parallax2D" type="Parallax2D" parent="Background/VBoxContainer/FrontLayerBottom" unique_id=938865758]
 repeat_size = Vector2(800, 0)
 autoscroll = Vector2(32, 0)
 repeat_times = 8
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/VBoxContainer/FrontLayerBottom/Parallax2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/VBoxContainer/FrontLayerBottom/Parallax2D" unique_id=2045629770]
 scale = Vector2(8, 8)
 texture = ExtResource("3_rgei6")
 offset = Vector2(0, -20)
 region_enabled = true
 region_rect = Rect2(0, 50, 100, 50)
 
-[node name="UserInterface" type="CanvasLayer" parent="."]
+[node name="UserInterface" type="CanvasLayer" parent="." unique_id=395666239]
 
-[node name="MarginContainer" type="MarginContainer" parent="UserInterface"]
+[node name="MarginContainer" type="MarginContainer" parent="UserInterface" unique_id=52038145]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -156,15 +156,15 @@ theme_override_constants/margin_top = 48
 theme_override_constants/margin_right = 48
 theme_override_constants/margin_bottom = 48
 
-[node name="PlayContainer" type="Control" parent="UserInterface/MarginContainer"]
+[node name="PlayContainer" type="Control" parent="UserInterface/MarginContainer" unique_id=1576923558]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 
-[node name="LabelParent" type="Node2D" parent="UserInterface/MarginContainer/PlayContainer"]
+[node name="LabelParent" type="Node2D" parent="UserInterface/MarginContainer/PlayContainer" unique_id=1161078720]
 scale = Vector2(4, 4)
 
-[node name="Label" type="Label" parent="UserInterface/MarginContainer/PlayContainer/LabelParent"]
+[node name="Label" type="Label" parent="UserInterface/MarginContainer/PlayContainer/LabelParent" unique_id=2113902377]
 material = SubResource("ShaderMaterial_sr4bl")
 anchors_preset = 14
 anchor_top = 0.5
@@ -182,7 +182,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="ButtonChangeMode" type="TextureButton" parent="UserInterface/MarginContainer/PlayContainer" groups=["button"]]
+[node name="ButtonChangeMode" type="TextureButton" parent="UserInterface/MarginContainer/PlayContainer" unique_id=1073604543 groups=["button"]]
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 1
 anchors_preset = 3
@@ -200,7 +200,7 @@ size_flags_vertical = 8
 texture_normal = ExtResource("7_ebt3n")
 stretch_mode = 4
 
-[node name="SpriteParent" type="Control" parent="UserInterface/MarginContainer/PlayContainer/ButtonChangeMode"]
+[node name="SpriteParent" type="Control" parent="UserInterface/MarginContainer/PlayContainer/ButtonChangeMode" unique_id=736942317]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -210,11 +210,11 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="UserInterface/MarginContainer/PlayContainer/ButtonChangeMode/SpriteParent"]
+[node name="Sprite2D" type="Sprite2D" parent="UserInterface/MarginContainer/PlayContainer/ButtonChangeMode/SpriteParent" unique_id=1913889505]
 scale = Vector2(4, 4)
 texture = ExtResource("7_vwf6o")
 
-[node name="ButtonPlay" type="TextureButton" parent="UserInterface/MarginContainer/PlayContainer" groups=["button"]]
+[node name="ButtonPlay" type="TextureButton" parent="UserInterface/MarginContainer/PlayContainer" unique_id=2001306889 groups=["button"]]
 custom_minimum_size = Vector2(200, 88)
 layout_mode = 1
 anchors_preset = 3
@@ -231,7 +231,7 @@ size_flags_vertical = 8
 texture_normal = ExtResource("3_xb4sn")
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="UserInterface/MarginContainer/PlayContainer/ButtonPlay"]
+[node name="Label" type="Label" parent="UserInterface/MarginContainer/PlayContainer/ButtonPlay" unique_id=479771800]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -247,7 +247,7 @@ grow_vertical = 2
 theme = SubResource("Theme_6pyji")
 text = "PLAY"
 
-[node name="ButtonSettings" type="TextureButton" parent="UserInterface/MarginContainer" groups=["button"]]
+[node name="ButtonSettings" type="TextureButton" parent="UserInterface/MarginContainer" unique_id=937690052 groups=["button"]]
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -255,7 +255,7 @@ size_flags_vertical = 0
 texture_normal = ExtResource("7_ebt3n")
 stretch_mode = 4
 
-[node name="SpriteParent" type="Control" parent="UserInterface/MarginContainer/ButtonSettings"]
+[node name="SpriteParent" type="Control" parent="UserInterface/MarginContainer/ButtonSettings" unique_id=2097224549]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -265,16 +265,16 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="UserInterface/MarginContainer/ButtonSettings/SpriteParent"]
+[node name="Sprite2D" type="Sprite2D" parent="UserInterface/MarginContainer/ButtonSettings/SpriteParent" unique_id=741455547]
 scale = Vector2(4, 4)
 texture = ExtResource("7_rgcd7")
 
-[node name="LootBox" type="Control" parent="UserInterface/MarginContainer"]
+[node name="LootBox" type="Control" parent="UserInterface/MarginContainer" unique_id=568332386]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 
-[node name="ColorRect" type="ColorRect" parent="UserInterface/MarginContainer/LootBox"]
+[node name="ColorRect" type="ColorRect" parent="UserInterface/MarginContainer/LootBox" unique_id=1969378145]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -284,7 +284,7 @@ offset_right = 280.0
 grow_vertical = 0
 color = Color(0.0862745, 0.0901961, 0.105882, 1)
 
-[node name="Label" type="Label" parent="UserInterface/MarginContainer/LootBox"]
+[node name="Label" type="Label" parent="UserInterface/MarginContainer/LootBox" unique_id=1719885448]
 layout_mode = 0
 offset_left = 208.0
 offset_top = -54.0
@@ -295,19 +295,19 @@ text = "100"
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="TokenSprite" type="Sprite2D" parent="UserInterface/MarginContainer/LootBox"]
+[node name="TokenSprite" type="Sprite2D" parent="UserInterface/MarginContainer/LootBox" unique_id=2035474399]
 position = Vector2(156, -44)
 scale = Vector2(4, 4)
 texture = ExtResource("14_q6qq2")
 
-[node name="BoxSprite" type="Sprite2D" parent="UserInterface/MarginContainer/LootBox"]
+[node name="BoxSprite" type="Sprite2D" parent="UserInterface/MarginContainer/LootBox" unique_id=1578714670]
 scale = Vector2(8, 8)
 texture = ExtResource("6_dyhay")
 offset = Vector2(7, -9)
 region_enabled = true
 region_rect = Rect2(0, 0, 14, 18)
 
-[node name="ButtonLootBox" type="Button" parent="UserInterface/MarginContainer/LootBox"]
+[node name="ButtonLootBox" type="Button" parent="UserInterface/MarginContainer/LootBox" unique_id=283813245]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(112, 112)
 layout_mode = 1
@@ -318,7 +318,7 @@ offset_top = -112.0
 offset_right = 280.0
 grow_vertical = 0
 
-[node name="CharacterContainer" type="VBoxContainer" parent="UserInterface"]
+[node name="CharacterContainer" type="VBoxContainer" parent="UserInterface" unique_id=1413244859]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -333,15 +333,15 @@ grow_vertical = 2
 theme_override_constants/separation = 96
 alignment = 1
 
-[node name="CharacterLabel" type="Control" parent="UserInterface/CharacterContainer"]
+[node name="CharacterLabel" type="Control" parent="UserInterface/CharacterContainer" unique_id=1645828023]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="LabelParent" type="Node2D" parent="UserInterface/CharacterContainer/CharacterLabel"]
+[node name="LabelParent" type="Node2D" parent="UserInterface/CharacterContainer/CharacterLabel" unique_id=815763308]
 scale = Vector2(4, 4)
 
-[node name="Label" type="Label" parent="UserInterface/CharacterContainer/CharacterLabel/LabelParent"]
+[node name="Label" type="Label" parent="UserInterface/CharacterContainer/CharacterLabel/LabelParent" unique_id=81966606]
 material = SubResource("ShaderMaterial_sr4bl")
 anchors_preset = 14
 anchor_top = 0.5
@@ -357,22 +357,22 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="SpriteParent" type="Control" parent="UserInterface/CharacterContainer"]
+[node name="SpriteParent" type="Control" parent="UserInterface/CharacterContainer" unique_id=857182178]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Sprite2D" type="Sprite2D" parent="UserInterface/CharacterContainer/SpriteParent"]
+[node name="Sprite2D" type="Sprite2D" parent="UserInterface/CharacterContainer/SpriteParent" unique_id=296802871]
 scale = Vector2(8, 8)
 texture = ExtResource("7_65pnu")
 region_enabled = true
 region_rect = Rect2(65, 53, 13, 17)
 
-[node name="ButtonContainer" type="HBoxContainer" parent="UserInterface/CharacterContainer"]
+[node name="ButtonContainer" type="HBoxContainer" parent="UserInterface/CharacterContainer" unique_id=656019189]
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ButtonCharacterSelect" type="TextureButton" parent="UserInterface/CharacterContainer/ButtonContainer" groups=["button"]]
+[node name="ButtonCharacterSelect" type="TextureButton" parent="UserInterface/CharacterContainer/ButtonContainer" unique_id=685812558 groups=["button"]]
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -380,7 +380,7 @@ size_flags_vertical = 4
 texture_normal = ExtResource("7_ebt3n")
 stretch_mode = 4
 
-[node name="SpriteParent" type="Control" parent="UserInterface/CharacterContainer/ButtonContainer/ButtonCharacterSelect"]
+[node name="SpriteParent" type="Control" parent="UserInterface/CharacterContainer/ButtonContainer/ButtonCharacterSelect" unique_id=93921818]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -390,11 +390,11 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="UserInterface/CharacterContainer/ButtonContainer/ButtonCharacterSelect/SpriteParent"]
+[node name="Sprite2D" type="Sprite2D" parent="UserInterface/CharacterContainer/ButtonContainer/ButtonCharacterSelect/SpriteParent" unique_id=601577048]
 scale = Vector2(4, 4)
 texture = ExtResource("8_472nk")
 
-[node name="ButtonUpgrade" type="TextureButton" parent="UserInterface/CharacterContainer/ButtonContainer" groups=["button"]]
+[node name="ButtonUpgrade" type="TextureButton" parent="UserInterface/CharacterContainer/ButtonContainer" unique_id=1021370205 groups=["button"]]
 custom_minimum_size = Vector2(200, 88)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -402,7 +402,7 @@ size_flags_vertical = 8
 texture_normal = ExtResource("3_xb4sn")
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="UserInterface/CharacterContainer/ButtonContainer/ButtonUpgrade"]
+[node name="Label" type="Label" parent="UserInterface/CharacterContainer/ButtonContainer/ButtonUpgrade" unique_id=655335213]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -418,10 +418,10 @@ grow_vertical = 2
 theme = SubResource("Theme_6pyji")
 text = "UPGRADE"
 
-[node name="UpgradeInterface" type="CanvasLayer" parent="."]
+[node name="UpgradeInterface" type="CanvasLayer" parent="." unique_id=455652828]
 visible = false
 
-[node name="ColorRect" type="ColorRect" parent="UpgradeInterface"]
+[node name="ColorRect" type="ColorRect" parent="UpgradeInterface" unique_id=808877250]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -429,7 +429,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.5)
 
-[node name="PanelLayer1" type="MarginContainer" parent="UpgradeInterface"]
+[node name="PanelLayer1" type="MarginContainer" parent="UpgradeInterface" unique_id=1076421259]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -440,10 +440,10 @@ theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
 
-[node name="ColorRect" type="ColorRect" parent="UpgradeInterface/PanelLayer1"]
+[node name="ColorRect" type="ColorRect" parent="UpgradeInterface/PanelLayer1" unique_id=334162008]
 layout_mode = 2
 
-[node name="PanelLayer2" type="MarginContainer" parent="UpgradeInterface"]
+[node name="PanelLayer2" type="MarginContainer" parent="UpgradeInterface" unique_id=501737088]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -454,11 +454,11 @@ theme_override_constants/margin_top = 104
 theme_override_constants/margin_right = 104
 theme_override_constants/margin_bottom = 104
 
-[node name="ColorRect" type="ColorRect" parent="UpgradeInterface/PanelLayer2"]
+[node name="ColorRect" type="ColorRect" parent="UpgradeInterface/PanelLayer2" unique_id=1865000967]
 layout_mode = 2
 color = Color(0.117647, 0.243137, 0.384314, 1)
 
-[node name="PanelLayer3" type="MarginContainer" parent="UpgradeInterface"]
+[node name="PanelLayer3" type="MarginContainer" parent="UpgradeInterface" unique_id=1448336644]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -469,11 +469,11 @@ theme_override_constants/margin_top = 112
 theme_override_constants/margin_right = 112
 theme_override_constants/margin_bottom = 112
 
-[node name="ColorRect" type="ColorRect" parent="UpgradeInterface/PanelLayer3"]
+[node name="ColorRect" type="ColorRect" parent="UpgradeInterface/PanelLayer3" unique_id=652372355]
 layout_mode = 2
 color = Color(0.0431373, 0.0980392, 0.172549, 1)
 
-[node name="Buttons" type="HBoxContainer" parent="UpgradeInterface"]
+[node name="Buttons" type="HBoxContainer" parent="UpgradeInterface" unique_id=1042164520]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -481,18 +481,18 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Upgrade1" parent="UpgradeInterface/Buttons" instance=ExtResource("10_say53")]
+[node name="Upgrade1" parent="UpgradeInterface/Buttons" unique_id=883576012 instance=ExtResource("10_say53")]
 layout_mode = 2
 size_flags_horizontal = 4
 description = "increase damage per projectile"
 
-[node name="Upgrade2" parent="UpgradeInterface/Buttons" instance=ExtResource("10_say53")]
+[node name="Upgrade2" parent="UpgradeInterface/Buttons" unique_id=987136383 instance=ExtResource("10_say53")]
 layout_mode = 2
 size_flags_horizontal = 4
 stat_id = 1
 description = "increase max health"
 
-[node name="MarginContainer" type="MarginContainer" parent="UpgradeInterface"]
+[node name="MarginContainer" type="MarginContainer" parent="UpgradeInterface" unique_id=51154781]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -504,7 +504,7 @@ theme_override_constants/margin_top = 60
 theme_override_constants/margin_right = 60
 theme_override_constants/margin_bottom = 60
 
-[node name="ButtonExitUpgrade" type="TextureButton" parent="UpgradeInterface/MarginContainer" groups=["button"]]
+[node name="ButtonExitUpgrade" type="TextureButton" parent="UpgradeInterface/MarginContainer" unique_id=1700628046 groups=["button"]]
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -512,7 +512,7 @@ size_flags_vertical = 0
 texture_normal = ExtResource("7_ebt3n")
 stretch_mode = 4
 
-[node name="SpriteParent" type="Control" parent="UpgradeInterface/MarginContainer/ButtonExitUpgrade"]
+[node name="SpriteParent" type="Control" parent="UpgradeInterface/MarginContainer/ButtonExitUpgrade" unique_id=1011610661]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -522,32 +522,32 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="UpgradeInterface/MarginContainer/ButtonExitUpgrade/SpriteParent"]
+[node name="Sprite2D" type="Sprite2D" parent="UpgradeInterface/MarginContainer/ButtonExitUpgrade/SpriteParent" unique_id=672473438]
 scale = Vector2(4, 4)
 texture = ExtResource("8_472nk")
 
-[node name="ReasourcesInterface" type="CanvasLayer" parent="."]
+[node name="ReasourcesInterface" type="CanvasLayer" parent="." unique_id=663904115]
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ReasourcesInterface"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ReasourcesInterface" unique_id=1632299675]
 offset_left = 64.0
 offset_right = 688.0
 offset_bottom = 96.0
 theme_override_constants/separation = 48
 
-[node name="CoinsContainer" type="PanelContainer" parent="ReasourcesInterface/HBoxContainer"]
+[node name="CoinsContainer" type="PanelContainer" parent="ReasourcesInterface/HBoxContainer" unique_id=427556803]
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="ReasourcesInterface/HBoxContainer/CoinsContainer"]
+[node name="ColorRect" type="ColorRect" parent="ReasourcesInterface/HBoxContainer/CoinsContainer" unique_id=82389102]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0, 0, 0, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="ReasourcesInterface/HBoxContainer/CoinsContainer"]
+[node name="Sprite2D" type="Sprite2D" parent="ReasourcesInterface/HBoxContainer/CoinsContainer" unique_id=922293288]
 position = Vector2(48, 48)
 scale = Vector2(4, 4)
 texture = ExtResource("11_uejoe")
 
-[node name="MarginContainer" type="MarginContainer" parent="ReasourcesInterface/HBoxContainer/CoinsContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ReasourcesInterface/HBoxContainer/CoinsContainer" unique_id=142187486]
 custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
 theme_override_constants/margin_left = 88
@@ -555,27 +555,27 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="Label" type="Label" parent="ReasourcesInterface/HBoxContainer/CoinsContainer/MarginContainer"]
+[node name="Label" type="Label" parent="ReasourcesInterface/HBoxContainer/CoinsContainer/MarginContainer" unique_id=799236571]
 layout_mode = 2
 theme = SubResource("Theme_ut2vl")
 text = "COINS: 2000"
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="TokensContainer" type="PanelContainer" parent="ReasourcesInterface/HBoxContainer"]
+[node name="TokensContainer" type="PanelContainer" parent="ReasourcesInterface/HBoxContainer" unique_id=211051865]
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="ReasourcesInterface/HBoxContainer/TokensContainer"]
+[node name="ColorRect" type="ColorRect" parent="ReasourcesInterface/HBoxContainer/TokensContainer" unique_id=920118578]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0, 0, 0, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="ReasourcesInterface/HBoxContainer/TokensContainer"]
+[node name="Sprite2D" type="Sprite2D" parent="ReasourcesInterface/HBoxContainer/TokensContainer" unique_id=1284273578]
 position = Vector2(48, 48)
 scale = Vector2(4, 4)
 texture = ExtResource("14_q6qq2")
 
-[node name="MarginContainer" type="MarginContainer" parent="ReasourcesInterface/HBoxContainer/TokensContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ReasourcesInterface/HBoxContainer/TokensContainer" unique_id=567679059]
 custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
 theme_override_constants/margin_left = 96
@@ -583,18 +583,18 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="Label" type="Label" parent="ReasourcesInterface/HBoxContainer/TokensContainer/MarginContainer"]
+[node name="Label" type="Label" parent="ReasourcesInterface/HBoxContainer/TokensContainer/MarginContainer" unique_id=1916227019]
 layout_mode = 2
 theme = SubResource("Theme_ut2vl")
 text = "PLUGS: 100"
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="CharacterSelectInterface" type="CanvasLayer" parent="."]
+[node name="CharacterSelectInterface" type="CanvasLayer" parent="." unique_id=37575114]
 visible = false
 script = ExtResource("15_iulku")
 
-[node name="ColorRect" type="ColorRect" parent="CharacterSelectInterface"]
+[node name="ColorRect" type="ColorRect" parent="CharacterSelectInterface" unique_id=1383108854]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -602,7 +602,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.5)
 
-[node name="PanelLayer1" type="MarginContainer" parent="CharacterSelectInterface"]
+[node name="PanelLayer1" type="MarginContainer" parent="CharacterSelectInterface" unique_id=1010273657]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -613,10 +613,10 @@ theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
 
-[node name="ColorRect" type="ColorRect" parent="CharacterSelectInterface/PanelLayer1"]
+[node name="ColorRect" type="ColorRect" parent="CharacterSelectInterface/PanelLayer1" unique_id=1036849730]
 layout_mode = 2
 
-[node name="PanelLayer2" type="MarginContainer" parent="CharacterSelectInterface"]
+[node name="PanelLayer2" type="MarginContainer" parent="CharacterSelectInterface" unique_id=102861576]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -627,11 +627,11 @@ theme_override_constants/margin_top = 104
 theme_override_constants/margin_right = 104
 theme_override_constants/margin_bottom = 104
 
-[node name="ColorRect" type="ColorRect" parent="CharacterSelectInterface/PanelLayer2"]
+[node name="ColorRect" type="ColorRect" parent="CharacterSelectInterface/PanelLayer2" unique_id=1356576072]
 layout_mode = 2
 color = Color(0.117647, 0.243137, 0.384314, 1)
 
-[node name="PanelLayer3" type="MarginContainer" parent="CharacterSelectInterface"]
+[node name="PanelLayer3" type="MarginContainer" parent="CharacterSelectInterface" unique_id=540754896]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -642,11 +642,11 @@ theme_override_constants/margin_top = 112
 theme_override_constants/margin_right = 112
 theme_override_constants/margin_bottom = 112
 
-[node name="ColorRect" type="ColorRect" parent="CharacterSelectInterface/PanelLayer3"]
+[node name="ColorRect" type="ColorRect" parent="CharacterSelectInterface/PanelLayer3" unique_id=919037176]
 layout_mode = 2
 color = Color(0.0431373, 0.0980392, 0.172549, 1)
 
-[node name="LeftContainer" type="MarginContainer" parent="CharacterSelectInterface"]
+[node name="LeftContainer" type="MarginContainer" parent="CharacterSelectInterface" unique_id=1048303730]
 custom_minimum_size = Vector2(200, 0)
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -658,16 +658,16 @@ theme_override_constants/margin_top = 120
 theme_override_constants/margin_right = 120
 theme_override_constants/margin_bottom = 120
 
-[node name="CharacterName" type="Control" parent="CharacterSelectInterface/LeftContainer"]
+[node name="CharacterName" type="Control" parent="CharacterSelectInterface/LeftContainer" unique_id=763637683]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 
-[node name="LabelParent" type="Node2D" parent="CharacterSelectInterface/LeftContainer/CharacterName"]
+[node name="LabelParent" type="Node2D" parent="CharacterSelectInterface/LeftContainer/CharacterName" unique_id=1932216143]
 position = Vector2(0, 68)
 scale = Vector2(6, 6)
 
-[node name="Label" type="Label" parent="CharacterSelectInterface/LeftContainer/CharacterName/LabelParent"]
+[node name="Label" type="Label" parent="CharacterSelectInterface/LeftContainer/CharacterName/LabelParent" unique_id=1032149832]
 material = SubResource("ShaderMaterial_sr4bl")
 anchors_preset = 14
 anchor_top = 0.5
@@ -685,9 +685,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Characters" type="Node2D" parent="CharacterSelectInterface/LeftContainer"]
+[node name="Characters" type="Node2D" parent="CharacterSelectInterface/LeftContainer" unique_id=751805062]
 
-[node name="ReferenceRect" type="ReferenceRect" parent="CharacterSelectInterface/LeftContainer/Characters"]
+[node name="ReferenceRect" type="ReferenceRect" parent="CharacterSelectInterface/LeftContainer/Characters" unique_id=405503640]
 clip_contents = true
 offset_left = 120.0
 offset_top = 120.0
@@ -696,28 +696,28 @@ offset_bottom = 528.0
 border_color = Color(1, 0, 0, 0)
 editor_only = false
 
-[node name="CharacterSprite1" type="Sprite2D" parent="CharacterSelectInterface/LeftContainer/Characters/ReferenceRect"]
+[node name="CharacterSprite1" type="Sprite2D" parent="CharacterSelectInterface/LeftContainer/Characters/ReferenceRect" unique_id=1584704058]
 position = Vector2(0, 204)
 scale = Vector2(8, 8)
 texture = ExtResource("7_65pnu")
 region_enabled = true
 region_rect = Rect2(65, 53, 13, 17)
 
-[node name="CharacterSprite2" type="Sprite2D" parent="CharacterSelectInterface/LeftContainer/Characters/ReferenceRect"]
+[node name="CharacterSprite2" type="Sprite2D" parent="CharacterSelectInterface/LeftContainer/Characters/ReferenceRect" unique_id=69771749]
 position = Vector2(204, 204)
 scale = Vector2(8, 8)
 texture = ExtResource("11_m1sns")
 region_enabled = true
 region_rect = Rect2(65, 53, 13, 17)
 
-[node name="CharacterSprite3" type="Sprite2D" parent="CharacterSelectInterface/LeftContainer/Characters/ReferenceRect"]
+[node name="CharacterSprite3" type="Sprite2D" parent="CharacterSelectInterface/LeftContainer/Characters/ReferenceRect" unique_id=1144564003]
 position = Vector2(408, 204)
 scale = Vector2(8, 8)
 texture = ExtResource("17_dfnwm")
 region_enabled = true
 region_rect = Rect2(82, 53, 15, 17)
 
-[node name="ButtonLeft" type="TextureButton" parent="CharacterSelectInterface/LeftContainer" groups=["button"]]
+[node name="ButtonLeft" type="TextureButton" parent="CharacterSelectInterface/LeftContainer" unique_id=147514623 groups=["button"]]
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -725,7 +725,7 @@ size_flags_vertical = 8
 texture_normal = ExtResource("7_ebt3n")
 stretch_mode = 4
 
-[node name="SpriteParent" type="Control" parent="CharacterSelectInterface/LeftContainer/ButtonLeft"]
+[node name="SpriteParent" type="Control" parent="CharacterSelectInterface/LeftContainer/ButtonLeft" unique_id=838911229]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -735,12 +735,12 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterSelectInterface/LeftContainer/ButtonLeft/SpriteParent"]
+[node name="Sprite2D" type="Sprite2D" parent="CharacterSelectInterface/LeftContainer/ButtonLeft/SpriteParent" unique_id=277121749]
 rotation = 1.5708
 scale = Vector2(4, 4)
 texture = ExtResource("8_472nk")
 
-[node name="ButtonRight" type="TextureButton" parent="CharacterSelectInterface/LeftContainer" groups=["button"]]
+[node name="ButtonRight" type="TextureButton" parent="CharacterSelectInterface/LeftContainer" unique_id=1511986297 groups=["button"]]
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -748,7 +748,7 @@ size_flags_vertical = 8
 texture_normal = ExtResource("7_ebt3n")
 stretch_mode = 4
 
-[node name="SpriteParent" type="Control" parent="CharacterSelectInterface/LeftContainer/ButtonRight"]
+[node name="SpriteParent" type="Control" parent="CharacterSelectInterface/LeftContainer/ButtonRight" unique_id=46904285]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -758,12 +758,12 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterSelectInterface/LeftContainer/ButtonRight/SpriteParent"]
+[node name="Sprite2D" type="Sprite2D" parent="CharacterSelectInterface/LeftContainer/ButtonRight/SpriteParent" unique_id=191951943]
 rotation = -1.5708
 scale = Vector2(4, 4)
 texture = ExtResource("8_472nk")
 
-[node name="RightContainer" type="MarginContainer" parent="CharacterSelectInterface"]
+[node name="RightContainer" type="MarginContainer" parent="CharacterSelectInterface" unique_id=1004757886]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -776,15 +776,15 @@ theme_override_constants/margin_top = 120
 theme_override_constants/margin_right = 120
 theme_override_constants/margin_bottom = 120
 
-[node name="Description" type="Control" parent="CharacterSelectInterface/RightContainer"]
+[node name="Description" type="Control" parent="CharacterSelectInterface/RightContainer" unique_id=254481926]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="LabelParent" type="Node2D" parent="CharacterSelectInterface/RightContainer/Description"]
+[node name="LabelParent" type="Node2D" parent="CharacterSelectInterface/RightContainer/Description" unique_id=1688835964]
 scale = Vector2(4, 4)
 
-[node name="Label" type="Label" parent="CharacterSelectInterface/RightContainer/Description/LabelParent"]
+[node name="Label" type="Label" parent="CharacterSelectInterface/RightContainer/Description/LabelParent" unique_id=1224884844]
 material = SubResource("ShaderMaterial_sr4bl")
 anchors_preset = 8
 anchor_left = 0.5
@@ -804,7 +804,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="ButtonSelect" type="TextureButton" parent="CharacterSelectInterface/RightContainer" groups=["character_button"]]
+[node name="ButtonSelect" type="TextureButton" parent="CharacterSelectInterface/RightContainer" unique_id=575618732 groups=["character_button"]]
 custom_minimum_size = Vector2(200, 88)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -812,7 +812,7 @@ size_flags_vertical = 8
 texture_normal = ExtResource("3_xb4sn")
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="CharacterSelectInterface/RightContainer/ButtonSelect"]
+[node name="Label" type="Label" parent="CharacterSelectInterface/RightContainer/ButtonSelect" unique_id=939601531]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -828,7 +828,7 @@ grow_vertical = 2
 theme = SubResource("Theme_6pyji")
 text = "SELECT"
 
-[node name="MarginContainer" type="MarginContainer" parent="CharacterSelectInterface"]
+[node name="MarginContainer" type="MarginContainer" parent="CharacterSelectInterface" unique_id=563410075]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -840,7 +840,7 @@ theme_override_constants/margin_top = 60
 theme_override_constants/margin_right = 60
 theme_override_constants/margin_bottom = 60
 
-[node name="ButtonExitCharacterSelect" type="TextureButton" parent="CharacterSelectInterface/MarginContainer" groups=["button"]]
+[node name="ButtonExitCharacterSelect" type="TextureButton" parent="CharacterSelectInterface/MarginContainer" unique_id=1550565518 groups=["button"]]
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -848,7 +848,7 @@ size_flags_vertical = 0
 texture_normal = ExtResource("7_ebt3n")
 stretch_mode = 4
 
-[node name="SpriteParent" type="Control" parent="CharacterSelectInterface/MarginContainer/ButtonExitCharacterSelect"]
+[node name="SpriteParent" type="Control" parent="CharacterSelectInterface/MarginContainer/ButtonExitCharacterSelect" unique_id=543695718]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -858,14 +858,14 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterSelectInterface/MarginContainer/ButtonExitCharacterSelect/SpriteParent"]
+[node name="Sprite2D" type="Sprite2D" parent="CharacterSelectInterface/MarginContainer/ButtonExitCharacterSelect/SpriteParent" unique_id=1997816118]
 scale = Vector2(4, 4)
 texture = ExtResource("8_472nk")
 
-[node name="SettingsInterface" type="CanvasLayer" parent="."]
+[node name="SettingsInterface" type="CanvasLayer" parent="." unique_id=347948238]
 visible = false
 
-[node name="ColorRect" type="ColorRect" parent="SettingsInterface"]
+[node name="ColorRect" type="ColorRect" parent="SettingsInterface" unique_id=1840186689]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -873,7 +873,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.5)
 
-[node name="PanelLayer1" type="MarginContainer" parent="SettingsInterface"]
+[node name="PanelLayer1" type="MarginContainer" parent="SettingsInterface" unique_id=1220145967]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -884,10 +884,10 @@ theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
 
-[node name="ColorRect" type="ColorRect" parent="SettingsInterface/PanelLayer1"]
+[node name="ColorRect" type="ColorRect" parent="SettingsInterface/PanelLayer1" unique_id=1743563429]
 layout_mode = 2
 
-[node name="PanelLayer2" type="MarginContainer" parent="SettingsInterface"]
+[node name="PanelLayer2" type="MarginContainer" parent="SettingsInterface" unique_id=149211584]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -898,11 +898,11 @@ theme_override_constants/margin_top = 104
 theme_override_constants/margin_right = 104
 theme_override_constants/margin_bottom = 104
 
-[node name="ColorRect" type="ColorRect" parent="SettingsInterface/PanelLayer2"]
+[node name="ColorRect" type="ColorRect" parent="SettingsInterface/PanelLayer2" unique_id=1649039298]
 layout_mode = 2
 color = Color(0.117647, 0.243137, 0.384314, 1)
 
-[node name="PanelLayer3" type="MarginContainer" parent="SettingsInterface"]
+[node name="PanelLayer3" type="MarginContainer" parent="SettingsInterface" unique_id=132799536]
 clip_children = 2
 anchors_preset = 15
 anchor_right = 1.0
@@ -914,11 +914,11 @@ theme_override_constants/margin_top = 112
 theme_override_constants/margin_right = 112
 theme_override_constants/margin_bottom = 112
 
-[node name="ColorRect" type="ColorRect" parent="SettingsInterface/PanelLayer3"]
+[node name="ColorRect" type="ColorRect" parent="SettingsInterface/PanelLayer3" unique_id=374380821]
 layout_mode = 2
 color = Color(0.0431373, 0.0980392, 0.172549, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="SettingsInterface"]
+[node name="MarginContainer" type="MarginContainer" parent="SettingsInterface" unique_id=1382716695]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -930,7 +930,7 @@ theme_override_constants/margin_top = 60
 theme_override_constants/margin_right = 60
 theme_override_constants/margin_bottom = 60
 
-[node name="ButtonExitSettings" type="TextureButton" parent="SettingsInterface/MarginContainer" groups=["button"]]
+[node name="ButtonExitSettings" type="TextureButton" parent="SettingsInterface/MarginContainer" unique_id=1679379743 groups=["button"]]
 custom_minimum_size = Vector2(88, 88)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -938,7 +938,7 @@ size_flags_vertical = 0
 texture_normal = ExtResource("7_ebt3n")
 stretch_mode = 4
 
-[node name="SpriteParent" type="Control" parent="SettingsInterface/MarginContainer/ButtonExitSettings"]
+[node name="SpriteParent" type="Control" parent="SettingsInterface/MarginContainer/ButtonExitSettings" unique_id=918076599]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -948,11 +948,11 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="SettingsInterface/MarginContainer/ButtonExitSettings/SpriteParent"]
+[node name="Sprite2D" type="Sprite2D" parent="SettingsInterface/MarginContainer/ButtonExitSettings/SpriteParent" unique_id=161827685]
 scale = Vector2(4, 4)
 texture = ExtResource("8_472nk")
 
-[node name="ButtonsContainer" type="VFlowContainer" parent="SettingsInterface"]
+[node name="ButtonsContainer" type="VFlowContainer" parent="SettingsInterface" unique_id=1759013830]
 anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.235
@@ -970,13 +970,13 @@ theme_override_constants/h_separation = 40
 theme_override_constants/v_separation = 20
 alignment = 1
 
-[node name="ButtonResolution" type="TextureButton" parent="SettingsInterface/ButtonsContainer" groups=["button"]]
+[node name="ButtonResolution" type="TextureButton" parent="SettingsInterface/ButtonsContainer" unique_id=249773861 groups=["button"]]
 custom_minimum_size = Vector2(200, 88)
 layout_mode = 2
 texture_normal = ExtResource("3_xb4sn")
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="SettingsInterface/ButtonsContainer/ButtonResolution"]
+[node name="Label" type="Label" parent="SettingsInterface/ButtonsContainer/ButtonResolution" unique_id=1681520112]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -992,13 +992,13 @@ grow_vertical = 2
 theme = SubResource("Theme_6pyji")
 text = "RESOLUTION"
 
-[node name="ButtonControls" type="TextureButton" parent="SettingsInterface/ButtonsContainer" groups=["button"]]
+[node name="ButtonControls" type="TextureButton" parent="SettingsInterface/ButtonsContainer" unique_id=2051640280 groups=["button"]]
 custom_minimum_size = Vector2(200, 88)
 layout_mode = 2
 texture_normal = ExtResource("3_xb4sn")
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="SettingsInterface/ButtonsContainer/ButtonControls"]
+[node name="Label" type="Label" parent="SettingsInterface/ButtonsContainer/ButtonControls" unique_id=13333564]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1014,13 +1014,13 @@ grow_vertical = 2
 theme = SubResource("Theme_6pyji")
 text = "NICKNAME"
 
-[node name="ButtonVolume" type="TextureButton" parent="SettingsInterface/ButtonsContainer" groups=["button"]]
+[node name="ButtonVolume" type="TextureButton" parent="SettingsInterface/ButtonsContainer" unique_id=1315163362 groups=["button"]]
 custom_minimum_size = Vector2(200, 88)
 layout_mode = 2
 texture_normal = ExtResource("3_xb4sn")
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="SettingsInterface/ButtonsContainer/ButtonVolume"]
+[node name="Label" type="Label" parent="SettingsInterface/ButtonsContainer/ButtonVolume" unique_id=231173358]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1036,13 +1036,13 @@ grow_vertical = 2
 theme = SubResource("Theme_6pyji")
 text = "VOLUME"
 
-[node name="ButtonLanguage" type="TextureButton" parent="SettingsInterface/ButtonsContainer" groups=["button"]]
+[node name="ButtonLanguage" type="TextureButton" parent="SettingsInterface/ButtonsContainer" unique_id=1106415286 groups=["button"]]
 custom_minimum_size = Vector2(200, 88)
 layout_mode = 2
 texture_normal = ExtResource("3_xb4sn")
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="SettingsInterface/ButtonsContainer/ButtonLanguage"]
+[node name="Label" type="Label" parent="SettingsInterface/ButtonsContainer/ButtonLanguage" unique_id=1793731258]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1058,13 +1058,13 @@ grow_vertical = 2
 theme = SubResource("Theme_6pyji")
 text = "LANGUAGE"
 
-[node name="ButtonCredits" type="TextureButton" parent="SettingsInterface/ButtonsContainer" groups=["button"]]
+[node name="ButtonCredits" type="TextureButton" parent="SettingsInterface/ButtonsContainer" unique_id=2096119550 groups=["button"]]
 custom_minimum_size = Vector2(200, 88)
 layout_mode = 2
 texture_normal = ExtResource("3_xb4sn")
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="SettingsInterface/ButtonsContainer/ButtonCredits"]
+[node name="Label" type="Label" parent="SettingsInterface/ButtonsContainer/ButtonCredits" unique_id=1288021781]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1080,7 +1080,7 @@ grow_vertical = 2
 theme = SubResource("Theme_6pyji")
 text = "CREDITS"
 
-[node name="VolumeContainer" type="Control" parent="SettingsInterface"]
+[node name="VolumeContainer" type="Control" parent="SettingsInterface" unique_id=1400341514]
 visible = false
 custom_minimum_size = Vector2(933, 427)
 layout_mode = 3
@@ -1093,10 +1093,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("16_0gjkf")
 
-[node name="VolumeInfoContainer" type="Node2D" parent="SettingsInterface/VolumeContainer"]
+[node name="VolumeInfoContainer" type="Node2D" parent="SettingsInterface/VolumeContainer" unique_id=589291410]
 scale = Vector2(4, 4)
 
-[node name="VolumeLabel" type="Label" parent="SettingsInterface/VolumeContainer/VolumeInfoContainer"]
+[node name="VolumeLabel" type="Label" parent="SettingsInterface/VolumeContainer/VolumeInfoContainer" unique_id=1588678690]
 material = SubResource("ShaderMaterial_lqo1b")
 offset_left = 0.125
 offset_top = 7.375
@@ -1106,7 +1106,7 @@ theme = SubResource("Theme_0gjkf")
 text = "- VOLUME -"
 horizontal_alignment = 1
 
-[node name="MusicLabel" type="Label" parent="SettingsInterface/VolumeContainer/VolumeInfoContainer"]
+[node name="MusicLabel" type="Label" parent="SettingsInterface/VolumeContainer/VolumeInfoContainer" unique_id=771077169]
 material = SubResource("ShaderMaterial_lqo1b")
 offset_left = 0.25
 offset_top = 28.875
@@ -1116,7 +1116,7 @@ theme = SubResource("Theme_0gjkf")
 text = "Music"
 horizontal_alignment = 1
 
-[node name="SFXLabel" type="Label" parent="SettingsInterface/VolumeContainer/VolumeInfoContainer"]
+[node name="SFXLabel" type="Label" parent="SettingsInterface/VolumeContainer/VolumeInfoContainer" unique_id=597967731]
 material = SubResource("ShaderMaterial_lqo1b")
 offset_left = 0.625
 offset_top = 70.375
@@ -1126,20 +1126,20 @@ theme = SubResource("Theme_0gjkf")
 text = "SFX"
 horizontal_alignment = 1
 
-[node name="MusicSlider" type="Node2D" parent="SettingsInterface/VolumeContainer"]
+[node name="MusicSlider" type="Node2D" parent="SettingsInterface/VolumeContainer" unique_id=1098115151]
 scale = Vector2(2, 2)
 
-[node name="VolumeSliderM" type="HSlider" parent="SettingsInterface/VolumeContainer/MusicSlider"]
+[node name="VolumeSliderM" type="HSlider" parent="SettingsInterface/VolumeContainer/MusicSlider" unique_id=1851945722]
 offset_left = 148.25
 offset_top = 73.0
 offset_right = 308.25
 offset_bottom = 89.0
 value = 1.0
 
-[node name="MusicValue" type="Node2D" parent="SettingsInterface/VolumeContainer"]
+[node name="MusicValue" type="Node2D" parent="SettingsInterface/VolumeContainer" unique_id=1698709279]
 scale = Vector2(4, 4)
 
-[node name="VolumeValue" type="Label" parent="SettingsInterface/VolumeContainer/MusicValue"]
+[node name="VolumeValue" type="Label" parent="SettingsInterface/VolumeContainer/MusicValue" unique_id=1151185478]
 material = SubResource("ShaderMaterial_o2i1r")
 offset_left = 0.625
 offset_top = 46.625
@@ -1149,22 +1149,22 @@ theme = SubResource("Theme_iulku")
 text = "20%"
 horizontal_alignment = 1
 
-[node name="SFXSlider" type="Node2D" parent="SettingsInterface/VolumeContainer"]
+[node name="SFXSlider" type="Node2D" parent="SettingsInterface/VolumeContainer" unique_id=1820182271]
 position = Vector2(0, 130)
 scale = Vector2(2, 2)
 
-[node name="VolumeSliderS" type="HSlider" parent="SettingsInterface/VolumeContainer/SFXSlider"]
+[node name="VolumeSliderS" type="HSlider" parent="SettingsInterface/VolumeContainer/SFXSlider" unique_id=1114996752]
 offset_left = 148.0
 offset_top = 90.0
 offset_right = 308.0
 offset_bottom = 106.0
 value = 1.0
 
-[node name="SFXValue" type="Node2D" parent="SettingsInterface/VolumeContainer"]
+[node name="SFXValue" type="Node2D" parent="SettingsInterface/VolumeContainer" unique_id=1610942343]
 position = Vector2(0, 130)
 scale = Vector2(4, 4)
 
-[node name="VolumeValue" type="Label" parent="SettingsInterface/VolumeContainer/SFXValue"]
+[node name="VolumeValue" type="Label" parent="SettingsInterface/VolumeContainer/SFXValue" unique_id=828165447]
 material = SubResource("ShaderMaterial_o2i1r")
 offset_left = 0.625
 offset_top = 55.875
@@ -1174,7 +1174,7 @@ theme = SubResource("Theme_iulku")
 text = "20%"
 horizontal_alignment = 1
 
-[node name="LanguageContainer" type="Control" parent="SettingsInterface"]
+[node name="LanguageContainer" type="Control" parent="SettingsInterface" unique_id=1706372826]
 visible = false
 layout_mode = 3
 anchors_preset = 8
@@ -1185,10 +1185,10 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LabelParent" type="Node2D" parent="SettingsInterface/LanguageContainer"]
+[node name="LabelParent" type="Node2D" parent="SettingsInterface/LanguageContainer" unique_id=1575035131]
 scale = Vector2(4, 4)
 
-[node name="LanguageInfo" type="Label" parent="SettingsInterface/LanguageContainer/LabelParent"]
+[node name="LanguageInfo" type="Label" parent="SettingsInterface/LanguageContainer/LabelParent" unique_id=1482583838]
 material = SubResource("ShaderMaterial_dfnwm")
 anchors_preset = 8
 anchor_left = 0.5
@@ -1208,7 +1208,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="CreditsContainer" type="MarginContainer" parent="SettingsInterface"]
+[node name="CreditsContainer" type="MarginContainer" parent="SettingsInterface" unique_id=1775109608]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -1221,16 +1221,16 @@ theme_override_constants/margin_top = 120
 theme_override_constants/margin_right = 120
 theme_override_constants/margin_bottom = 120
 
-[node name="Control" type="Control" parent="SettingsInterface/CreditsContainer"]
+[node name="Control" type="Control" parent="SettingsInterface/CreditsContainer" unique_id=1368425943]
 clip_contents = true
 layout_mode = 2
 
-[node name="LabelParent" type="Node2D" parent="SettingsInterface/CreditsContainer/Control"]
+[node name="LabelParent" type="Node2D" parent="SettingsInterface/CreditsContainer/Control" unique_id=1238787205]
 position = Vector2(-60, -60)
 scale = Vector2(4, 4)
 script = ExtResource("16_lqo1b")
 
-[node name="Label" type="Label" parent="SettingsInterface/CreditsContainer/Control/LabelParent"]
+[node name="Label" type="Label" parent="SettingsInterface/CreditsContainer/Control/LabelParent" unique_id=649077591]
 material = SubResource("ShaderMaterial_rgcd7")
 anchors_preset = 8
 anchor_left = 0.5
@@ -1265,7 +1265,7 @@ horizontal_alignment = 1
 autowrap_mode = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="ResolutionContainer" type="VBoxContainer" parent="SettingsInterface"]
+[node name="ResolutionContainer" type="VBoxContainer" parent="SettingsInterface" unique_id=2099352450]
 visible = false
 anchors_preset = 13
 anchor_left = 0.5
@@ -1277,36 +1277,36 @@ mouse_filter = 2
 alignment = 1
 script = ExtResource("18_o2i1r")
 
-[node name="FullscreenField" type="Control" parent="SettingsInterface/ResolutionContainer"]
+[node name="FullscreenField" type="Control" parent="SettingsInterface/ResolutionContainer" unique_id=358042268]
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="CheckBox" type="CheckBox" parent="SettingsInterface/ResolutionContainer/FullscreenField" groups=["button"]]
+[node name="CheckBox" type="CheckBox" parent="SettingsInterface/ResolutionContainer/FullscreenField" unique_id=1783368706 groups=["button"]]
 layout_mode = 0
 offset_left = 169.0
 offset_right = 193.0
 offset_bottom = 24.0
 
-[node name="LabelParent" type="Node2D" parent="SettingsInterface/ResolutionContainer/FullscreenField"]
+[node name="LabelParent" type="Node2D" parent="SettingsInterface/ResolutionContainer/FullscreenField" unique_id=1819535560]
 scale = Vector2(4, 4)
 
-[node name="Label" type="Label" parent="SettingsInterface/ResolutionContainer/FullscreenField/LabelParent"]
+[node name="Label" type="Label" parent="SettingsInterface/ResolutionContainer/FullscreenField/LabelParent" unique_id=1891750909]
 material = SubResource("ShaderMaterial_rgcd7")
 offset_right = 40.0
 offset_bottom = 6.0
 theme = SubResource("Theme_lqo1b")
 text = "Fullscreen"
 
-[node name="RatioField" type="Control" parent="SettingsInterface/ResolutionContainer"]
+[node name="RatioField" type="Control" parent="SettingsInterface/ResolutionContainer" unique_id=183402526]
 custom_minimum_size = Vector2(320, 60)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="OptionButton" type="OptionButton" parent="SettingsInterface/ResolutionContainer/RatioField" groups=["button"]]
-layout_mode = 2
+[node name="OptionButton" type="OptionButton" parent="SettingsInterface/ResolutionContainer/RatioField" unique_id=379592705 groups=["button"]]
+layout_mode = 0
 offset_left = 207.0
 offset_right = 312.0
 offset_bottom = 22.0
@@ -1323,23 +1323,23 @@ popup/item_3/id = 3
 popup/item_4/text = "5:3"
 popup/item_4/id = 4
 
-[node name="LabelParent" type="Node2D" parent="SettingsInterface/ResolutionContainer/RatioField"]
+[node name="LabelParent" type="Node2D" parent="SettingsInterface/ResolutionContainer/RatioField" unique_id=1154220214]
 scale = Vector2(4, 4)
 
-[node name="Label" type="Label" parent="SettingsInterface/ResolutionContainer/RatioField/LabelParent"]
+[node name="Label" type="Label" parent="SettingsInterface/ResolutionContainer/RatioField/LabelParent" unique_id=618290472]
 material = SubResource("ShaderMaterial_rgcd7")
 offset_right = 40.0
 offset_bottom = 6.0
 theme = SubResource("Theme_lqo1b")
 text = "Aspect ratio"
 
-[node name="ScaleField" type="Control" parent="SettingsInterface/ResolutionContainer"]
+[node name="ScaleField" type="Control" parent="SettingsInterface/ResolutionContainer" unique_id=1071194401]
 custom_minimum_size = Vector2(264, 60)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="HSlider" type="HSlider" parent="SettingsInterface/ResolutionContainer/ScaleField"]
+[node name="HSlider" type="HSlider" parent="SettingsInterface/ResolutionContainer/ScaleField" unique_id=1351899923]
 layout_mode = 0
 offset_left = 98.0
 offset_right = 253.0
@@ -1349,17 +1349,17 @@ max_value = 2.5
 step = 0.01
 value = 1.5
 
-[node name="LabelParent" type="Node2D" parent="SettingsInterface/ResolutionContainer/ScaleField"]
+[node name="LabelParent" type="Node2D" parent="SettingsInterface/ResolutionContainer/ScaleField" unique_id=217765928]
 scale = Vector2(4, 4)
 
-[node name="Label" type="Label" parent="SettingsInterface/ResolutionContainer/ScaleField/LabelParent"]
+[node name="Label" type="Label" parent="SettingsInterface/ResolutionContainer/ScaleField/LabelParent" unique_id=602275482]
 material = SubResource("ShaderMaterial_rgcd7")
 offset_right = 40.0
 offset_bottom = 6.0
 theme = SubResource("Theme_lqo1b")
 text = "Scale"
 
-[node name="NicknameContainer" type="Control" parent="SettingsInterface"]
+[node name="NicknameContainer" type="Control" parent="SettingsInterface" unique_id=242334280]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -1369,7 +1369,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="NicknameField" type="Control" parent="SettingsInterface/NicknameContainer"]
+[node name="NicknameField" type="Control" parent="SettingsInterface/NicknameContainer" unique_id=398691237]
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 1
 anchors_preset = 8
@@ -1386,10 +1386,10 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="LabelParent" type="Node2D" parent="SettingsInterface/NicknameContainer/NicknameField"]
+[node name="LabelParent" type="Node2D" parent="SettingsInterface/NicknameContainer/NicknameField" unique_id=1534207051]
 scale = Vector2(4, 4)
 
-[node name="Label" type="Label" parent="SettingsInterface/NicknameContainer/NicknameField/LabelParent"]
+[node name="Label" type="Label" parent="SettingsInterface/NicknameContainer/NicknameField/LabelParent" unique_id=1029899752]
 material = SubResource("ShaderMaterial_rgcd7")
 offset_left = -37.0
 offset_top = 0.75
@@ -1398,7 +1398,7 @@ offset_bottom = 6.75
 theme = SubResource("Theme_lqo1b")
 text = "Displayed nickname"
 
-[node name="LineEdit" type="LineEdit" parent="SettingsInterface/NicknameContainer/NicknameField"]
+[node name="LineEdit" type="LineEdit" parent="SettingsInterface/NicknameContainer/NicknameField" unique_id=1116642868]
 layout_mode = 0
 offset_left = 152.0
 offset_top = -3.0
@@ -1407,7 +1407,7 @@ offset_bottom = 34.0
 text = "Player"
 max_length = 10
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2113307232]
 stream = ExtResource("22_vwf6o")
 autoplay = true
 bus = &"Music"

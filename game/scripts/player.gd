@@ -218,7 +218,7 @@ func spawn_projectile(_projectile_id = projectile_id) -> CharacterBody2D:
 
 func spawn_projectile_spreadshot(count: int = 3, _projectile_id = projectile_id) -> void:
 	for i in range(count):
-		shoot_angle += deg_to_rad(360 / count) * i
+		shoot_angle += deg_to_rad(360 / float(count)) * i
 		spawn_projectile(_projectile_id)
 
 func spawn_projectile_spreadshot_await(count: int = 5) -> void:

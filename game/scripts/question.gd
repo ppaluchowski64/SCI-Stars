@@ -9,7 +9,7 @@ extends Control
 @onready var tcp = StreamPeerTCP.new()
 @onready var handler = MessageHandler.new()
 
-var is_connected = false
+var is_connected_to_server = false
 var current_question_id = -1
 var current_answers = []
 var buffer_text = ""
@@ -61,12 +61,12 @@ func _start_connection() -> void:
 func _process(_delta: float) -> void:
 	tcp.poll()
 	
-	if not is_connected and tcp.get_status() == StreamPeerTCP.STATUS_CONNECTED:
-		is_connected = true
+	if not is_connected_to_server and tcp.get_status() == StreamPeerTCP.STATUS_CONNECTED:
+		is_connected_to_server = true
 		print("Connected to the server!")
 		request_random_question()
 	
-	if is_connected:
+	if is_connected_to_server:
 		var available = tcp.get_available_bytes()
 		
 		if available > 0:
@@ -76,7 +76,7 @@ func _process(_delta: float) -> void:
 			
 			if err != OK:
 				push_error("Error receiving data")
-				is_connected = false
+				is_connected_to_server = false
 				tcp.disconnect_from_host()
 				return
 			
@@ -102,7 +102,7 @@ func submit_answer(selected_id: String) -> void:
 	progress_bar.value = progress_bar.max_value
 	answer = selected_id
 	
-	if not is_connected:
+	if not is_connected_to_server:
 		push_error("Not connected to the server")
 		return
 	
@@ -137,7 +137,7 @@ func handle_server_response(response_text: String) -> void:
 	
 	else:
 		push_error("Unexpected response: %s" % response_text)
-		is_connected = false
+		is_connected_to_server = false
 		tcp.disconnect_from_host()
 
 func disable_all_buttons() -> void:

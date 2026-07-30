@@ -34,8 +34,8 @@ func update_resolution() -> void:
 	PlayerData.window_is_fullscreen = true
 	check_box.button_pressed = true
 	
-	var scale_x: int = floor(DisplayServer.screen_get_size().x / ratio_x)
-	var scale_y: int = floor(DisplayServer.screen_get_size().y / ratio_y)
+	var scale_x: int = floor(DisplayServer.screen_get_size().x / float(ratio_x))
+	var scale_y: int = floor(DisplayServer.screen_get_size().y / float(ratio_y))
 	
 	var scale_value = min(scale_x, scale_y)
 	

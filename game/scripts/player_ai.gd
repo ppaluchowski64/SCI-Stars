@@ -69,17 +69,17 @@ func update(delta: float) -> void:
 		return
 	
 	var target_pos = current_path[path_index]
-	var dir = (target_pos - player.global_position).normalized()
+	var path_dir = (target_pos - player.global_position).normalized()
 	
-	player.dir_x = sign(dir[0])
-	player.dir_y = sign(dir[1])
+	player.dir_x = sign(path_dir[0])
+	player.dir_y = sign(path_dir[1])
 	
-	var dist = player.speed
+	var path_dist = player.speed
 	
-	player.velocity = dir * dist
+	player.velocity = path_dir * path_dist
 	player.move_and_slide()
 	
-	if player.global_position.distance_to(target_pos) <= dist * delta:
+	if player.global_position.distance_to(target_pos) <= path_dist * delta:
 		player.global_position = target_pos
 		path_index += 1
 		

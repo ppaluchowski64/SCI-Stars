@@ -35,7 +35,7 @@ func _process(_delta: float) -> void:
 		child.scale.x = scale_value
 		child.scale.y = scale_value
 		
-		child.global_position.y = get_window().content_scale_size.y / 2
+		child.global_position.y = get_window().content_scale_size.y / 2.0
 		
 		i += 1
 	
@@ -43,12 +43,12 @@ func _process(_delta: float) -> void:
 
 func _on_button_left_button_down() -> void:
 	if selected_character > 0:
-		selected_character -= 1
+		selected_character = (selected_character - 1) as Characters.ID
 		change_character()
 
 func _on_button_right_button_down() -> void:
 	if selected_character < Characters.CHARACTER_COUNT - 1:
-		selected_character += 1
+		selected_character = (selected_character + 1) as Characters.ID
 		change_character()
 
 func _on_button_select_button_down() -> void:
