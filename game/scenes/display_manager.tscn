@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://da43da3hmkrlt"]
+
+[ext_resource type="Script" uid="uid://cialjwxoto1i1" path="res://scripts/display_manager.gd" id="1_bm55x"]
+
+[node name="DisplayManager" type="Node" unique_id=482610885]
+script = ExtResource("1_bm55x")

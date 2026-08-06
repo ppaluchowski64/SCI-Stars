@@ -8,6 +8,7 @@ var nickname: String = "Player"
 var window_is_fullscreen: bool = false
 var window_ratio_mode: int = 0
 var window_scale: float = 1.5
+var window_resolution: Dictionary
 
 var is_multiplayer_enabled: bool = false
 var is_joystick_enabled: bool = false

@@ -17,7 +17,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="SCI Stars"
 config/description="Cross-platform multiplayer Battle Royale game with knowledge-based gameplay that captivatingly depicts life at Technikum Informatyczne SCI."
 config/version="0.2.0"
-run/main_scene="uid://r73t4uwivu0e"
+run/main_scene="uid://d07mvyxdfoamc"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="uid://d1tqm8c4667ws"
 
@@ -36,11 +36,11 @@ GlobalAudio="*res://scenes/global_audio.tscn"
 SaveManager="*res://scripts/save_manager.gd"
 PlayerJoin="*res://scripts/player_join.gd"
 RemoteInputHandler="*res://scripts/remote_input_handler.gd"
+SignalBus="*uid://cgux5o6s8sd1n"
 
 [display]
 
 window/size/resizable=false
-window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
 [dotnet]

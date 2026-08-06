@@ -18,10 +18,10 @@ func _ready() -> void:
 
 func _notification(what) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST and save_on_exit:
-		save_data()
 		confirm_exit()
 
 func _on_dialogue_confirm() -> void:
+	save_data()
 	get_tree().quit()
 
 func confirm_exit() -> void:

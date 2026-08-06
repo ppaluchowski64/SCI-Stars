@@ -1,0 +1,6 @@
+- save volume
+- fix queue bg
+- stylize exit confirmation box
+- bring back ratio option (with auto adjust)
+- fit display button
+- fix queue bg misaligning

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bk3jqor1r48rj"]
+[gd_scene format=3 uid="uid://bk3jqor1r48rj"]
 
 [ext_resource type="Script" uid="uid://6mc3jt4aqv5r" path="res://scripts/player.gd" id="1_270mw"]
 [ext_resource type="SpriteFrames" uid="uid://bkq4gysbuwr1y" path="res://data/jackflower.tres" id="2_tuyoq"]
@@ -32,12 +32,13 @@ shader_parameter/is_visible = true
 default_font = ExtResource("4_q82ve")
 default_font_size = 5
 
-[node name="Player" type="CharacterBody2D" groups=["player"]]
+[node name="Player" type="CharacterBody2D" unique_id=467469463 groups=["player"]]
 collision_layer = 3
 collision_mask = 2
+motion_mode = 1
 script = ExtResource("1_270mw")
 
-[node name="WalkParticles" type="CPUParticles2D" parent="."]
+[node name="WalkParticles" type="CPUParticles2D" parent="." unique_id=1395593970]
 position = Vector2(0, 24)
 emitting = false
 amount = 12
@@ -51,39 +52,39 @@ scale_amount_min = 8.0
 scale_amount_max = 12.0
 scale_amount_curve = SubResource("Curve_wka2s")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=874895017]
 scale = Vector2(4, 4)
 sprite_frames = ExtResource("2_tuyoq")
 animation = &"5"
 offset = Vector2(0.5, -2)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=152778291]
 shape = SubResource("CapsuleShape2D_ay0jd")
 
-[node name="RegenCooldown" type="Timer" parent="."]
+[node name="RegenCooldown" type="Timer" parent="." unique_id=1716402143]
 one_shot = true
 
-[node name="ShootCooldown" type="Timer" parent="."]
+[node name="ShootCooldown" type="Timer" parent="." unique_id=944650473]
 wait_time = 0.4
 one_shot = true
 
-[node name="ShootAnimation" type="Timer" parent="."]
+[node name="ShootAnimation" type="Timer" parent="." unique_id=307101010]
 wait_time = 0.2
 one_shot = true
 
-[node name="ImmunityTimer" type="Timer" parent="."]
+[node name="ImmunityTimer" type="Timer" parent="." unique_id=786199135]
 wait_time = 3.0
 one_shot = true
 
-[node name="StatusTimer" type="Timer" parent="."]
+[node name="StatusTimer" type="Timer" parent="." unique_id=840010760]
 wait_time = 4.0
 one_shot = true
 
-[node name="Healthbar" type="Node2D" parent="."]
+[node name="Healthbar" type="Node2D" parent="." unique_id=1742370594]
 z_index = 3
 position = Vector2(0, -52)
 
-[node name="ColorRect" type="ColorRect" parent="Healthbar"]
+[node name="ColorRect" type="ColorRect" parent="Healthbar" unique_id=1154752136]
 offset_left = -28.0
 offset_top = -4.0
 offset_right = 28.0
@@ -91,15 +92,15 @@ offset_bottom = 4.0
 color = Color(0.9, 0.369, 0.36, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Healthbar"]
+[node name="Sprite2D" type="Sprite2D" parent="Healthbar" unique_id=344401183]
 scale = Vector2(4, 4)
 texture = ExtResource("3_5fihy")
 
-[node name="LabelParent" type="Node2D" parent="Healthbar"]
+[node name="LabelParent" type="Node2D" parent="Healthbar" unique_id=2102957439]
 position = Vector2(-2, 0)
 scale = Vector2(4, 4)
 
-[node name="Label" type="Label" parent="Healthbar/LabelParent"]
+[node name="Label" type="Label" parent="Healthbar/LabelParent" unique_id=1056933408]
 material = SubResource("ShaderMaterial_ux241")
 offset_left = -25.0
 offset_top = -26.0
@@ -111,11 +112,11 @@ horizontal_alignment = 1
 vertical_alignment = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Ammobar" type="Node2D" parent="."]
+[node name="Ammobar" type="Node2D" parent="." unique_id=1667748559]
 z_index = 3
 position = Vector2(0, 52)
 
-[node name="ColorRect" type="ColorRect" parent="Ammobar"]
+[node name="ColorRect" type="ColorRect" parent="Ammobar" unique_id=1068462246]
 offset_left = -28.0
 offset_top = -4.0
 offset_right = 28.0
@@ -123,15 +124,15 @@ offset_bottom = 4.0
 color = Color(0.9, 0.711, 0.36, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Ammobar"]
+[node name="Sprite2D" type="Sprite2D" parent="Ammobar" unique_id=1147105618]
 scale = Vector2(4, 4)
 texture = ExtResource("5_ptbdj")
 
-[node name="NicknameLabel" type="Node2D" parent="."]
+[node name="NicknameLabel" type="Node2D" parent="." unique_id=1275570606]
 z_index = 3
 scale = Vector2(4, 4)
 
-[node name="Label" type="Label" parent="NicknameLabel"]
+[node name="Label" type="Label" parent="NicknameLabel" unique_id=1345808089]
 visible = false
 material = SubResource("ShaderMaterial_ux241")
 anchors_preset = 8
@@ -151,19 +152,19 @@ horizontal_alignment = 1
 vertical_alignment = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Shadow" type="Sprite2D" parent="."]
+[node name="Shadow" type="Sprite2D" parent="." unique_id=490616987]
 self_modulate = Color(1, 1, 1, 0.3)
 z_index = -1
 position = Vector2(0, 32)
 scale = Vector2(4, 4)
 texture = ExtResource("7_fjrip")
 
-[node name="AttackAudio" type="AudioStreamPlayer2D" parent="."]
+[node name="AttackAudio" type="AudioStreamPlayer2D" parent="." unique_id=1481612004]
 stream = ExtResource("8_smehm")
 max_distance = 500.0
 attenuation = 0.2
 
-[node name="HitAudio" type="AudioStreamPlayer2D" parent="."]
+[node name="HitAudio" type="AudioStreamPlayer2D" parent="." unique_id=883361099]
 stream = ExtResource("9_ur7pv")
 max_distance = 380.0
 attenuation = 0.2

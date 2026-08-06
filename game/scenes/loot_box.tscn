@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://deeaqf4jm5l0m"]
+[gd_scene format=3 uid="uid://deeaqf4jm5l0m"]
 
 [ext_resource type="Script" uid="uid://u5bt83vps2nq" path="res://scripts/loot_box.gd" id="1_e1ge6"]
 [ext_resource type="Texture2D" uid="uid://cb875gah6qpn" path="res://graphics/backgrounds/lootbox/background.png" id="1_i2dow"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cm26og86ytcnc" path="res://graphics/UI/icons/money.png" id="5_ie58p"]
 [ext_resource type="FontFile" uid="uid://6w8leq531kr1" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="6_rbqgs"]
 [ext_resource type="Texture2D" uid="uid://dptmt2ajlx2jf" path="res://graphics/UI/icons/connector.png" id="7_rbqgs"]
+[ext_resource type="PackedScene" uid="uid://da43da3hmkrlt" path="res://scenes/display_manager.tscn" id="8_rm6d6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i2dow"]
 draw_center = false
@@ -168,13 +169,13 @@ _data = {
 default_font = ExtResource("6_rbqgs")
 default_font_size = 20
 
-[node name="LootBox" type="Node2D"]
+[node name="LootBox" type="Node2D" unique_id=507153843]
 script = ExtResource("1_e1ge6")
 
-[node name="Background" type="CanvasLayer" parent="."]
+[node name="Background" type="CanvasLayer" parent="." unique_id=1729353637]
 layer = -1
 
-[node name="ColorRect" type="ColorRect" parent="Background"]
+[node name="ColorRect" type="ColorRect" parent="Background" unique_id=1610688106]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -182,35 +183,35 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.337255, 0.364706, 0.411765, 1)
 
-[node name="BackLayer" type="Parallax2D" parent="Background"]
+[node name="BackLayer" type="Parallax2D" parent="Background" unique_id=1795014892]
 repeat_size = Vector2(458, 308)
 autoscroll = Vector2(-10, -10)
 repeat_times = 8
 
-[node name="Panel" type="Panel" parent="Background/BackLayer"]
+[node name="Panel" type="Panel" parent="Background/BackLayer" unique_id=265993708]
 offset_right = 450.0
 offset_bottom = 300.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_i2dow")
 
-[node name="FrontLayer" type="Parallax2D" parent="Background"]
+[node name="FrontLayer" type="Parallax2D" parent="Background" unique_id=580326865]
 repeat_size = Vector2(320, 1600)
 autoscroll = Vector2(0, 20)
 repeat_times = 8
 
-[node name="Sprite1" type="Sprite2D" parent="Background/FrontLayer"]
+[node name="Sprite1" type="Sprite2D" parent="Background/FrontLayer" unique_id=1358968152]
 scale = Vector2(8, 8)
 texture = ExtResource("1_i2dow")
 
-[node name="Sprite2" type="Sprite2D" parent="Background/FrontLayer"]
+[node name="Sprite2" type="Sprite2D" parent="Background/FrontLayer" unique_id=987665411]
 position = Vector2(0, 800)
 scale = Vector2(8, 8)
 texture = ExtResource("1_i2dow")
 flip_v = true
 
-[node name="ContentLayer" type="CanvasLayer" parent="."]
+[node name="ContentLayer" type="CanvasLayer" parent="." unique_id=1221083140]
 layer = 2
 
-[node name="SpriteParent" type="Control" parent="ContentLayer"]
+[node name="SpriteParent" type="Control" parent="ContentLayer" unique_id=258177754]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -222,46 +223,44 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Shadow" type="Sprite2D" parent="ContentLayer/SpriteParent"]
+[node name="Shadow" type="Sprite2D" parent="ContentLayer/SpriteParent" unique_id=1918493174]
 self_modulate = Color(1, 1, 1, 0.301961)
 position = Vector2(0, 160)
 scale = Vector2(8, 8)
 texture = ExtResource("3_xkvc1")
 
-[node name="Sprite2D" type="Sprite2D" parent="ContentLayer/SpriteParent"]
+[node name="Sprite2D" type="Sprite2D" parent="ContentLayer/SpriteParent" unique_id=348363334]
 scale = Vector2(8, 8)
 texture = ExtResource("1_naqu1")
 hframes = 4
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="ContentLayer"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ContentLayer" unique_id=107198664]
 root_node = NodePath("../..")
-libraries = {
-&"": SubResource("AnimationLibrary_xkvc1")
-}
-autoplay = "start"
+libraries/ = SubResource("AnimationLibrary_xkvc1")
+autoplay = &"start"
 
-[node name="ReasourcesInterface" type="CanvasLayer" parent="."]
+[node name="ReasourcesInterface" type="CanvasLayer" parent="." unique_id=426043806]
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ReasourcesInterface"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ReasourcesInterface" unique_id=406259564]
 offset_left = 64.0
 offset_right = 688.0
 offset_bottom = 96.0
 theme_override_constants/separation = 48
 
-[node name="CoinsContainer" type="PanelContainer" parent="ReasourcesInterface/HBoxContainer"]
+[node name="CoinsContainer" type="PanelContainer" parent="ReasourcesInterface/HBoxContainer" unique_id=215134114]
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="ReasourcesInterface/HBoxContainer/CoinsContainer"]
+[node name="ColorRect" type="ColorRect" parent="ReasourcesInterface/HBoxContainer/CoinsContainer" unique_id=1887459394]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0, 0, 0, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="ReasourcesInterface/HBoxContainer/CoinsContainer"]
+[node name="Sprite2D" type="Sprite2D" parent="ReasourcesInterface/HBoxContainer/CoinsContainer" unique_id=936343052]
 position = Vector2(48, 48)
 scale = Vector2(4, 4)
 texture = ExtResource("5_ie58p")
 
-[node name="MarginContainer" type="MarginContainer" parent="ReasourcesInterface/HBoxContainer/CoinsContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ReasourcesInterface/HBoxContainer/CoinsContainer" unique_id=420509494]
 custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
 theme_override_constants/margin_left = 88
@@ -269,27 +268,27 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="Label" type="Label" parent="ReasourcesInterface/HBoxContainer/CoinsContainer/MarginContainer"]
+[node name="Label" type="Label" parent="ReasourcesInterface/HBoxContainer/CoinsContainer/MarginContainer" unique_id=1348801787]
 layout_mode = 2
 theme = SubResource("Theme_rm6d6")
 text = "COINS: 2000"
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="TokensContainer" type="PanelContainer" parent="ReasourcesInterface/HBoxContainer"]
+[node name="TokensContainer" type="PanelContainer" parent="ReasourcesInterface/HBoxContainer" unique_id=1824219582]
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="ReasourcesInterface/HBoxContainer/TokensContainer"]
+[node name="ColorRect" type="ColorRect" parent="ReasourcesInterface/HBoxContainer/TokensContainer" unique_id=1967345279]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0, 0, 0, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="ReasourcesInterface/HBoxContainer/TokensContainer"]
+[node name="Sprite2D" type="Sprite2D" parent="ReasourcesInterface/HBoxContainer/TokensContainer" unique_id=1196511151]
 position = Vector2(48, 48)
 scale = Vector2(4, 4)
 texture = ExtResource("7_rbqgs")
 
-[node name="MarginContainer" type="MarginContainer" parent="ReasourcesInterface/HBoxContainer/TokensContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ReasourcesInterface/HBoxContainer/TokensContainer" unique_id=1691569793]
 custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
 theme_override_constants/margin_left = 96
@@ -297,9 +296,11 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="Label" type="Label" parent="ReasourcesInterface/HBoxContainer/TokensContainer/MarginContainer"]
+[node name="Label" type="Label" parent="ReasourcesInterface/HBoxContainer/TokensContainer/MarginContainer" unique_id=1663919707]
 layout_mode = 2
 theme = SubResource("Theme_rm6d6")
 text = "PLUGS: 100"
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="DisplayManager" parent="." unique_id=482610885 instance=ExtResource("8_rm6d6")]

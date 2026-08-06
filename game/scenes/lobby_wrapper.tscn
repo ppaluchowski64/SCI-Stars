@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://d07mvyxdfoamc"]
+
+[ext_resource type="PackedScene" uid="uid://r73t4uwivu0e" path="res://scenes/lobby.tscn" id="1_53qhn"]
+[ext_resource type="Script" uid="uid://doosopq3hvm1r" path="res://scripts/lobby_wrapper.gd" id="1_j58mp"]
+[ext_resource type="Script" uid="uid://boo3snnojyj5i" path="res://scripts/display_boundary.gd" id="3_culur"]
+[ext_resource type="PackedScene" uid="uid://da43da3hmkrlt" path="res://scenes/display_manager.tscn" id="4_mvw0i"]
+
+[node name="LobbyWrapper" type="Node2D" unique_id=1821950669]
+script = ExtResource("1_j58mp")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1989618187]
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="LobbyViewport" type="SubViewport" parent="SubViewportContainer" unique_id=255211428]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="Lobby" parent="SubViewportContainer/LobbyViewport" unique_id=197225940 instance=ExtResource("1_53qhn")]
+
+[node name="DisplayBoundary" type="Node2D" parent="." unique_id=1075426140]
+script = ExtResource("3_culur")
+
+[node name="DisplayManager" parent="." unique_id=482610885 instance=ExtResource("4_mvw0i")]
+extended_viewport = true

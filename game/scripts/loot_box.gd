@@ -28,7 +28,7 @@ func _process(_delta: float) -> void:
 			
 			drop_n += 1
 		else:
-			get_tree().call_deferred("change_scene_to_file", "res://scenes/lobby.tscn")
+			get_tree().call_deferred("change_scene_to_file", "res://scenes/lobby_wrapper.tscn")
 	
 	if coins_tween:
 		coins_label.text = "COINS: " + str(int(display_coins))

@@ -21,7 +21,10 @@
 [ext_resource type="Script" uid="uid://ckbd6d7geipes" path="res://scripts/credits.gd" id="16_lqo1b"]
 [ext_resource type="Texture2D" uid="uid://dndsomadsvt8o" path="res://graphics/characters/kate/player.png" id="17_dfnwm"]
 [ext_resource type="Script" uid="uid://ctsosyerera0k" path="res://scripts/resolution.gd" id="18_o2i1r"]
+[ext_resource type="FontFile" uid="uid://c4c6e7lmco35a" path="res://fonts/teeny_tiny_pixls.fnt" id="21_wjff0"]
+[ext_resource type="Texture2D" uid="uid://dyhlsbaik76x7" path="res://graphics/UI/buttons/checkbox.png" id="22_iwi7x"]
 [ext_resource type="AudioStream" uid="uid://buy64psbbdlhn" path="res://audio/loops/lobby.wav" id="22_vwf6o"]
+[ext_resource type="Texture2D" uid="uid://6wdotxdbdlhp" path="res://graphics/UI/buttons/slider.png" id="24_h1rib"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sr4bl"]
 shader = ExtResource("7_1urcf")
@@ -44,23 +47,50 @@ default_font_size = 20
 default_font = ExtResource("4_358r0")
 default_font_size = 20
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lqo1b"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rgcd7"]
 shader = ExtResource("7_1urcf")
 shader_parameter/outline_color = Color(0, 0, 0, 1)
 shader_parameter/is_visible = true
 
-[sub_resource type="Theme" id="Theme_0gjkf"]
-default_font = ExtResource("4_358r0")
-default_font_size = 5
+[sub_resource type="Theme" id="Theme_lqo1b"]
+default_font = ExtResource("21_wjff0")
+default_font_size = 20
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o2i1r"]
-shader = ExtResource("7_1urcf")
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/is_visible = true
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1rib"]
+bg_color = Color(0.34509805, 0.3647059, 0.38431373, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_detail = 1
+expand_margin_top = 6.0
+expand_margin_bottom = 6.0
+anti_aliasing = false
 
-[sub_resource type="Theme" id="Theme_iulku"]
-default_font = ExtResource("4_358r0")
-default_font_size = 5
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f2bte"]
+bg_color = Color(0.11764706, 0.24313726, 0.38431373, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_detail = 1
+expand_margin_top = 6.0
+expand_margin_bottom = 6.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jhtcy"]
+bg_color = Color(0.11764706, 0.24313726, 0.38431373, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_detail = 1
+expand_margin_top = 6.0
+expand_margin_bottom = 6.0
+anti_aliasing = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dfnwm"]
 shader = ExtResource("7_1urcf")
@@ -71,14 +101,40 @@ shader_parameter/is_visible = true
 default_font = ExtResource("4_358r0")
 default_font_size = 5
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rgcd7"]
-shader = ExtResource("7_1urcf")
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/is_visible = true
+[sub_resource type="AtlasTexture" id="AtlasTexture_5do1i"]
+atlas = ExtResource("22_iwi7x")
+region = Rect2(24, 0, 24, 24)
 
-[sub_resource type="Theme" id="Theme_lqo1b"]
-default_font = ExtResource("4_358r0")
-default_font_size = 5
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjff0"]
+atlas = ExtResource("22_iwi7x")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kn4i6"]
+bg_color = Color(0.11764706, 0.24313726, 0.38431373, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_detail = 1
+expand_margin_top = 6.0
+expand_margin_bottom = 6.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3jc85"]
+content_margin_left = 12.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.34509805, 0.3647059, 0.38431373, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_detail = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h1rib"]
 
 [node name="Lobby" type="Node2D" unique_id=197225940]
 script = ExtResource("1_nn68e")
@@ -952,16 +1008,15 @@ grow_vertical = 2
 scale = Vector2(4, 4)
 texture = ExtResource("8_472nk")
 
-[node name="ButtonsContainer" type="VFlowContainer" parent="SettingsInterface" unique_id=1759013830]
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.235
-anchor_right = 0.5
-anchor_bottom = 0.765
-offset_left = -220.0
-offset_top = -0.280014
-offset_right = 220.0
-offset_bottom = 0.279968
+[node name="ButtonsContainer" type="FlowContainer" parent="SettingsInterface" unique_id=887938666]
+visible = false
+custom_maximum_size = Vector2(952, -1)
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -44.0
+offset_bottom = 44.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -1061,6 +1116,7 @@ text = "LANGUAGE"
 [node name="ButtonCredits" type="TextureButton" parent="SettingsInterface/ButtonsContainer" unique_id=2096119550 groups=["button"]]
 custom_minimum_size = Vector2(200, 88)
 layout_mode = 2
+action_mode = 0
 texture_normal = ExtResource("3_xb4sn")
 stretch_mode = 4
 
@@ -1080,99 +1136,89 @@ grow_vertical = 2
 theme = SubResource("Theme_6pyji")
 text = "CREDITS"
 
-[node name="VolumeContainer" type="Control" parent="SettingsInterface" unique_id=1400341514]
+[node name="VolumeContainer" type="VBoxContainer" parent="SettingsInterface" unique_id=1588330740]
 visible = false
 custom_minimum_size = Vector2(933, 427)
-layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_left = -466.5
+offset_top = -213.5
+offset_right = 466.5
+offset_bottom = 213.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+alignment = 1
 script = ExtResource("16_0gjkf")
 
-[node name="VolumeInfoContainer" type="Node2D" parent="SettingsInterface/VolumeContainer" unique_id=589291410]
-scale = Vector2(4, 4)
+[node name="MusicField" type="HBoxContainer" parent="SettingsInterface/VolumeContainer" unique_id=1169832532]
+custom_minimum_size = Vector2(264, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="VolumeLabel" type="Label" parent="SettingsInterface/VolumeContainer/VolumeInfoContainer" unique_id=1588678690]
-material = SubResource("ShaderMaterial_lqo1b")
-offset_left = 0.125
-offset_top = 7.375
-offset_right = 232.125
-offset_bottom = 13.375
-theme = SubResource("Theme_0gjkf")
-text = "- VOLUME -"
-horizontal_alignment = 1
-
-[node name="MusicLabel" type="Label" parent="SettingsInterface/VolumeContainer/VolumeInfoContainer" unique_id=771077169]
-material = SubResource("ShaderMaterial_lqo1b")
-offset_left = 0.25
-offset_top = 28.875
-offset_right = 232.25
-offset_bottom = 34.875
-theme = SubResource("Theme_0gjkf")
+[node name="NameLabel" type="Label" parent="SettingsInterface/VolumeContainer/MusicField" unique_id=838174317]
+material = SubResource("ShaderMaterial_rgcd7")
+layout_mode = 2
+theme = SubResource("Theme_lqo1b")
 text = "Music"
-horizontal_alignment = 1
 
-[node name="SFXLabel" type="Label" parent="SettingsInterface/VolumeContainer/VolumeInfoContainer" unique_id=597967731]
-material = SubResource("ShaderMaterial_lqo1b")
-offset_left = 0.625
-offset_top = 70.375
-offset_right = 232.625
-offset_bottom = 76.375
-theme = SubResource("Theme_0gjkf")
+[node name="HSlider" type="HSlider" parent="SettingsInterface/VolumeContainer/MusicField" unique_id=695241169]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_icons/grabber = ExtResource("24_h1rib")
+theme_override_icons/grabber_highlight = ExtResource("24_h1rib")
+theme_override_icons/grabber_disabled = ExtResource("24_h1rib")
+theme_override_styles/slider = SubResource("StyleBoxFlat_h1rib")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_f2bte")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_f2bte")
+scrollable = false
+
+[node name="ValueLabel" type="Label" parent="SettingsInterface/VolumeContainer/MusicField" unique_id=2080594956]
+material = SubResource("ShaderMaterial_rgcd7")
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(4, 0)
+theme = SubResource("Theme_lqo1b")
+text = "0%"
+
+[node name="SFXField" type="HBoxContainer" parent="SettingsInterface/VolumeContainer" unique_id=1585314545]
+custom_minimum_size = Vector2(264, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="NameLabel" type="Label" parent="SettingsInterface/VolumeContainer/SFXField" unique_id=1946261866]
+material = SubResource("ShaderMaterial_rgcd7")
+layout_mode = 2
+theme = SubResource("Theme_lqo1b")
 text = "SFX"
-horizontal_alignment = 1
 
-[node name="MusicSlider" type="Node2D" parent="SettingsInterface/VolumeContainer" unique_id=1098115151]
-scale = Vector2(2, 2)
+[node name="HSlider" type="HSlider" parent="SettingsInterface/VolumeContainer/SFXField" unique_id=1689558633]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_icons/grabber = ExtResource("24_h1rib")
+theme_override_icons/grabber_highlight = ExtResource("24_h1rib")
+theme_override_icons/grabber_disabled = ExtResource("24_h1rib")
+theme_override_styles/slider = SubResource("StyleBoxFlat_h1rib")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_jhtcy")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_jhtcy")
+scrollable = false
 
-[node name="VolumeSliderM" type="HSlider" parent="SettingsInterface/VolumeContainer/MusicSlider" unique_id=1851945722]
-offset_left = 148.25
-offset_top = 73.0
-offset_right = 308.25
-offset_bottom = 89.0
-value = 1.0
-
-[node name="MusicValue" type="Node2D" parent="SettingsInterface/VolumeContainer" unique_id=1698709279]
-scale = Vector2(4, 4)
-
-[node name="VolumeValue" type="Label" parent="SettingsInterface/VolumeContainer/MusicValue" unique_id=1151185478]
-material = SubResource("ShaderMaterial_o2i1r")
-offset_left = 0.625
-offset_top = 46.625
-offset_right = 232.625
-offset_bottom = 52.625
-theme = SubResource("Theme_iulku")
-text = "20%"
-horizontal_alignment = 1
-
-[node name="SFXSlider" type="Node2D" parent="SettingsInterface/VolumeContainer" unique_id=1820182271]
-position = Vector2(0, 130)
-scale = Vector2(2, 2)
-
-[node name="VolumeSliderS" type="HSlider" parent="SettingsInterface/VolumeContainer/SFXSlider" unique_id=1114996752]
-offset_left = 148.0
-offset_top = 90.0
-offset_right = 308.0
-offset_bottom = 106.0
-value = 1.0
-
-[node name="SFXValue" type="Node2D" parent="SettingsInterface/VolumeContainer" unique_id=1610942343]
-position = Vector2(0, 130)
-scale = Vector2(4, 4)
-
-[node name="VolumeValue" type="Label" parent="SettingsInterface/VolumeContainer/SFXValue" unique_id=828165447]
-material = SubResource("ShaderMaterial_o2i1r")
-offset_left = 0.625
-offset_top = 55.875
-offset_right = 232.625
-offset_bottom = 61.875
-theme = SubResource("Theme_iulku")
-text = "20%"
-horizontal_alignment = 1
+[node name="ValueLabel" type="Label" parent="SettingsInterface/VolumeContainer/SFXField" unique_id=563850745]
+material = SubResource("ShaderMaterial_rgcd7")
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(4, 0)
+theme = SubResource("Theme_lqo1b")
+text = "0%"
 
 [node name="LanguageContainer" type="Control" parent="SettingsInterface" unique_id=1706372826]
 visible = false
@@ -1208,40 +1254,33 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="CreditsContainer" type="MarginContainer" parent="SettingsInterface" unique_id=1775109608]
+[node name="CreditsContainer" type="Control" parent="SettingsInterface" unique_id=1341226360]
 visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 120
-theme_override_constants/margin_top = 120
-theme_override_constants/margin_right = 120
-theme_override_constants/margin_bottom = 120
-
-[node name="Control" type="Control" parent="SettingsInterface/CreditsContainer" unique_id=1368425943]
+custom_minimum_size = Vector2(928, 424)
 clip_contents = true
-layout_mode = 2
-
-[node name="LabelParent" type="Node2D" parent="SettingsInterface/CreditsContainer/Control" unique_id=1238787205]
-position = Vector2(-60, -60)
-scale = Vector2(4, 4)
-script = ExtResource("16_lqo1b")
-
-[node name="Label" type="Label" parent="SettingsInterface/CreditsContainer/Control/LabelParent" unique_id=649077591]
-material = SubResource("ShaderMaterial_rgcd7")
+layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_right = 80.49
-offset_bottom = 420.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="SettingsInterface/CreditsContainer" unique_id=649077591]
+material = SubResource("ShaderMaterial_rgcd7")
+custom_minimum_size = Vector2(1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(0, 0.5)
 theme = SubResource("Theme_lqo1b")
+theme_override_constants/line_spacing = 32
 text = "- CREDITS -
 
 Programmers: Lelek and Pablo
@@ -1254,7 +1293,7 @@ Font: Chequered Ink and Eishiya
 SFX software: Bfxr
 
 Project mentor: Jackflower
-Game engine: Godot 4.4.1
+Game engine: Godot 4.4.1-4.7.1
 
 - SPECIAL THANKS -
 
@@ -1263,6 +1302,7 @@ Thanks to Supercell for making the game Brawl Stars which inspired the whole pro
 Made for SCI++ contest"
 horizontal_alignment = 1
 autowrap_mode = 3
+script = ExtResource("16_lqo1b")
 metadata/_edit_use_anchors_ = true
 
 [node name="ResolutionContainer" type="VBoxContainer" parent="SettingsInterface" unique_id=2099352450]
@@ -1277,29 +1317,26 @@ mouse_filter = 2
 alignment = 1
 script = ExtResource("18_o2i1r")
 
-[node name="FullscreenField" type="Control" parent="SettingsInterface/ResolutionContainer" unique_id=358042268]
+[node name="FullscreenField" type="HBoxContainer" parent="SettingsInterface/ResolutionContainer" unique_id=731059939]
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="CheckBox" type="CheckBox" parent="SettingsInterface/ResolutionContainer/FullscreenField" unique_id=1783368706 groups=["button"]]
-layout_mode = 0
-offset_left = 169.0
-offset_right = 193.0
-offset_bottom = 24.0
-
-[node name="LabelParent" type="Node2D" parent="SettingsInterface/ResolutionContainer/FullscreenField" unique_id=1819535560]
-scale = Vector2(4, 4)
-
-[node name="Label" type="Label" parent="SettingsInterface/ResolutionContainer/FullscreenField/LabelParent" unique_id=1891750909]
+[node name="Label" type="Label" parent="SettingsInterface/ResolutionContainer/FullscreenField" unique_id=1891750909]
 material = SubResource("ShaderMaterial_rgcd7")
-offset_right = 40.0
-offset_bottom = 6.0
+layout_mode = 2
 theme = SubResource("Theme_lqo1b")
 text = "Fullscreen"
 
+[node name="CheckBox" type="CheckBox" parent="SettingsInterface/ResolutionContainer/FullscreenField" unique_id=1783368706 groups=["button"]]
+layout_mode = 2
+focus_mode = 0
+theme_override_icons/checked = SubResource("AtlasTexture_5do1i")
+theme_override_icons/unchecked = SubResource("AtlasTexture_wjff0")
+
 [node name="RatioField" type="Control" parent="SettingsInterface/ResolutionContainer" unique_id=183402526]
+visible = false
 custom_minimum_size = Vector2(320, 60)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -1323,93 +1360,78 @@ popup/item_3/id = 3
 popup/item_4/text = "5:3"
 popup/item_4/id = 4
 
-[node name="LabelParent" type="Node2D" parent="SettingsInterface/ResolutionContainer/RatioField" unique_id=1154220214]
-scale = Vector2(4, 4)
-
-[node name="Label" type="Label" parent="SettingsInterface/ResolutionContainer/RatioField/LabelParent" unique_id=618290472]
+[node name="Label" type="Label" parent="SettingsInterface/ResolutionContainer/RatioField" unique_id=618290472]
 material = SubResource("ShaderMaterial_rgcd7")
-offset_right = 40.0
-offset_bottom = 6.0
+layout_mode = 0
+offset_right = 192.0
+offset_bottom = 24.0
 theme = SubResource("Theme_lqo1b")
 text = "Aspect ratio"
 
-[node name="ScaleField" type="Control" parent="SettingsInterface/ResolutionContainer" unique_id=1071194401]
+[node name="ScaleField" type="HBoxContainer" parent="SettingsInterface/ResolutionContainer" unique_id=1455993787]
 custom_minimum_size = Vector2(264, 60)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
+[node name="Label" type="Label" parent="SettingsInterface/ResolutionContainer/ScaleField" unique_id=602275482]
+material = SubResource("ShaderMaterial_rgcd7")
+layout_mode = 2
+theme = SubResource("Theme_lqo1b")
+text = "Scale"
+
 [node name="HSlider" type="HSlider" parent="SettingsInterface/ResolutionContainer/ScaleField" unique_id=1351899923]
-layout_mode = 0
-offset_left = 98.0
-offset_right = 253.0
-offset_bottom = 16.0
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_icons/grabber = ExtResource("24_h1rib")
+theme_override_icons/grabber_highlight = ExtResource("24_h1rib")
+theme_override_icons/grabber_disabled = ExtResource("24_h1rib")
+theme_override_styles/slider = SubResource("StyleBoxFlat_h1rib")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_kn4i6")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_kn4i6")
 min_value = 1.0
 max_value = 2.5
 step = 0.01
 value = 1.5
+editable = false
+scrollable = false
 
-[node name="LabelParent" type="Node2D" parent="SettingsInterface/ResolutionContainer/ScaleField" unique_id=217765928]
-scale = Vector2(4, 4)
-
-[node name="Label" type="Label" parent="SettingsInterface/ResolutionContainer/ScaleField/LabelParent" unique_id=602275482]
-material = SubResource("ShaderMaterial_rgcd7")
-offset_right = 40.0
-offset_bottom = 6.0
-theme = SubResource("Theme_lqo1b")
-text = "Scale"
-
-[node name="NicknameContainer" type="Control" parent="SettingsInterface" unique_id=242334280]
+[node name="NicknameContainer" type="VBoxContainer" parent="SettingsInterface" unique_id=631388278]
 visible = false
-layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+alignment = 1
 
-[node name="NicknameField" type="Control" parent="SettingsInterface/NicknameContainer" unique_id=398691237]
+[node name="NicknameField" type="HBoxContainer" parent="SettingsInterface/NicknameContainer" unique_id=1635636255]
 custom_minimum_size = Vector2(200, 60)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -30.0
-offset_right = 100.0
-offset_bottom = 30.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_constants/separation = 8
 
-[node name="LabelParent" type="Node2D" parent="SettingsInterface/NicknameContainer/NicknameField" unique_id=1534207051]
-scale = Vector2(4, 4)
-
-[node name="Label" type="Label" parent="SettingsInterface/NicknameContainer/NicknameField/LabelParent" unique_id=1029899752]
+[node name="Label" type="Label" parent="SettingsInterface/NicknameContainer/NicknameField" unique_id=1029899752]
 material = SubResource("ShaderMaterial_rgcd7")
-offset_left = -37.0
-offset_top = 0.75
-offset_right = 35.0
-offset_bottom = 6.75
+layout_mode = 2
 theme = SubResource("Theme_lqo1b")
 text = "Displayed nickname"
 
 [node name="LineEdit" type="LineEdit" parent="SettingsInterface/NicknameContainer/NicknameField" unique_id=1116642868]
-layout_mode = 0
-offset_left = 152.0
-offset_top = -3.0
-offset_right = 326.0
-offset_bottom = 34.0
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_vertical = 4
+theme = SubResource("Theme_lqo1b")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3jc85")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_h1rib")
 text = "Player"
 max_length = 10
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2113307232]
 stream = ExtResource("22_vwf6o")
-autoplay = true
 bus = &"Music"
 
 [connection signal="button_down" from="UserInterface/MarginContainer/PlayContainer/ButtonChangeMode" to="." method="_on_button_change_mode_button_down"]
@@ -1429,11 +1451,13 @@ bus = &"Music"
 [connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonControls" to="." method="_on_button_controls_button_down"]
 [connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonVolume" to="." method="_on_button_volume_button_down"]
 [connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonLanguage" to="." method="_on_button_language_button_down"]
-[connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonCredits" to="." method="_on_button_credits_button_down"]
-[connection signal="button_down" from="SettingsInterface/ButtonsContainer/ButtonCredits" to="SettingsInterface/CreditsContainer/Control/LabelParent" method="_on_button_credits_button_down"]
-[connection signal="value_changed" from="SettingsInterface/VolumeContainer/MusicSlider/VolumeSliderM" to="SettingsInterface/VolumeContainer" method="_on_volume_slider_m_value_changed"]
-[connection signal="value_changed" from="SettingsInterface/VolumeContainer/SFXSlider/VolumeSliderS" to="SettingsInterface/VolumeContainer" method="_on_volume_slider_s_value_changed"]
+[connection signal="pressed" from="SettingsInterface/ButtonsContainer/ButtonCredits" to="." method="_on_button_credits_pressed"]
+[connection signal="pressed" from="SettingsInterface/ButtonsContainer/ButtonCredits" to="SettingsInterface/CreditsContainer/Label" method="_on_button_credits_pressed"]
+[connection signal="value_changed" from="SettingsInterface/VolumeContainer/MusicField/HSlider" to="SettingsInterface/VolumeContainer" method="_on_volume_slider_m_value_changed"]
+[connection signal="value_changed" from="SettingsInterface/VolumeContainer/SFXField/HSlider" to="SettingsInterface/VolumeContainer" method="_on_volume_slider_s_value_changed"]
 [connection signal="toggled" from="SettingsInterface/ResolutionContainer/FullscreenField/CheckBox" to="SettingsInterface/ResolutionContainer" method="_on_check_box_toggled"]
 [connection signal="item_selected" from="SettingsInterface/ResolutionContainer/RatioField/OptionButton" to="SettingsInterface/ResolutionContainer" method="_on_option_button_item_selected"]
 [connection signal="drag_ended" from="SettingsInterface/ResolutionContainer/ScaleField/HSlider" to="SettingsInterface/ResolutionContainer" method="_on_h_slider_drag_ended"]
+[connection signal="drag_started" from="SettingsInterface/ResolutionContainer/ScaleField/HSlider" to="SettingsInterface/ResolutionContainer" method="_on_h_slider_drag_started"]
+[connection signal="value_changed" from="SettingsInterface/ResolutionContainer/ScaleField/HSlider" to="SettingsInterface/ResolutionContainer" method="_on_h_slider_value_changed"]
 [connection signal="text_changed" from="SettingsInterface/NicknameContainer/NicknameField/LineEdit" to="." method="_on_line_edit_text_changed"]

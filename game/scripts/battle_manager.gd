@@ -147,4 +147,4 @@ func _ready() -> void:
 func _on_button_proceed_button_down() -> void:
 	PlayerJoin.tcp.disconnect_from_host()
 	RemoteInputHandler.connected = false
-	get_tree().call_deferred("change_scene_to_file", "res://scenes/lobby.tscn")
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/lobby_wrapper.tscn")

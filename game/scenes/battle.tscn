@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=4 uid="uid://db56006rlw6nc"]
+[gd_scene format=4 uid="uid://db56006rlw6nc"]
 
 [ext_resource type="Script" uid="uid://cv6524wyxtia0" path="res://scripts/battle_manager.gd" id="1_f75g0"]
 [ext_resource type="Texture2D" uid="uid://cbrr264nsjo3k" path="res://graphics/environment/wall.png" id="2_uqhyb"]
@@ -17,6 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://7amen2sunkva" path="res://audio/loops/battle.wav" id="14_6ni85"]
 [ext_resource type="AudioStream" uid="uid://d3gxa0xsasbc2" path="res://audio/SFX/countdown.wav" id="14_vceff"]
 [ext_resource type="AudioStream" uid="uid://dixps22ag0d3m" path="res://audio/SFX/go.wav" id="15_ekamt"]
+[ext_resource type="PackedScene" uid="uid://da43da3hmkrlt" path="res://scenes/display_manager.tscn" id="18_h4dll"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qfrj4"]
 texture = ExtResource("4_1ls1x")
@@ -575,73 +576,73 @@ _data = {
 &"countdown": SubResource("Animation_v7i3o")
 }
 
-[node name="Battle" type="Node2D"]
+[node name="Battle" type="Node2D" unique_id=1289564402]
 script = ExtResource("1_f75g0")
 
-[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("players") groups=["camera"]]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=384396953 node_paths=PackedStringArray("players") groups=["camera"]]
 script = ExtResource("3_m8bpv")
 players = NodePath("../Players")
 
-[node name="AudioListener2D" type="AudioListener2D" parent="Camera2D"]
+[node name="AudioListener2D" type="AudioListener2D" parent="Camera2D" unique_id=1144937735]
 current = true
 
-[node name="Environment" type="Node2D" parent="."]
+[node name="Environment" type="Node2D" parent="." unique_id=2026848396]
 
-[node name="Ground" type="TileMapLayer" parent="Environment"]
+[node name="Ground" type="TileMapLayer" parent="Environment" unique_id=1004569848]
 z_index = -2
 scale = Vector2(4, 4)
 tile_map_data = PackedByteArray("AAD/////AAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAD//wAAAAAAAAAAAAD+//7/AAAAAAAAAAD+////AAAAAAAAAAD+/wAAAAAAAAAAAAD+/wEAAAAAAAAAAAD///7/AAAAAAAAAAD//wEAAAAAAAAAAAAAAP7/AAAAAAAAAAAAAAEAAAAAAAAAAAABAP7/AAAAAAAAAAABAP//AAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAAAAAAAAAAD9//3/AAAAAAAAAAD9//7/AAAAAAAAAAD9////AAAAAAAAAAD9/wAAAAAAAAAAAAD9/wEAAAAAAAAAAAD9/wIAAAAAAAAAAAD+//3/AAAAAAAAAAD+/wIAAAAAAAAAAAD///3/AAAAAAAAAAD//wIAAAAAAAAAAAAAAP3/AAAAAAAAAAAAAAIAAAAAAAAAAAABAP3/AAAAAAAAAAABAAIAAAAAAAAAAAACAP3/AAAAAAAAAAACAP7/AAAAAAAAAAACAP//AAAAAAAAAAACAAAAAAAAAAAAAAACAAEAAAAAAAAAAAACAAIAAAAAAAAAAAD8//z/AAAAAAAAAAD8//3/AAAAAAAAAAD8//7/AAAAAAAAAAD8////AAAAAAAAAAD8/wAAAAAAAAAAAAD8/wEAAAAAAAAAAAD8/wIAAAAAAAAAAAD8/wMAAAAAAAAAAAD9//z/AAAAAAAAAAD9/wMAAAAAAAAAAAD+//z/AAAAAAAAAAD+/wMAAAAAAAAAAAD///z/AAAAAAAAAAD//wMAAAAAAAAAAAAAAPz/AAAAAAAAAAAAAAMAAAAAAAAAAAABAPz/AAAAAAAAAAABAAMAAAAAAAAAAAACAPz/AAAAAAAAAAACAAMAAAAAAAAAAAADAPz/AAAAAAAAAAADAP3/AAAAAAAAAAADAP7/AAAAAAAAAAADAP//AAAAAAAAAAADAAAAAAAAAAAAAAADAAEAAAAAAAAAAAADAAIAAAAAAAAAAAADAAMAAAAAAAAAAAD7//v/AAAAAAAAAAD7//z/AAAAAAAAAAD7//3/AAAAAAAAAAD7//7/AAAAAAAAAAD7////AAAAAAAAAAD7/wAAAAAAAAAAAAD7/wEAAAAAAAAAAAD7/wIAAAAAAAAAAAD7/wMAAAAAAAAAAAD7/wQAAAAAAAAAAAD8//v/AAAAAAAAAAD8/wQAAAAAAAAAAAD9//v/AAAAAAAAAAD9/wQAAAAAAAAAAAD+//v/AAAAAAAAAAD+/wQAAAAAAAAAAAD///v/AAAAAAAAAAD//wQAAAAAAAAAAAAAAPv/AAAAAAAAAAAAAAQAAAAAAAAAAAABAPv/AAAAAAAAAAABAAQAAAAAAAAAAAACAPv/AAAAAAAAAAACAAQAAAAAAAAAAAADAPv/AAAAAAAAAAADAAQAAAAAAAAAAAAEAPv/AAAAAAAAAAAEAPz/AAAAAAAAAAAEAP3/AAAAAAAAAAAEAP7/AAAAAAAAAAAEAP//AAAAAAAAAAAEAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAQAAAAAAAAAAAD6//r/AAAAAAAAAAD6//v/AAAAAAAAAAD6//z/AAAAAAAAAAD6//3/AAAAAAAAAAD6//7/AAAAAAAAAAD6////AAAAAAAAAAD6/wAAAAAAAAAAAAD6/wEAAAAAAAAAAAD6/wIAAAAAAAAAAAD6/wMAAAAAAAAAAAD6/wQAAAAAAAAAAAD6/wUAAAAAAAAAAAD7//r/AAAAAAAAAAD7/wUAAAAAAAAAAAD8//r/AAAAAAAAAAD8/wUAAAAAAAAAAAD9//r/AAAAAAAAAAD9/wUAAAAAAAAAAAD+//r/AAAAAAAAAAD+/wUAAAAAAAAAAAD///r/AAAAAAAAAAD//wUAAAAAAAAAAAAAAPr/AAAAAAAAAAAAAAUAAAAAAAAAAAABAPr/AAAAAAAAAAABAAUAAAAAAAAAAAACAPr/AAAAAAAAAAACAAUAAAAAAAAAAAADAPr/AAAAAAAAAAADAAUAAAAAAAAAAAAEAPr/AAAAAAAAAAAEAAUAAAAAAAAAAAAFAPr/AAAAAAAAAAAFAPv/AAAAAAAAAAAFAPz/AAAAAAAAAAAFAP3/AAAAAAAAAAAFAP7/AAAAAAAAAAAFAP//AAAAAAAAAAAFAAAAAAAAAAAAAAAFAAEAAAAAAAAAAAAFAAIAAAAAAAAAAAAFAAMAAAAAAAAAAAAFAAQAAAAAAAAAAAAFAAUAAAAAAAAAAAD5//n/AAAAAAAAAAD5//r/AAAAAAAAAAD5//v/AAAAAAAAAAD5//z/AAAAAAAAAAD5//3/AAAAAAAAAAD5//7/AAAAAAAAAAD5////AAAAAAAAAAD5/wAAAAAAAAAAAAD5/wEAAAAAAAAAAAD5/wIAAAAAAAAAAAD5/wMAAAAAAAAAAAD5/wQAAAAAAAAAAAD5/wUAAAAAAAAAAAD5/wYAAAAAAAAAAAD6//n/AAAAAAAAAAD6/wYAAAAAAAAAAAD7//n/AAAAAAAAAAD7/wYAAAAAAAAAAAD8//n/AAAAAAAAAAD8/wYAAAAAAAAAAAD9//n/AAAAAAAAAAD9/wYAAAAAAAAAAAD+//n/AAAAAAAAAAD+/wYAAAAAAAAAAAD///n/AAAAAAAAAAD//wYAAAAAAAAAAAAAAPn/AAAAAAAAAAAAAAYAAAAAAAAAAAABAPn/AAAAAAAAAAABAAYAAAAAAAAAAAACAPn/AAAAAAAAAAACAAYAAAAAAAAAAAADAPn/AAAAAAAAAAADAAYAAAAAAAAAAAAEAPn/AAAAAAAAAAAEAAYAAAAAAAAAAAAFAPn/AAAAAAAAAAAFAAYAAAAAAAAAAAAGAPn/AAAAAAAAAAAGAPr/AAAAAAAAAAAGAPv/AAAAAAAAAAAGAPz/AAAAAAAAAAAGAP3/AAAAAAAAAAAGAP7/AAAAAAAAAAAGAP//AAAAAAAAAAAGAAAAAAAAAAAAAAAGAAEAAAAAAAAAAAAGAAIAAAAAAAAAAAAGAAMAAAAAAAAAAAAGAAQAAAAAAAAAAAAGAAUAAAAAAAAAAAAGAAYAAAAAAAAAAAD4//j/AAAAAAAAAAD4//n/AAAAAAAAAAD4//r/AAAAAAAAAAD4//v/AAAAAAAAAAD4//z/AAAAAAAAAAD4//3/AAAAAAAAAAD4//7/AAAAAAAAAAD4////AAAAAAAAAAD4/wAAAAAAAAAAAAD4/wEAAAAAAAAAAAD4/wIAAAAAAAAAAAD4/wMAAAAAAAAAAAD4/wQAAAAAAAAAAAD4/wUAAAAAAAAAAAD4/wYAAAAAAAAAAAD4/wcAAAAAAAAAAAD5//j/AAAAAAAAAAD5/wcAAAAAAAAAAAD6//j/AAAAAAAAAAD6/wcAAAAAAAAAAAD7//j/AAAAAAAAAAD7/wcAAAAAAAAAAAD8//j/AAAAAAAAAAD8/wcAAAAAAAAAAAD9//j/AAAAAAAAAAD9/wcAAAAAAAAAAAD+//j/AAAAAAAAAAD+/wcAAAAAAAAAAAD///j/AAAAAAAAAAD//wcAAAAAAAAAAAAAAPj/AAAAAAAAAAAAAAcAAAAAAAAAAAABAPj/AAAAAAAAAAABAAcAAAAAAAAAAAACAPj/AAAAAAAAAAACAAcAAAAAAAAAAAADAPj/AAAAAAAAAAADAAcAAAAAAAAAAAAEAPj/AAAAAAAAAAAEAAcAAAAAAAAAAAAFAPj/AAAAAAAAAAAFAAcAAAAAAAAAAAAGAPj/AAAAAAAAAAAGAAcAAAAAAAAAAAAHAPj/AAAAAAAAAAAHAPn/AAAAAAAAAAAHAPr/AAAAAAAAAAAHAPv/AAAAAAAAAAAHAPz/AAAAAAAAAAAHAP3/AAAAAAAAAAAHAP7/AAAAAAAAAAAHAP//AAAAAAAAAAAHAAAAAAAAAAAAAAAHAAEAAAAAAAAAAAAHAAIAAAAAAAAAAAAHAAMAAAAAAAAAAAAHAAQAAAAAAAAAAAAHAAUAAAAAAAAAAAAHAAYAAAAAAAAAAAAHAAcAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_bj48v")
 
-[node name="Walls" type="TileMapLayer" parent="Environment" groups=["obstacle"]]
+[node name="Walls" type="TileMapLayer" parent="Environment" unique_id=2021125879 groups=["obstacle"]]
 z_index = -1
 scale = Vector2(4, 4)
 tile_map_data = PackedByteArray("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")
 tile_set = SubResource("TileSet_82aoe")
 
-[node name="PowerPods" type="Node2D" parent="Environment"]
+[node name="PowerPods" type="Node2D" parent="Environment" unique_id=609142534]
 z_index = -1
 
-[node name="PowerPod1" parent="Environment/PowerPods" instance=ExtResource("6_22uqi")]
+[node name="PowerPod1" parent="Environment/PowerPods" unique_id=1634513413 instance=ExtResource("6_22uqi")]
 position = Vector2(384, -398)
 
-[node name="PowerPod2" parent="Environment/PowerPods" instance=ExtResource("6_22uqi")]
+[node name="PowerPod2" parent="Environment/PowerPods" unique_id=866029747 instance=ExtResource("6_22uqi")]
 position = Vector2(384, 398)
 
-[node name="PowerPod3" parent="Environment/PowerPods" instance=ExtResource("6_22uqi")]
+[node name="PowerPod3" parent="Environment/PowerPods" unique_id=921473676 instance=ExtResource("6_22uqi")]
 position = Vector2(-384, 398)
 
-[node name="PowerPod4" parent="Environment/PowerPods" instance=ExtResource("6_22uqi")]
+[node name="PowerPod4" parent="Environment/PowerPods" unique_id=2067076505 instance=ExtResource("6_22uqi")]
 position = Vector2(-384, -398)
 
-[node name="Players" type="Node2D" parent="." groups=["players"]]
+[node name="Players" type="Node2D" parent="." unique_id=2011601471 groups=["players"]]
 
-[node name="FX" type="Node2D" parent="."]
+[node name="FX" type="Node2D" parent="." unique_id=1399839867]
 
-[node name="WorldBorder" type="StaticBody2D" parent="."]
+[node name="WorldBorder" type="StaticBody2D" parent="." unique_id=69613444]
 collision_layer = 3
 collision_mask = 3
 
-[node name="Top" type="CollisionShape2D" parent="WorldBorder"]
+[node name="Top" type="CollisionShape2D" parent="WorldBorder" unique_id=148969951]
 shape = SubResource("WorldBoundaryShape2D_v7i3o")
 
-[node name="Right" type="CollisionShape2D" parent="WorldBorder"]
+[node name="Right" type="CollisionShape2D" parent="WorldBorder" unique_id=1040950326]
 shape = SubResource("WorldBoundaryShape2D_66ngm")
 
-[node name="Bottom" type="CollisionShape2D" parent="WorldBorder"]
+[node name="Bottom" type="CollisionShape2D" parent="WorldBorder" unique_id=1982024150]
 shape = SubResource("WorldBoundaryShape2D_03edq")
 
-[node name="Left" type="CollisionShape2D" parent="WorldBorder"]
+[node name="Left" type="CollisionShape2D" parent="WorldBorder" unique_id=1028997755]
 shape = SubResource("WorldBoundaryShape2D_22uqi")
 
-[node name="UserInterface" type="CanvasLayer" parent="." node_paths=PackedStringArray("players")]
+[node name="UserInterface" type="CanvasLayer" parent="." unique_id=1666708791 node_paths=PackedStringArray("players")]
 script = ExtResource("4_4e2gx")
 players = NodePath("../Players")
 
-[node name="PlayerCount" type="Node2D" parent="UserInterface"]
+[node name="PlayerCount" type="Node2D" parent="UserInterface" unique_id=1295274173]
 scale = Vector2(4, 4)
 
-[node name="Label" type="Label" parent="UserInterface/PlayerCount"]
+[node name="Label" type="Label" parent="UserInterface/PlayerCount" unique_id=2127674912]
 material = SubResource("ShaderMaterial_bs0a1")
 offset_left = 12.0
 offset_top = 12.0
@@ -651,7 +652,7 @@ theme = SubResource("Theme_yve2r")
 text = "Players left: 8"
 metadata/_edit_use_anchors_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="UserInterface"]
+[node name="MarginContainer" type="MarginContainer" parent="UserInterface" unique_id=951669104]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -660,16 +661,16 @@ grow_vertical = 2
 theme_override_constants/margin_right = 200
 theme_override_constants/margin_bottom = 100
 
-[node name="SuperBar" type="Control" parent="UserInterface/MarginContainer"]
+[node name="SuperBar" type="Control" parent="UserInterface/MarginContainer" unique_id=457468273]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 
-[node name="Mask" type="Sprite2D" parent="UserInterface/MarginContainer/SuperBar"]
+[node name="Mask" type="Sprite2D" parent="UserInterface/MarginContainer/SuperBar" unique_id=1473914529]
 clip_children = 1
 texture = ExtResource("7_ilcqo")
 
-[node name="ColorRect" type="ColorRect" parent="UserInterface/MarginContainer/SuperBar/Mask"]
+[node name="ColorRect" type="ColorRect" parent="UserInterface/MarginContainer/SuperBar/Mask" unique_id=1985821175]
 clip_children = 2
 offset_left = -112.0
 offset_top = -32.0
@@ -678,17 +679,17 @@ offset_bottom = 32.0
 color = Color(0.8859, 0.9, 0.477, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="Frame" type="Sprite2D" parent="UserInterface/MarginContainer/SuperBar"]
+[node name="Frame" type="Sprite2D" parent="UserInterface/MarginContainer/SuperBar" unique_id=1190484013]
 scale = Vector2(8, 8)
 texture = ExtResource("7_ujvli")
 
-[node name="Icon" type="Sprite2D" parent="UserInterface/MarginContainer/SuperBar"]
+[node name="Icon" type="Sprite2D" parent="UserInterface/MarginContainer/SuperBar" unique_id=388897695]
 position = Vector2(56, -28)
 scale = Vector2(8, 8)
 texture = ExtResource("10_66ngm")
 region_rect = Rect2(0, 0, 10, 11)
 
-[node name="ParticleMask" type="ColorRect" parent="UserInterface/MarginContainer/SuperBar"]
+[node name="ParticleMask" type="ColorRect" parent="UserInterface/MarginContainer/SuperBar" unique_id=574509413]
 clip_children = 1
 layout_mode = 0
 offset_left = -152.0
@@ -696,7 +697,7 @@ offset_top = -72.0
 offset_right = 152.0
 offset_bottom = 72.0
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="UserInterface/MarginContainer/SuperBar/ParticleMask"]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="UserInterface/MarginContainer/SuperBar/ParticleMask" unique_id=486194669]
 position = Vector2(0, 72)
 emitting = false
 amount = 64
@@ -715,12 +716,10 @@ scale_amount_curve = SubResource("Curve_v7i3o")
 color = Color(0.886275, 0.901961, 0.478431, 1)
 color_ramp = SubResource("Gradient_66ngm")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="UserInterface"]
-libraries = {
-&"": SubResource("AnimationLibrary_6ni85")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UserInterface" unique_id=1080067648]
+libraries/ = SubResource("AnimationLibrary_6ni85")
 
-[node name="MoveJoystick" parent="UserInterface" instance=ExtResource("13_djc8l")]
+[node name="MoveJoystick" parent="UserInterface" unique_id=1866569993 instance=ExtResource("13_djc8l")]
 modulate = Color(1, 1, 1, 0.5)
 joystick_mode = 2
 visibility_mode = 1
@@ -729,7 +728,7 @@ action_right = "right"
 action_up = "up"
 action_down = "down"
 
-[node name="AttackJoystick" parent="UserInterface" groups=["attack_joystick"] instance=ExtResource("13_djc8l")]
+[node name="AttackJoystick" parent="UserInterface" unique_id=871558250 groups=["attack_joystick"] instance=ExtResource("13_djc8l")]
 modulate = Color(1, 1, 1, 0.5)
 anchors_preset = 3
 anchor_left = 1.0
@@ -742,10 +741,10 @@ grow_horizontal = 0
 joystick_mode = 2
 visibility_mode = 1
 
-[node name="EndScreen" type="CanvasLayer" parent="."]
+[node name="EndScreen" type="CanvasLayer" parent="." unique_id=1707616688]
 visible = false
 
-[node name="ButtonParent" type="Control" parent="EndScreen"]
+[node name="ButtonParent" type="Control" parent="EndScreen" unique_id=337781029]
 layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
@@ -754,10 +753,10 @@ grow_horizontal = 0
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
-[node name="OffsetNode" type="Node2D" parent="EndScreen/ButtonParent"]
+[node name="OffsetNode" type="Node2D" parent="EndScreen/ButtonParent" unique_id=1117614532]
 position = Vector2(256, 48)
 
-[node name="ButtonProceed" type="TextureButton" parent="EndScreen/ButtonParent/OffsetNode" groups=["button"]]
+[node name="ButtonProceed" type="TextureButton" parent="EndScreen/ButtonParent/OffsetNode" unique_id=156042653 groups=["button"]]
 custom_minimum_size = Vector2(192, 88)
 anchors_preset = 1
 anchor_left = 1.0
@@ -771,7 +770,7 @@ size_flags_vertical = 4
 texture_normal = ExtResource("10_5ilfr")
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="EndScreen/ButtonParent/OffsetNode/ButtonProceed"]
+[node name="Label" type="Label" parent="EndScreen/ButtonParent/OffsetNode/ButtonProceed" unique_id=677854560]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -787,7 +786,7 @@ grow_vertical = 2
 theme = SubResource("Theme_eiykf")
 text = "PROCEED"
 
-[node name="ColorRect" type="ColorRect" parent="EndScreen"]
+[node name="ColorRect" type="ColorRect" parent="EndScreen" unique_id=1705905265]
 custom_minimum_size = Vector2(240, 360)
 anchors_preset = 4
 anchor_top = 0.5
@@ -801,11 +800,11 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 color = Color(0, 0, 0, 0.5)
 
-[node name="Rank" type="Node2D" parent="EndScreen/ColorRect"]
+[node name="Rank" type="Node2D" parent="EndScreen/ColorRect" unique_id=1460002393]
 position = Vector2(24, 24)
 scale = Vector2(4, 4)
 
-[node name="Label" type="Label" parent="EndScreen/ColorRect/Rank"]
+[node name="Label" type="Label" parent="EndScreen/ColorRect/Rank" unique_id=186591354]
 material = SubResource("ShaderMaterial_bs0a1")
 offset_right = 28.0
 offset_bottom = 6.0
@@ -815,11 +814,11 @@ theme = SubResource("Theme_yve2r")
 text = "Rank: -"
 metadata/_edit_use_anchors_ = true
 
-[node name="Kills" type="Node2D" parent="EndScreen/ColorRect"]
+[node name="Kills" type="Node2D" parent="EndScreen/ColorRect" unique_id=2003547188]
 position = Vector2(24, 80)
 scale = Vector2(4, 4)
 
-[node name="Label" type="Label" parent="EndScreen/ColorRect/Kills"]
+[node name="Label" type="Label" parent="EndScreen/ColorRect/Kills" unique_id=713971636]
 material = SubResource("ShaderMaterial_bs0a1")
 offset_right = 28.0
 offset_bottom = 6.0
@@ -829,11 +828,11 @@ theme = SubResource("Theme_yve2r")
 text = "Kills: -"
 metadata/_edit_use_anchors_ = true
 
-[node name="Bonus" type="Node2D" parent="EndScreen/ColorRect"]
+[node name="Bonus" type="Node2D" parent="EndScreen/ColorRect" unique_id=1869145632]
 position = Vector2(24, 136)
 scale = Vector2(4, 4)
 
-[node name="Label" type="Label" parent="EndScreen/ColorRect/Bonus"]
+[node name="Label" type="Label" parent="EndScreen/ColorRect/Bonus" unique_id=1384390017]
 material = SubResource("ShaderMaterial_bs0a1")
 offset_right = 28.0
 offset_bottom = 6.0
@@ -844,11 +843,11 @@ text = "Top placement
 bonus: -"
 metadata/_edit_use_anchors_ = true
 
-[node name="Tokens" type="Node2D" parent="EndScreen/ColorRect"]
+[node name="Tokens" type="Node2D" parent="EndScreen/ColorRect" unique_id=2076586442]
 position = Vector2(24, 280)
 scale = Vector2(4, 4)
 
-[node name="Label" type="Label" parent="EndScreen/ColorRect/Tokens"]
+[node name="Label" type="Label" parent="EndScreen/ColorRect/Tokens" unique_id=1198572725]
 material = SubResource("ShaderMaterial_bs0a1")
 offset_right = 28.0
 offset_bottom = 6.0
@@ -859,16 +858,14 @@ text = "Total plugs:
 -"
 metadata/_edit_use_anchors_ = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="EndScreen"]
-libraries = {
-&"": SubResource("AnimationLibrary_fprax")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EndScreen" unique_id=451922212]
+libraries/ = SubResource("AnimationLibrary_fprax")
 
-[node name="StartScreen" type="CanvasLayer" parent="."]
+[node name="StartScreen" type="CanvasLayer" parent="." unique_id=1486600184]
 offset = Vector2(24, -16)
 transform = Transform2D(1, 0, 0, 1, 24, -16)
 
-[node name="Labels" type="Control" parent="StartScreen"]
+[node name="Labels" type="Control" parent="StartScreen" unique_id=967298603]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -882,10 +879,10 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextLabel" type="Node2D" parent="StartScreen/Labels"]
+[node name="TextLabel" type="Node2D" parent="StartScreen/Labels" unique_id=283159261]
 scale = Vector2(8, 8)
 
-[node name="Label" type="Label" parent="StartScreen/Labels/TextLabel"]
+[node name="Label" type="Label" parent="StartScreen/Labels/TextLabel" unique_id=762681776]
 material = SubResource("ShaderMaterial_v7i3o")
 anchors_preset = 8
 anchor_left = 0.5
@@ -904,11 +901,11 @@ text = "GET READY"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CountLabel" type="Node2D" parent="StartScreen/Labels"]
+[node name="CountLabel" type="Node2D" parent="StartScreen/Labels" unique_id=853190155]
 position = Vector2(0, 80)
 scale = Vector2(8, 8)
 
-[node name="Label" type="Label" parent="StartScreen/Labels/CountLabel"]
+[node name="Label" type="Label" parent="StartScreen/Labels/CountLabel" unique_id=190435265]
 material = SubResource("ShaderMaterial_v7i3o")
 anchors_preset = 8
 anchor_left = 0.5
@@ -927,19 +924,19 @@ text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="StartScreen"]
-libraries = {
-&"": SubResource("AnimationLibrary_03edq")
-}
-autoplay = "countdown"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StartScreen" unique_id=1656389883]
+libraries/ = SubResource("AnimationLibrary_03edq")
+autoplay = &"countdown"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StartScreen"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StartScreen" unique_id=1432258538]
 volume_db = -4.0
 
-[node name="QuestionInterface" type="CanvasLayer" parent="." groups=["question_interface"]]
+[node name="QuestionInterface" type="CanvasLayer" parent="." unique_id=1088400983 groups=["question_interface"]]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1837050519]
 stream = ExtResource("14_6ni85")
 bus = &"Music"
+
+[node name="DisplayManager" parent="." unique_id=482610885 instance=ExtResource("18_h4dll")]
 
 [connection signal="button_down" from="EndScreen/ButtonParent/OffsetNode/ButtonProceed" to="." method="_on_button_proceed_button_down"]

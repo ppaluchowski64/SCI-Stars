@@ -77,7 +77,7 @@ func basic_ai(delta: float) -> void:
 	sprite.global_rotation += sprite_rot * delta * 100
 
 func _ready() -> void:
-	if parent.is_main_player:
+	if parent and parent.is_main_player:
 		sprite.material.set_shader_parameter("is_visible", true)
 		is_main_player = true
 	

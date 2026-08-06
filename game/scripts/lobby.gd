@@ -14,10 +14,10 @@ extends Node2D
 @onready var tokens_label: Label = $ReasourcesInterface/HBoxContainer/TokensContainer/MarginContainer/Label
 @onready var loot_box_label: Label = $UserInterface/MarginContainer/LootBox/Label
 
-@onready var settings_buttons: VFlowContainer = $SettingsInterface/ButtonsContainer
+@onready var settings_buttons: FlowContainer = $SettingsInterface/ButtonsContainer
 @onready var volume: Control = $SettingsInterface/VolumeContainer
 @onready var language: Control = $SettingsInterface/LanguageContainer
-@onready var credits: MarginContainer = $SettingsInterface/CreditsContainer
+@onready var credits: Control = $SettingsInterface/CreditsContainer
 @onready var resolution_container: VBoxContainer = $SettingsInterface/ResolutionContainer
 @onready var nickname_container: Control = $SettingsInterface/NicknameContainer
 
@@ -59,7 +59,7 @@ func update_selected_character() -> void:
 	else:
 		character_sprite.region_rect.position.x = 65
 		character_sprite.region_rect.size.x = 14
-		
+
 func _ready() -> void:
 	Engine.max_fps = 0
 	
@@ -86,6 +86,10 @@ func _ready() -> void:
 		loot_box_label.theme.set_color("font_color", "Label", Color("#75EB75"))
 	else:
 		loot_box_label.theme.set_color("font_color", "Label", Color("#EB7775"))
+
+func _process(_delta: float) -> void:
+	settings_buttons.custom_maximum_size.x = PlayerData.window_resolution.size.x - 200
+	settings_buttons.update_maximum_size()
 
 func _on_button_play_button_down() -> void:
 	get_tree().call_deferred("change_scene_to_file", "res://scenes/queue.tscn")
@@ -131,10 +135,6 @@ func _on_button_language_button_down() -> void:
 	settings_buttons.visible = false
 	language.visible = true
 
-func _on_button_credits_button_down() -> void:
-	settings_buttons.visible = false
-	credits.visible = true
-
 func _on_button_resolution_button_down() -> void:
 	settings_buttons.visible = false
 	resolution_container.visible = true
@@ -162,3 +162,9 @@ func _on_button_change_mode_button_down() -> void:
 
 func _on_line_edit_text_changed(new_text: String) -> void:
 	PlayerData.nickname = new_text
+
+# There is a certain discrepancy between using down and pressed
+# I am not going to fix this
+func _on_button_credits_pressed() -> void:
+	settings_buttons.visible = false
+	credits.visible = true

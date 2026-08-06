@@ -41,3 +41,9 @@ func _on_timer_timeout() -> void:
 	label_count.text = "Players found: " + str(players) + "/8"
 	
 	timer.start(randf_range(0.1, 0.4))
+
+func _on_cancel_button_pressed() -> void:
+	#IMPORTANT!
+	# place disconnect code in here
+	
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/lobby_wrapper.tscn")

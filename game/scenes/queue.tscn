@@ -1,25 +1,47 @@
-[gd_scene load_steps=6 format=3 uid="uid://hy7uccsa6tse"]
+[gd_scene format=3 uid="uid://hy7uccsa6tse"]
 
 [ext_resource type="Script" uid="uid://dxq0rojfuhfy2" path="res://scripts/queue.gd" id="1_bl6ki"]
 [ext_resource type="Texture2D" uid="uid://c48us02gkppw6" path="res://graphics/misc/logo_sci_atlas.png" id="2_5m01m"]
 [ext_resource type="Script" uid="uid://bgfq6cnqno8u1" path="res://scripts/queue_background.gd" id="2_mv8xl"]
 [ext_resource type="FontFile" uid="uid://dufv5fk7ox4x8" path="res://fonts/lanapixel_everything/LanaPixel.ttf" id="3_5m01m"]
+[ext_resource type="PackedScene" uid="uid://da43da3hmkrlt" path="res://scenes/display_manager.tscn" id="5_of4f6"]
 
 [sub_resource type="Theme" id="Theme_mv8xl"]
 default_font = ExtResource("3_5m01m")
 default_font_size = 44
 
-[node name="Queue" type="Node2D"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_33alr"]
+content_margin_top = 12.0
+draw_center = false
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.75, 0.75, 0.75, 1)
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_of4f6"]
+content_margin_top = 12.0
+content_margin_bottom = 0.0
+draw_center = false
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+corner_detail = 1
+
+[node name="Queue" type="Node2D" unique_id=1063404888]
 script = ExtResource("1_bl6ki")
 
-[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+[node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=1231232047]
 
-[node name="BackgroundDrawer" type="Node2D" parent="BackgroundLayer"]
+[node name="BackgroundDrawer" type="Node2D" parent="BackgroundLayer" unique_id=1651193765]
 script = ExtResource("2_mv8xl")
 
-[node name="LogoLayer" type="CanvasLayer" parent="."]
+[node name="LogoLayer" type="CanvasLayer" parent="." unique_id=1821905912]
 
-[node name="Control" type="Control" parent="LogoLayer"]
+[node name="Control" type="Control" parent="LogoLayer" unique_id=2074238483]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -33,24 +55,26 @@ offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="LogoLayer/Control"]
+[node name="Sprite2D" type="Sprite2D" parent="LogoLayer/Control" unique_id=1827494382]
 scale = Vector2(8, 8)
 texture = ExtResource("2_5m01m")
 hframes = 10
 vframes = 10
 
-[node name="TextLayer" type="CanvasLayer" parent="."]
+[node name="TextLayer" type="CanvasLayer" parent="." unique_id=1506290337]
 
-[node name="MarginContainer" type="MarginContainer" parent="TextLayer"]
+[node name="MarginContainer" type="MarginContainer" parent="TextLayer" unique_id=34038644]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 20
 
-[node name="LabelMessage" type="Label" parent="TextLayer/MarginContainer"]
+[node name="LabelMessage" type="Label" parent="TextLayer/MarginContainer" unique_id=533593848]
 layout_mode = 2
 size_flags_vertical = 0
 theme = SubResource("Theme_mv8xl")
@@ -58,7 +82,7 @@ text = "Searching for players, please wait"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LabelCount" type="Label" parent="TextLayer/MarginContainer"]
+[node name="LabelCount" type="Label" parent="TextLayer/MarginContainer" unique_id=1049001295]
 layout_mode = 2
 size_flags_vertical = 8
 theme = SubResource("Theme_mv8xl")
@@ -66,7 +90,23 @@ text = "Players found: 1/8"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Timer" type="Timer" parent="."]
+[node name="CancelButton" type="Button" parent="TextLayer/MarginContainer" unique_id=58509844]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+focus_behavior_recursive = 1
+theme = SubResource("Theme_mv8xl")
+theme_override_styles/normal = SubResource("StyleBoxFlat_33alr")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_of4f6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_of4f6")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_of4f6")
+text = "CANCEL"
+
+[node name="Timer" type="Timer" parent="." unique_id=2132993411]
 one_shot = true
 
+[node name="DisplayManager" parent="." unique_id=482610885 instance=ExtResource("5_of4f6")]
+
+[connection signal="pressed" from="TextLayer/MarginContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

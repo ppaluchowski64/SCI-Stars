@@ -1,10 +1,10 @@
 extends Control
 
-@onready var music_slider = $MusicSlider/VolumeSliderM
-@onready var music_label = $MusicValue/VolumeValue
+@onready var music_slider = $MusicField/HSlider
+@onready var music_label = $MusicField/ValueLabel
 
-@onready var sfx_slider = $SFXSlider/VolumeSliderS
-@onready var sfx_label = $SFXValue/VolumeValue
+@onready var sfx_slider = $SFXField/HSlider
+@onready var sfx_label = $SFXField/ValueLabel
 
 var music_bus = AudioServer.get_bus_index("Music")
 var sfx_bus = AudioServer.get_bus_index("SFX")
